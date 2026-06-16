@@ -1,0 +1,1195 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#F5F4F1;
+  --surface:#FFFFFF;
+  --surface2:#F0EEE9;
+  --border:#E2DED7;
+  --border2:#C8C3BA;
+  --accent:#1B3A5C;
+  --accent-light:#E8EEF5;
+  --orange:#C55A1B;
+  --orange-light:#FAF0E8;
+  --green:#1A6B3A;
+  --green-light:#E6F4EC;
+  --red:#A32D2D;
+  --red-light:#FCEBEB;
+  --yellow:#854F0B;
+  --yellow-light:#FAEEDA;
+  --text:#1C1C1A;
+  --text2:#6B6860;
+  --text3:#A8A49D;
+  --font:'Inter',sans-serif;
+  --mono:'DM Mono',monospace;
+  --r:8px;
+  --r2:12px;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;overflow-x:hidden}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:9999;background:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .4s}
+#splash.hide{opacity:0;pointer-events:none}
+.sp-logo{color:#fff;font-size:13px;font-weight:600;letter-spacing:4px;opacity:.6}
+.sp-name{color:#fff;font-size:28px;font-weight:600;letter-spacing:1px}
+.sp-bar{width:180px;height:2px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden}
+.sp-fill{height:100%;width:0;background:#fff;animation:ld 1.6s ease forwards}
+@keyframes ld{to{width:100%}}
+.sp-sub{color:rgba(255,255,255,.5);font-size:11px;font-family:var(--mono)}
+
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 16px;height:52px;display:flex;align-items:center;gap:12px}
+.h-logo{width:32px;height:32px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600;letter-spacing:.5px;flex-shrink:0}
+.h-title{font-size:14px;font-weight:600;color:var(--text)}
+.h-eq{font-family:var(--mono);font-size:10px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);padding:2px 8px;border-radius:4px}
+.h-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.h-btn{width:34px;height:34px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:16px;transition:all .15s;position:relative}
+.h-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--orange);color:#fff;font-size:9px;font-weight:600;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface)}
+
+/* NAV */
+nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--surface);border-top:1px solid var(--border);display:flex;height:58px;max-width:600px;margin:0 auto}
+.nav-i{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;font-size:9px;letter-spacing:.3px;text-transform:uppercase;color:var(--text3);border:none;background:none;font-family:var(--font);transition:color .2s}
+.nav-i.active{color:var(--accent)}
+.nav-i .ni{font-size:19px}
+
+/* MAIN */
+main{padding:14px 14px 72px;max-width:600px;margin:0 auto}
+.page{display:none}
+.page.active{display:block}
+
+/* SECTION HEADER */
+.s-head{margin-bottom:18px}
+.s-title{font-size:18px;font-weight:600;color:var(--text);margin-bottom:2px}
+.s-sub{font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.5px}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:12px}
+.card-head{font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-head .ch-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--accent-light);color:var(--accent)}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.kpi{background:var(--surface2);border-radius:var(--r);padding:12px;border:1px solid var(--border)}
+.kpi-l{font-size:10px;color:var(--text2);margin-bottom:4px;font-family:var(--mono)}
+.kpi-v{font-size:26px;font-weight:600;line-height:1}
+.kpi.k-blue .kpi-v{color:var(--accent)}
+.kpi.k-orange .kpi-v{color:var(--orange)}
+.kpi.k-green .kpi-v{color:var(--green)}
+.kpi.k-red .kpi-v{color:var(--red)}
+.kpi-s{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* BUTTONS */
+.btn{padding:9px 14px;border-radius:var(--r);border:1px solid var(--border);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:#152e4a}
+.btn-outline{background:var(--surface);color:var(--text)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.btn-danger{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.btn-sm{padding:6px 10px;font-size:12px}
+.btn-full{width:100%;justify-content:center}
+
+/* FORMS */
+.fg{margin-bottom:12px}
+.fl{display:block;font-size:11px;font-weight:500;color:var(--text2);margin-bottom:5px;font-family:var(--mono)}
+.fi,.fs,.ft{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;color:var(--text);font-family:var(--font);font-size:13px;outline:none;transition:border .15s}
+.fi:focus,.fs:focus,.ft:focus{border-color:var(--accent)}
+.ft{resize:vertical;min-height:72px}
+.fs option{background:var(--surface)}
+
+/* SEARCH */
+.sw{position:relative;margin-bottom:12px}
+.si{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px 9px 36px;color:var(--text);font-family:var(--font);font-size:13px;outline:none}
+.si:focus{border-color:var(--accent)}
+.si-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:15px}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;font-family:var(--mono)}
+.t-blue{background:var(--accent-light);color:var(--accent);border:1px solid #B5D4F4}
+.t-orange{background:var(--orange-light);color:var(--orange);border:1px solid #F5C4B3}
+.t-green{background:var(--green-light);color:var(--green);border:1px solid #C0DD97}
+.t-red{background:var(--red-light);color:var(--red);border:1px solid #F7C1C1}
+.t-yellow{background:var(--yellow-light);color:var(--yellow);border:1px solid #FAC775}
+.t-gray{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+
+/* TABS */
+.tabs{display:flex;gap:0;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:3px;margin-bottom:14px;overflow-x:auto}
+.tab{flex:1;min-width:0;padding:7px 8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:500;border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tab.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid var(--border)}
+
+/* TABLE */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--surface2);color:var(--text2);font-family:var(--mono);font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:7px 10px;border-bottom:1px solid var(--border);text-align:left}
+td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+
+/* LIST ITEMS */
+.li{padding:11px 0;border-bottom:1px solid var(--border)}
+.li:last-child{border-bottom:none}
+.li-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px}
+.li-title{font-size:13px;font-weight:500;color:var(--text)}
+.li-date{font-family:var(--mono);font-size:10px;color:var(--text2)}
+.li-body{font-size:12px;color:var(--text2)}
+.li-actions{display:flex;gap:6px;margin-top:8px;justify-content:flex-end}
+
+/* MODAL */
+.mb{position:fixed;inset:0;z-index:500;background:rgba(28,28,26,.45);display:none;align-items:flex-end;justify-content:center}
+.mb.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;width:100%;max-width:600px;padding:20px;max-height:88vh;overflow-y:auto;animation:sup .28s ease}
+@keyframes sup{from{transform:translateY(100%)}}
+.mt{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.mc{background:none;border:none;font-size:18px;color:var(--text2);cursor:pointer;line-height:1;padding:4px}
+
+/* FEED ITEM (activity log) */
+.feed-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.feed-item:last-child{border-bottom:none}
+.feed-av{width:32px;height:32px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);flex-shrink:0}
+.feed-av.av-orange{background:var(--orange-light);color:var(--orange)}
+.feed-av.av-green{background:var(--green-light);color:var(--green)}
+.feed-av.av-red{background:var(--red-light);color:var(--red)}
+.feed-body{flex:1;min-width:0}
+.feed-who{font-size:12px;font-weight:500;color:var(--text)}
+.feed-what{font-size:12px;color:var(--text2);margin-top:1px}
+.feed-when{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:2px}
+.feed-new{display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%;margin-right:4px;vertical-align:middle}
+
+/* PROGRESS */
+.pb-wrap{background:var(--border);border-radius:4px;height:5px;overflow:hidden;margin-top:6px}
+.pb-fill{height:100%;border-radius:4px;transition:width .5s}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dh{font-family:var(--mono);font-size:9px;color:var(--text3);text-align:center;padding:4px 0}
+.cal-d{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;position:relative;transition:all .15s}
+.cal-d:hover{background:var(--surface2)}
+.cal-d.today{background:var(--accent);color:#fff;font-weight:600}
+.cal-d.has-ev::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--orange)}
+.cal-d.today::after{background:rgba(255,255,255,.7)}
+.cal-d.od{color:var(--red)}
+
+/* CHECK CELL */
+.cc{width:22px;height:22px;border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin:auto;font-size:11px;transition:all .15s;color:transparent}
+.cc.checked{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ETAT BUTTONS */
+.eb{padding:4px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:10px;font-weight:500;cursor:pointer;font-family:var(--mono);transition:all .15s}
+.eb.e-ras{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.eb.e-dd{background:var(--yellow-light);border-color:var(--yellow);color:var(--yellow)}
+.eb.e-da{background:var(--orange-light);border-color:var(--orange);color:var(--orange)}
+.eb.e-ii{background:var(--red-light);border-color:var(--red);color:var(--red)}
+
+/* EXPORT BOX */
+.exp-box{background:var(--surface2);border:1px dashed var(--border2);border-radius:var(--r2);padding:18px;text-align:center;margin-bottom:10px;cursor:pointer;transition:all .15s}
+.exp-box:hover{border-color:var(--accent);background:var(--accent-light)}
+.exp-icon{font-size:26px;color:var(--accent);margin-bottom:6px}
+.exp-label{font-size:13px;font-weight:500;margin-bottom:2px}
+.exp-sub{font-size:11px;color:var(--text2)}
+
+/* TOAST */
+#toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9000;white-space:nowrap}
+#toast.show{opacity:1}
+
+/* NEW DOT on nav */
+.nav-new{width:6px;height:6px;background:var(--orange);border-radius:50%;position:absolute;top:6px;right:18px}
+
+.sep{border:none;border-top:1px solid var(--border);margin:12px 0}
+.flex{display:flex}.flex-b{display:flex;justify-content:space-between;align-items:center}
+.gap8{gap:8px}.gap6{gap:6px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mb12{margin-bottom:12px}
+.dim{color:var(--text2)}.mono{font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="sp-logo">GROUPE CHIMIQUE TUNISIEN</div>
+  <div class="sp-name">CMMS · TK2701B</div>
+  <div class="sp-bar"><div class="sp-fill"></div></div>
+  <div class="sp-sub">Réservoir Décanteur — Usine Acide Phosphorique</div>
+</div>
+
+<div id="toast"></div>
+
+<header>
+  <div class="h-logo">GCT</div>
+  <div>
+    <div class="h-title">Maintenance</div>
+  </div>
+  <div class="h-eq">TK2701B</div>
+  <div class="h-right">
+    <div class="h-btn" id="notif-btn" onclick="openModal('m-feed')">
+      <i class="ti ti-bell"></i>
+      <div class="notif-badge" id="notif-count" style="display:none">0</div>
+    </div>
+    <div class="h-btn" onclick="openModal('m-settings')"><i class="ti ti-settings"></i></div>
+  </div>
+</header>
+
+<main>
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <div class="s-head">
+    <div class="s-title">Tableau de bord</div>
+    <div class="s-sub" id="dash-date">CHARGEMENT...</div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi k-blue"><div class="kpi-l">Planifiées</div><div class="kpi-v" id="k-plan">0</div><div class="kpi-s">ce mois</div></div>
+    <div class="kpi k-green"><div class="kpi-l">Réalisées</div><div class="kpi-v" id="k-done">0</div><div class="kpi-s">interventions</div></div>
+    <div class="kpi k-red"><div class="kpi-l">Anomalies</div><div class="kpi-v" id="k-anom">0</div><div class="kpi-s">actives</div></div>
+    <div class="kpi k-orange"><div class="kpi-l">En attente</div><div class="kpi-v" id="k-pend">0</div><div class="kpi-s">actions</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="ch-icon"><i class="ti ti-chart-bar"></i></div>Taux de réalisation</div>
+    <div class="flex-b"><span class="mono dim">Préventive (MP)</span><span class="mono" style="color:var(--accent)" id="d-pm-r">0%</span></div>
+    <div class="pb-wrap"><div class="pb-fill" id="d-pm-b" style="background:var(--accent);width:0%"></div></div>
+    <div class="flex-b mt8"><span class="mono dim">Corrective (MC)</span><span class="mono" style="color:var(--orange)" id="d-mc-r">0%</span></div>
+    <div class="pb-wrap"><div class="pb-fill" id="d-mc-b" style="background:var(--orange);width:0%"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="ch-icon"><i class="ti ti-clock-exclamation"></i></div>Dernières activités équipe</div>
+    <div id="dash-feed"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune activité récente</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="ch-icon" style="background:var(--red-light);color:var(--red)"><i class="ti ti-alert-triangle"></i></div>Alertes actives</div>
+    <div id="dash-alerts"><div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune alerte</div></div>
+  </div>
+</div>
+
+<!-- PLAN PM -->
+<div class="page" id="page-plan">
+  <div class="s-head">
+    <div class="s-title">Plan de maintenance</div>
+    <div class="s-sub">PRÉVENTIVE SYSTÉMATIQUE · TK2701B</div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showPlanTab('pm',this)">Plan PM</button>
+    <button class="tab" onclick="showPlanTab('gammes',this)">Gammes</button>
+    <button class="tab" onclick="showPlanTab('suivi',this)">Suivi</button>
+    <button class="tab" onclick="showPlanTab('visite',this)">Visite</button>
+  </div>
+  <div id="pt-pm">
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list-check"></i></div>Folio 1/3</div><div class="tw"><table><thead><tr><th>Opération</th><th>Exec.</th><th>Fréq.</th><th>Obs.</th><th></th></tr></thead><tbody id="pm1"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addPM(1)"><i class="ti ti-plus"></i> Ajouter</button></div>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list-check"></i></div>Folio 2/3</div><div class="tw"><table><thead><tr><th>Opération</th><th>Exec.</th><th>Fréq.</th><th>Obs.</th><th></th></tr></thead><tbody id="pm2"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addPM(2)"><i class="ti ti-plus"></i> Ajouter</button></div>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list-check"></i></div>Folio 3/3</div><div class="tw"><table><thead><tr><th>Opération</th><th>Exec.</th><th>Fréq.</th><th>Obs.</th><th></th></tr></thead><tbody id="pm3"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addPM(3)"><i class="ti ti-plus"></i> Ajouter</button></div>
+  </div>
+  <div id="pt-gammes" style="display:none">
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°1 — En fonctionnement</div><div class="mono dim mb12" style="font-size:10px">Électricien + Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g1"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(1)"><i class="ti ti-plus"></i> Ajouter</button></div>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°2 — En fonctionnement</div><div class="mono dim mb12" style="font-size:10px">Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g2"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(2)"><i class="ti ti-plus"></i> Ajouter</button></div>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°3</div><div class="mono dim mb12" style="font-size:10px">Électricien + Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g3"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(3)"><i class="ti ti-plus"></i> Ajouter</button></div>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°4</div><div class="mono dim mb12" style="font-size:10px">Électricien + Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g4"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(4)"><i class="ti ti-plus"></i> Ajouter</button></div>
+  </div>
+  <div id="pt-suivi" style="display:none">
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-calendar-check"></i></div>Suivi mensuel — <span id="suivi-month-label">Mai 2026</span></div><div class="tw" id="suivi-wrap"></div></div>
+  </div>
+  <div id="pt-visite" style="display:none">
+    <div class="card">
+      <div class="card-head"><div class="ch-icon"><i class="ti ti-clipboard-check"></i></div>Feuille de visite</div>
+      <div class="flex-b mb12">
+        <div><div class="mono dim" style="font-size:10px">Mécanicien · Quinzaine</div></div>
+        <input type="date" class="fi" style="width:140px;font-size:11px" id="v-date">
+      </div>
+      <div class="mono dim mb12" style="font-size:9px">RAS = Rien à signaler · DD = Début dégradation · DA = Dégradation avancée · II = Intervention immédiate</div>
+      <div id="visite-points"></div>
+      <div class="fg mt12"><label class="fl">Rédacteur</label><input class="fi" id="v-red" placeholder="Nom"></div>
+      <button class="btn btn-primary btn-full mt8" onclick="saveVisite()"><i class="ti ti-device-floppy"></i> Enregistrer</button>
+    </div>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-history"></i></div>Historique visites</div><div id="visite-hist"></div></div>
+  </div>
+</div>
+
+<!-- INTERVENTIONS -->
+<div class="page" id="page-int">
+  <div class="s-head">
+    <div class="s-title">Interventions</div>
+    <div class="s-sub">HISTORIQUE ET SUIVI</div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showIntTab('mc',this)">Corrective</button>
+    <button class="tab" onclick="showIntTab('mp',this)">Préventive</button>
+    <button class="tab" onclick="showIntTab('an',this)">Anomalies</button>
+  </div>
+  <div id="it-mc">
+    <button class="btn btn-primary btn-full mb12" onclick="openIntModal('MC')"><i class="ti ti-plus"></i> Nouvelle MC</button>
+    <div class="card"><div class="card-head"><div class="ch-icon" style="background:var(--orange-light);color:var(--orange)"><i class="ti ti-hammer"></i></div>Maintenance corrective</div><div id="mc-list"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune intervention</div></div></div>
+  </div>
+  <div id="it-mp" style="display:none">
+    <button class="btn btn-primary btn-full mb12" onclick="openIntModal('MP')"><i class="ti ti-plus"></i> Nouvelle MP</button>
+    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-shield-check"></i></div>Maintenance préventive</div><div id="mp-list"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune intervention</div></div></div>
+  </div>
+  <div id="it-an" style="display:none">
+    <button class="btn btn-primary btn-full mb12" onclick="openAnomalyModal()"><i class="ti ti-plus"></i> Déclarer anomalie</button>
+    <div class="card"><div class="card-head"><div class="ch-icon" style="background:var(--red-light);color:var(--red)"><i class="ti ti-alert-triangle"></i></div>Anomalies détectées</div><div id="an-list"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune anomalie</div></div></div>
+  </div>
+</div>
+
+<!-- PLANNING -->
+<div class="page" id="page-plan2">
+  <div class="s-head">
+    <div class="s-title">Planification</div>
+    <div class="s-sub">CALENDRIER DES INTERVENTIONS</div>
+  </div>
+  <div class="card">
+    <div class="card-head">
+      <div class="ch-icon"><i class="ti ti-calendar"></i></div>
+      <span id="cal-label">Mai 2026</span>
+      <div style="margin-left:auto;display:flex;gap:6px">
+        <button class="btn btn-outline btn-sm" onclick="prevM()"><i class="ti ti-chevron-left"></i></button>
+        <button class="btn btn-outline btn-sm" onclick="nextM()"><i class="ti ti-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="cal-grid" id="cal"></div>
+  </div>
+  <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list"></i></div>Interventions planifiées</div><div id="plan-list"><div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucun événement</div></div></div>
+  <button class="btn btn-primary btn-full mt8" onclick="openModal('m-plan')"><i class="ti ti-plus"></i> Planifier une intervention</button>
+</div>
+
+<!-- RAPPORTS -->
+<div class="page" id="page-rap">
+  <div class="s-head">
+    <div class="s-title">Rapports</div>
+    <div class="s-sub">EXPORT ET CONSIGNATION</div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="ch-icon"><i class="ti ti-chart-pie"></i></div>Statistiques</div>
+    <div class="kpi-grid">
+      <div class="kpi k-blue"><div class="kpi-l">Total</div><div class="kpi-v" id="r-tot">0</div></div>
+      <div class="kpi k-orange"><div class="kpi-l">MC</div><div class="kpi-v" id="r-mc">0</div></div>
+      <div class="kpi k-green"><div class="kpi-l">MP</div><div class="kpi-v" id="r-mp">0</div></div>
+      <div class="kpi k-red"><div class="kpi-l">Anomalies</div><div class="kpi-v" id="r-an">0</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="ch-icon" style="background:var(--red-light);color:var(--red)"><i class="ti ti-lock"></i></div>Consignation & Sécurité</div>
+    <div class="fg"><label class="fl">Responsable consignation</label><input class="fi" id="c-resp" placeholder="Nom"></div>
+    <div class="fg"><label class="fl">Date</label><input type="date" class="fi" id="c-date"></div>
+    <div class="fg"><label class="fl">EPI requis</label>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px">
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-ch"> Chaussures sécu.</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-cas"> Casque</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-mas"> Masque</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-ten"> Tenue</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-lun"> Lunettes</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-gants"> Gants</label>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Consignes particulières</label><textarea class="ft" id="c-notes" placeholder="Consignes de sécurité spécifiques..."></textarea></div>
+    <div class="fg"><label class="fl">Chef des travaux (déconsignation)</label><input class="fi" id="c-dec" placeholder="Nom"></div>
+    <button class="btn btn-primary btn-full mt8" onclick="saveConsign()"><i class="ti ti-device-floppy"></i> Enregistrer</button>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="ch-icon"><i class="ti ti-download"></i></div>Exporter</div>
+    <div class="exp-box" onclick="exportJSON()"><div class="exp-icon"><i class="ti ti-database-export"></i></div><div class="exp-label">Sauvegarde JSON</div><div class="exp-sub">Toutes les données locales</div></div>
+    <div class="exp-box" onclick="genReport()"><div class="exp-icon"><i class="ti ti-file-report"></i></div><div class="exp-label">Rapport HTML</div><div class="exp-sub">Générer rapport imprimable</div></div>
+    <div class="exp-box" onclick="document.getElementById('imp-f').click()"><div class="exp-icon"><i class="ti ti-database-import"></i></div><div class="exp-label">Importer données</div><div class="exp-sub">Restaurer depuis JSON</div></div>
+    <input type="file" id="imp-f" accept=".json" style="display:none" onchange="doImport(event)">
+  </div>
+</div>
+
+</main>
+
+<nav>
+  <button class="nav-i active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard ni"></i>Bord</button>
+  <button class="nav-i" onclick="showPage('plan',this)"><i class="ti ti-clipboard-list ni"></i>Plan PM</button>
+  <button class="nav-i" onclick="showPage('int',this)"><i class="ti ti-tool ni"></i>Actions</button>
+  <button class="nav-i" onclick="showPage('plan2',this)"><i class="ti ti-calendar ni"></i>Planning</button>
+  <button class="nav-i" onclick="showPage('rap',this)"><i class="ti ti-file-text ni"></i>Rapports</button>
+</nav>
+
+<!-- MODALS -->
+
+<!-- Intervention modal -->
+<div class="mb" id="m-int">
+  <div class="modal">
+    <div class="mt" id="m-int-title">Nouvelle intervention <button class="mc" onclick="closeModal('m-int')"><i class="ti ti-x"></i></button></div>
+    <input type="hidden" id="i-type"><input type="hidden" id="i-eid">
+    <div class="fg"><label class="fl">Votre nom / rôle</label><input class="fi" id="i-who" placeholder="Ex: H. Talbi — Mécanicien"></div>
+    <div class="fg"><label class="fl">Date</label><input type="date" class="fi" id="i-date"></div>
+    <div class="fg"><label class="fl">Élément</label>
+      <select class="fs" id="i-el">
+        <option value="">Sélectionner...</option>
+        <option>Moteurs 1 et 2</option><option>Réducteurs</option><option>Arbre central</option>
+        <option>Bras de raclage</option><option>Lames de raclage</option><option>Coussinets</option>
+        <option>Système roue-pignon</option><option>Bride & Accouplement</option><option>Carter</option>
+        <option>Vis sans fin</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Description</label><textarea class="ft" id="i-desc" placeholder="Décrire l'intervention..."></textarea></div>
+    <div class="fg"><label class="fl">Pièces / Matériel</label><input class="fi" id="i-pieces" placeholder="Ex: Roulements 6205, joints..."></div>
+    <div class="fg"><label class="fl">Durée (h)</label><input class="fi" type="number" id="i-dur" placeholder="Ex: 2.5"></div>
+    <div class="fg"><label class="fl">Priorité</label>
+      <select class="fs" id="i-prio"><option value="high">🔴 Haute</option><option value="med" selected>🟡 Moyenne</option><option value="low">🟢 Faible</option></select>
+    </div>
+    <div class="fg"><label class="fl">Statut</label>
+      <select class="fs" id="i-stat"><option value="done">Terminée</option><option value="progress">En cours</option><option value="planned">Planifiée</option></select>
+    </div>
+    <div class="fg"><label class="fl">Observations</label><textarea class="ft" id="i-obs" placeholder="Remarques techniques..."></textarea></div>
+    <div class="flex gap8 mt8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('m-int')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="saveInt()"><i class="ti ti-device-floppy"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Anomalie modal -->
+<div class="mb" id="m-anom">
+  <div class="modal">
+    <div class="mt">Déclarer une anomalie <button class="mc" onclick="closeModal('m-anom')"><i class="ti ti-x"></i></button></div>
+    <input type="hidden" id="an-eid">
+    <div class="fg"><label class="fl">Votre nom / rôle</label><input class="fi" id="an-who" placeholder="Ex: F. Kraiem — Opérateur"></div>
+    <div class="fg"><label class="fl">Date détection</label><input type="date" class="fi" id="an-date"></div>
+    <div class="fg"><label class="fl">Équipement</label>
+      <select class="fs" id="an-el">
+        <option value="">Sélectionner...</option>
+        <option>Moteurs 1 et 2</option><option>Réducteurs</option><option>Arbre central</option>
+        <option>Bras de raclage</option><option>Système roue-pignon</option><option>Coussinets</option><option>Autre</option>
+      </select>
+    </div>
+    <div class="fg"><label class="fl">Description</label><textarea class="ft" id="an-desc" placeholder="Décrire l'anomalie..."></textarea></div>
+    <div class="fg"><label class="fl">Niveau</label>
+      <select class="fs" id="an-lvl"><option value="high">🔴 Critique</option><option value="med">🟡 Modérée</option><option value="low">🟢 Faible</option></select>
+    </div>
+    <div class="flex gap8 mt8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('m-anom')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="saveAnomaly()"><i class="ti ti-alert-triangle"></i> Déclarer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Planning modal -->
+<div class="mb" id="m-plan">
+  <div class="modal">
+    <div class="mt">Planifier une intervention <button class="mc" onclick="closeModal('m-plan')"><i class="ti ti-x"></i></button></div>
+    <div class="fg"><label class="fl">Date</label><input type="date" class="fi" id="p-date"></div>
+    <div class="fg"><label class="fl">Type</label>
+      <select class="fs" id="p-type"><option value="MP">Maintenance Préventive (MP)</option><option value="MC">Maintenance Corrective (MC)</option><option value="Inspection">Inspection</option><option value="Visite">Visite périodique</option></select>
+    </div>
+    <div class="fg"><label class="fl">Description</label><textarea class="ft" id="p-desc" placeholder="Description..."></textarea></div>
+    <div class="fg"><label class="fl">Responsable</label><input class="fi" id="p-resp" placeholder="Mécanicien, Électricien..."></div>
+    <div class="flex gap8 mt8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('m-plan')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="savePlan()"><i class="ti ti-device-floppy"></i> Planifier</button>
+    </div>
+  </div>
+</div>
+
+<!-- Feed / Activités modal -->
+<div class="mb" id="m-feed">
+  <div class="modal">
+    <div class="mt">Activités de l'équipe <button class="mc" onclick="closeModal('m-feed')"><i class="ti ti-x"></i></button></div>
+    <div class="mono dim mb12" style="font-size:10px">Toutes les modifications et ajouts visibles par toute l'équipe</div>
+    <div id="feed-full"><div class="mono dim" style="text-align:center;padding:20px;font-size:11px">Aucune activité</div></div>
+    <button class="btn btn-outline btn-full mt12" onclick="clearFeed()"><i class="ti ti-trash"></i> Vider le fil</button>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="mb" id="m-settings">
+  <div class="modal">
+    <div class="mt">Paramètres <button class="mc" onclick="closeModal('m-settings')"><i class="ti ti-x"></i></button></div>
+    <div class="fg"><label class="fl">Équipement</label><input class="fi" value="Réservoir Décanteur TK2701B" id="s-eq"></div>
+    <div class="fg"><label class="fl">Site</label><input class="fi" value="GCT — Usine Acide Phosphorique" id="s-site"></div>
+    <div class="fg"><label class="fl">Mon nom (pour les notifications)</label><input class="fi" id="s-myname" placeholder="Ex: Haithem Talbi"></div>
+    <hr class="sep">
+    <button class="btn btn-danger btn-full" onclick="clearAll()"><i class="ti ti-trash"></i> Réinitialiser toutes les données</button>
+    <div class="mono dim mt8" style="text-align:center;font-size:9px">CMMS v3.0 · GCT · Fitouri Kraiem & Haithem Talbi</div>
+  </div>
+</div>
+
+<script>
+const DB='gct_cmms3';
+const FEED_KEY='gct_feed';
+let myName='Équipe';
+let lastFeedCount=0;
+
+let st={
+  interventions:[],anomalies:[],planEvents:[],
+  pmRows:{1:[],2:[],3:[]},
+  gammes:{1:[],2:[],3:[],4:[]},
+  suiviData:{},
+  visiteHistory:[],
+  calM:new Date().getMonth(),calY:new Date().getFullYear(),
+};
+
+function save(){try{localStorage.setItem(DB,JSON.stringify(st));}catch(e){}}
+function load(){try{const d=localStorage.getItem(DB);if(d)st={...st,...JSON.parse(d)};}catch(e){}}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
+function today(){return new Date().toISOString().split('T')[0]}
+function fdate(d){return d?new Date(d+'T00:00:00').toLocaleDateString('fr-FR'):''}
+function fname(){return (document.getElementById('s-myname')||{}).value||myName||'Équipe'}
+
+// SHARED FEED
+async function addFeedEntry(action, detail, type='default'){
+  const entry={id:uid(),who:fname(),action,detail,type,ts:Date.now(),seen:false};
+  try{
+    const r=await window.storage.get(FEED_KEY,true);
+    const arr=r?JSON.parse(r.value):[];
+    arr.unshift(entry);
+    if(arr.length>100)arr.length=100;
+    await window.storage.set(FEED_KEY,JSON.stringify(arr),true);
+  }catch(e){
+    try{
+      const arr=[entry];
+      await window.storage.set(FEED_KEY,JSON.stringify(arr),true);
+    }catch(e2){}
+  }
+  renderFeed();
+  updateNotifBadge();
+}
+
+async function getFeed(){
+  try{
+    const r=await window.storage.get(FEED_KEY,true);
+    return r?JSON.parse(r.value):[];
+  }catch(e){return[];}
+}
+
+function avColor(type){
+  if(type==='anomaly')return'av-red';
+  if(type==='mc')return'av-orange';
+  if(type==='mp')return'';
+  if(type==='plan')return'av-green';
+  return'';
+}
+function avLetter(who){return(who||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+function timeAgo(ts){
+  const d=Date.now()-ts;
+  if(d<60000)return'À l\'instant';
+  if(d<3600000)return Math.floor(d/60000)+'min';
+  if(d<86400000)return Math.floor(d/3600000)+'h';
+  return Math.floor(d/86400000)+'j';
+}
+
+async function renderFeed(container,limit){
+  const arr=await getFeed();
+  const el=document.getElementById(container||'dash-feed');
+  if(!el)return;
+  const items=limit?arr.slice(0,limit):arr;
+  if(!items.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune activité récente</div>';return;}
+  el.innerHTML=items.map(e=>`
+    <div class="feed-item">
+      <div class="feed-av ${avColor(e.type)}">${avLetter(e.who)}</div>
+      <div class="feed-body">
+        <div class="feed-who">${e.who||'Équipe'}</div>
+        <div class="feed-what">${e.action}${e.detail?' — <span style="color:var(--text)">'+e.detail+'</span>':''}</div>
+        <div class="feed-when">${timeAgo(e.ts)}</div>
+      </div>
+    </div>`).join('');
+}
+
+async function updateNotifBadge(){
+  const arr=await getFeed();
+  const unseen=arr.filter(e=>!e.seen&&e.ts>lastFeedCount).length;
+  const b=document.getElementById('notif-count');
+  if(unseen>0){b.textContent=unseen;b.style.display='flex';}else b.style.display='none';
+}
+
+async function clearFeed(){
+  if(!confirm('Vider le fil d\'activités ?'))return;
+  try{await window.storage.delete(FEED_KEY,true);}catch(e){}
+  renderFeed('feed-full');
+  renderFeed('dash-feed',3);
+  document.getElementById('notif-count').style.display='none';
+}
+
+// NAVIGATION
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-i').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(name==='dashboard')updateDash();
+  if(name==='plan2')renderCal();
+  if(name==='rap')updateStats();
+}
+
+// TOAST
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+
+// MODALS
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.mb').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+// DASHBOARD
+async function updateDash(){
+  const d=new Date();
+  document.getElementById('dash-date').textContent=d.toLocaleDateString('fr-FR',{month:'long',year:'numeric'}).toUpperCase();
+  const mc=st.interventions.filter(i=>i.type==='MC');
+  const mp=st.interventions.filter(i=>i.type==='MP');
+  const done=st.interventions.filter(i=>i.status==='done');
+  const anom=st.anomalies.filter(a=>!a.resolved);
+  const pend=st.interventions.filter(i=>i.status==='planned').length+st.planEvents.filter(e=>new Date(e.date)<new Date()).length;
+  document.getElementById('k-plan').textContent=st.planEvents.length;
+  document.getElementById('k-done').textContent=done.length;
+  document.getElementById('k-anom').textContent=anom.length;
+  document.getElementById('k-pend').textContent=pend;
+  const pmR=mp.length?Math.round(mp.filter(i=>i.status==='done').length/mp.length*100):0;
+  const mcR=mc.length?Math.round(mc.filter(i=>i.status==='done').length/mc.length*100):0;
+  document.getElementById('d-pm-r').textContent=pmR+'%';document.getElementById('d-mc-r').textContent=mcR+'%';
+  document.getElementById('d-pm-b').style.width=pmR+'%';document.getElementById('d-mc-b').style.width=mcR+'%';
+  
+  // Alerts
+  const alEl=document.getElementById('dash-alerts');
+  if(!anom.length&&!pend){alEl.innerHTML='<div class="tag t-green" style="margin:8px 0"><i class="ti ti-check"></i> Aucune alerte active</div>';
+  }else{
+    alEl.innerHTML=anom.slice(0,3).map(a=>`<div class="flex" style="align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span class="tag ${a.level==='high'?'t-red':a.level==='med'?'t-orange':'t-yellow'}">${a.level==='high'?'Critique':a.level==='med'?'Modérée':'Faible'}</span>
+      <div><div style="font-size:12px;font-weight:500">${a.element||'?'}</div><div style="font-size:11px;color:var(--text2)">${a.desc}</div></div>
+    </div>`).join('');
+  }
+  
+  await renderFeed('dash-feed',4);
+}
+
+// PM TABLES
+const PM_DEF={
+  1:[
+    {op:"Inspecter visuellement la structure et détecter fuites acide",exec:'Opérateur',freq:'H',obs:'Corrosion, fuite, dépôts'},
+    {op:"Vérifier l'usure et jeux des coussinets",exec:'Mécanicien',freq:'Q',obs:'Échauffement, jeu excessif'},
+    {op:"Resserrage général de la boulonnerie",exec:'Mécanicien',freq:'2500h',obs:'Desserrage, vibrations'},
+    {op:"Contrôle alignement arbre central",exec:'Mécanicien',freq:'2500h',obs:'Désalignement, vibration'},
+    {op:"Mesure d'intensité et tension moteur en charge",exec:'Électricien',freq:'Q',obs:'Accéléromètre ou vélomètre'},
+    {op:"Inspection fuites au niveau de l'accouplement",exec:'Mécanicien',freq:'2500h',obs:"Fuite d'huile, usure joints"},
+    {op:"Contrôle visuel du niveau d'huile du réducteur",exec:'Opérateur',freq:'M',obs:'Couleur anormale, présence mousse'},
+    {op:"Analyse vibratoire du système de rotation",exec:'Mécanicien',freq:'2500h',obs:'Déséquilibre, défaut roulement'},
+    {op:"Graissage du système roue-pignon",exec:'Mécanicien',freq:'M',obs:'Usure dents, bruit anormal'},
+  ],
+  2:[
+    {op:"Vidange et remplacement huile du réducteur",exec:'Opérateur',freq:'2500h',obs:'Présence particules'},
+    {op:"Remplacement joints d'étanchéité réducteur",exec:'Mécanicien',freq:'5000h',obs:"Fuite huile, perte d'étanchéité"},
+    {op:"Inspection bras de raclage et lames de racleurs",exec:'Mécanicien',freq:'2500h',obs:'Usure, déformation'},
+    {op:"Relevé températures paliers réducteur et moteur",exec:'Mécanicien',freq:'H',obs:'Échauffement anormal, surcharge'},
+    {op:"Contrôle des capteurs de sécurité",exec:'Électricien',freq:'M',obs:'Capteur défaillant, mauvais signal'},
+    {op:"Contrôle usure et alignement de la couronne",exec:'Mécanicien',freq:'10000h',obs:'Usure dents, bruit anormal'},
+    {op:"Vérification vitesse du système de rotation",exec:'Mécanicien',freq:'M',obs:'Vitesse instable'},
+    {op:"Inspection visuelle de la vis sans fin de levage",exec:'Mécanicien',freq:'2500h',obs:'Blocage possible'},
+    {op:"Test fonctionnement fins de course vis sans fin",exec:'Mécanicien',freq:'2500h',obs:'Mauvais réglage'},
+  ],
+  3:[
+    {op:"Contrôler désalignement d'accouplement",exec:'Mécanicien',freq:'10000h',obs:'Comparateur'},
+    {op:"Vérification état corrosion carter du réducteur",exec:'Mécanicien',freq:'5000h',obs:'Corrosion importante'},
+    {op:"Inspection visuelle rainures de clavette",exec:'Mécanicien',freq:'5000h',obs:'Usure, jeu excessif'},
+    {op:"Nettoyage général de l'équipement",exec:'Opérateur',freq:'J',obs:'Chiffons + brosse + eau'},
+    {op:"Analyse thermographique par infrarouge",exec:'Électricien',freq:'2500h',obs:'Caméra thermique'},
+    {op:"Inspection interne des engrenages",exec:'Mécanicien',freq:'5000h',obs:''},
+    {op:"Contrôle ultrason fissures arbre central",exec:'Mécanicien',freq:'M',obs:'Appareil ultrason'},
+    {op:"Remplacement arbre central si rupture/fissure",exec:'Mécanicien',freq:'10000h',obs:'Respect tolérances montage'},
+    {op:"Contrôle des bruits anormaux",exec:'Mécanicien',freq:'J',obs:'Vibrations, bruit anormal'},
+  ]
+};
+
+const GM_DEF={
+  1:[{o:1,op:"Inspecter visuellement la structure et fuites acide",t:'',m:'',pr:'',obs:''},{o:2,op:"Mesure d'intensité et tension moteur en charge",t:'',m:'Ampèremètre, voltmètre',pr:'',obs:''},{o:3,op:"Relevé températures paliers",t:'',m:'Thermomètre infrarouge',pr:'',obs:'<70°C'},{o:4,op:"Contrôle visuel niveau huile réducteur",t:'',m:'Jauge niveau',pr:'',obs:''},{o:5,op:"Vérifier usure et jeux coussinets",t:'',m:'Comparateur',pr:'',obs:''},{o:6,op:"Graissage système roue-pignon",t:'',m:'Graisseur pneumatique',pr:'Graisse EP2',obs:''},{o:7,op:"Vérification vitesse rotation",t:'',m:'Tachymètre',pr:'',obs:''},{o:8,op:"Contrôle capteurs de sécurité",t:'',m:'Multimètre',pr:'',obs:''},{o:9,op:"Contrôle bruits anormaux",t:'',m:'Stéthoscope',pr:'',obs:''},{o:10,op:"Contrôle ultrason fissures arbre",t:'',m:'Appareil ultrason',pr:'',obs:''},{o:11,op:"Nettoyage général équipement",t:'',m:'Chiffons, brosse',pr:'',obs:''}],
+  2:[{o:1,op:"Contrôle alignement arbre central",t:'',m:'Comparateur, règle précision',pr:'',obs:''},{o:2,op:"Analyse vibratoire système de rotation",t:'',m:'Analyseur vibrations',pr:'',obs:'<4 mm/s'},{o:3,op:"Inspection bras raclage et lames racleurs",t:'',m:'',pr:'',obs:'Usure, déformation'},{o:4,op:"Inspection visuelle vis sans fin levage",t:'',m:'',pr:'',obs:'Blocage possible'},{o:5,op:"Test fonctionnement fins de course",t:'',m:'',pr:'',obs:'Mauvais réglage'},{o:6,op:"Analyse thermographique infrarouge",t:'',m:'Caméra thermique',pr:'',obs:''},{o:7,op:"Vidange et remplacement huile réducteur",t:'',m:'Clés, bac récupération',pr:'Huile ISO VG 220',obs:'Vérifier particules'}],
+  3:[{o:1,op:"Remplacement joints d'étanchéité réducteur",t:'',m:'Clés, extracteur',pr:"Joints d'étanchéité",obs:'Fuites huile'},{o:2,op:"Vérification corrosion carter réducteur",t:'',m:'',pr:'',obs:'Corrosion importante'},{o:3,op:"Inspection interne engrenages",t:'',m:'Miroir inspection',pr:'',obs:''},{o:4,op:"Inspection fuites accouplement",t:'',m:'',pr:'',obs:"Fuite d'huile"},{o:5,op:"Inspection rainures clavette",t:'',m:'',pr:'',obs:'Usure, jeu excessif'},{o:6,op:"Resserrage général boulonnerie",t:'',m:'Clés dynamométriques',pr:'',obs:'Desserrage'}],
+  4:[{o:1,op:"Contrôle usure et alignement couronne",t:'',m:'Comparateur',pr:'',obs:'Usure dents'},{o:2,op:"Contrôler désalignement d'accouplement",t:'',m:'Comparateur',pr:'',obs:''},{o:3,op:"Remplacement arbre central si rupture",t:'',m:'Grue, outillage spécialisé',pr:'Arbre central',obs:'Respect tolérances'}]
+};
+
+const VIS_PTS=[
+  {id:'vp1',pt:'Moteur et réducteur',obj:'Relevé températures paliers',m:'Thermomètre infrarouge',ref:'<70°C'},
+  {id:'vp2',pt:'Système de rotation',obj:'Analyse vibratoire',m:'Analyseur vibrations',ref:'<4 mm/s'},
+  {id:'vp3',pt:'Réducteur',obj:"Contrôle niveau d'huile",m:'Jauge visuelle',ref:'Entre min et max'},
+  {id:'vp4',pt:'Arbre central',obj:'Contrôle alignement et jeu',m:'Comparateur',ref:'Jeu < 0.1mm'},
+  {id:'vp5',pt:'Boulonnerie',obj:'Contrôle serrage général',m:'Clé dynamométrique',ref:'Couple nominal'},
+  {id:'vp6',pt:'Coussinets',obj:'Contrôle usure et jeu',m:'Contrôle vibratoire',ref:'Jeu < 0.2mm'},
+  {id:'vp7',pt:'Système raclage',obj:'Inspection bras et lames',m:'Inspection visuelle',ref:'Pas de déformation'},
+  {id:'vp8',pt:'Accouplement',obj:'Inspection fuites et état',m:'Inspection visuelle',ref:'Pas de fuite'},
+  {id:'vp9',pt:'Carter réducteur',obj:'Vérification corrosion',m:'Inspection visuelle',ref:'Pas de corrosion'},
+];
+
+const SUIVI_OPS=["Inspecter état général du décanteur","Détection des fuites d'acide","Nettoyage général de l'équipement","Contrôle niveau d'huile réducteur","Resserrage général boulonnerie","Contrôle capteurs de sécurité","Mesure intensité et tension moteur","Graissage système roue-pignon","Contrôle bruits anormaux"];
+const DAYS=['L','M','M','J','V','S','D'];
+const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+
+function renderPM(){
+  [1,2,3].forEach(f=>{
+    const b=document.getElementById('pm'+f);
+    if(!b)return;
+    const rows=st.pmRows[f]||[];
+    if(!rows.length){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text3);font-size:11px;padding:14px">Tableau vide</td></tr>';return;}
+    b.innerHTML=rows.map((r,i)=>`<tr>
+      <td style="max-width:160px">${r.op}</td>
+      <td>${r.exec}</td>
+      <td><span class="tag t-blue">${r.freq}</span></td>
+      <td style="color:var(--text2);font-size:11px">${r.obs}</td>
+      <td><div class="flex gap6">
+        <button class="btn btn-outline btn-sm" onclick="editPMRow(${f},${i})"><i class="ti ti-edit"></i></button>
+        <button class="btn btn-danger btn-sm" onclick="delPMRow(${f},${i})"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr>`).join('');
+  });
+}
+
+async function addPM(f){
+  const op=prompt('Opération :');if(!op)return;
+  const exec=prompt('Exécutant (Opérateur/Mécanicien/Électricien) :')|| 'Mécanicien';
+  const freq=prompt('Fréquence (J/H/Q/M/2500h/5000h/10000h) :')||'M';
+  const obs=prompt('Observations :')||'';
+  st.pmRows[f].push({op,exec,freq,obs});
+  save();renderPM();
+  await addFeedEntry('Opération PM ajoutée (Folio '+f+')',op,'mp');
+  toast('Opération ajoutée');
+}
+
+function editPMRow(f,i){
+  const r=st.pmRows[f][i];
+  r.op=prompt('Opération :',r.op)||r.op;
+  r.exec=prompt('Exécutant :',r.exec)||r.exec;
+  r.freq=prompt('Fréquence :',r.freq)||r.freq;
+  r.obs=prompt('Observations :',r.obs)||r.obs;
+  save();renderPM();
+  addFeedEntry('Opération PM modifiée (Folio '+f+')',r.op,'mp');
+  toast('Modifié');
+}
+
+function delPMRow(f,i){
+  if(!confirm('Supprimer cette opération ?'))return;
+  const op=st.pmRows[f][i].op;
+  st.pmRows[f].splice(i,1);save();renderPM();
+  addFeedEntry('Opération PM supprimée (Folio '+f+')',op,'mp');
+}
+
+function renderGammes(){
+  [1,2,3,4].forEach(g=>{
+    const b=document.getElementById('g'+g);if(!b)return;
+    const rows=st.gammes[g]||[];
+    if(!rows.length){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--text3);font-size:11px;padding:14px">Gamme vide</td></tr>';return;}
+    b.innerHTML=rows.map((r,i)=>`<tr>
+      <td style="color:var(--accent);font-family:var(--mono)">${r.o}</td>
+      <td style="max-width:110px;font-size:12px">${r.op}</td>
+      <td><input class="fi" value="${r.t}" style="width:54px;font-size:11px" onchange="upG(${g},${i},'t',this.value)"></td>
+      <td><input class="fi" value="${r.m}" style="width:72px;font-size:11px" onchange="upG(${g},${i},'m',this.value)"></td>
+      <td><input class="fi" value="${r.pr}" style="width:72px;font-size:11px" onchange="upG(${g},${i},'pr',this.value)"></td>
+      <td><input class="fi" value="${r.obs}" style="width:72px;font-size:11px" onchange="upG(${g},${i},'obs',this.value)"></td>
+      <td><button class="btn btn-danger btn-sm" onclick="delG(${g},${i})"><i class="ti ti-x"></i></button></td>
+    </tr>`).join('');
+  });
+}
+
+function upG(g,i,k,v){
+  const prev=st.gammes[g][i][k];
+  st.gammes[g][i][k]=v;save();
+  if(prev!==v)addFeedEntry('Gamme N°'+g+' modifiée',st.gammes[g][i].op,'mp');
+}
+
+async function addGamme(g){
+  const op=prompt('Description opération :');if(!op)return;
+  const o=(st.gammes[g].length?Math.max(...st.gammes[g].map(r=>r.o)):0)+1;
+  st.gammes[g].push({o,op,t:'',m:'',pr:'',obs:''});
+  save();renderGammes();
+  await addFeedEntry('Opération ajoutée Gamme N°'+g,op,'mp');
+  toast('Ajouté à la gamme');
+}
+
+function delG(g,i){
+  if(!confirm('Supprimer ?'))return;
+  const op=st.gammes[g][i].op;
+  st.gammes[g].splice(i,1);
+  st.gammes[g].forEach((r,j)=>r.o=j+1);
+  save();renderGammes();
+  addFeedEntry('Opération supprimée Gamme N°'+g,op,'mp');
+}
+
+function renderSuivi(){
+  const c=document.getElementById('suivi-wrap');if(!c)return;
+  let h='<div style="overflow-x:auto"><table style="font-size:10px;min-width:500px"><thead><tr><th style="min-width:140px;text-align:left">Opération</th>';
+  for(let w=1;w<=5;w++){DAYS.forEach(d=>h+=`<th style="padding:5px 3px">${d}</th>`);h+='<th style="width:8px"></th>';}
+  h+='</tr></thead><tbody>';
+  SUIVI_OPS.forEach((op,oi)=>{
+    h+=`<tr><td style="font-size:11px;padding:4px 6px">${op}</td>`;
+    for(let w=1;w<=5;w++){
+      for(let d=0;d<7;d++){
+        const k=`s_${oi}_${w}_${d}`;const ch=st.suiviData[k];
+        h+=`<td><div class="cc ${ch?'checked':''}" onclick="toggleSuivi('${k}',this,'${op}')">${ch?'✓':''}</div></td>`;
+      }
+      h+='<td></td>';
+    }
+    h+='</tr>';
+  });
+  h+='</tbody></table></div>';
+  c.innerHTML=h;
+}
+
+function toggleSuivi(k,el,op){
+  if(st.suiviData[k]){delete st.suiviData[k];el.classList.remove('checked');el.textContent='';}
+  else{st.suiviData[k]=true;el.classList.add('checked');el.textContent='✓';
+    addFeedEntry('Suivi mensuel coché',op,'mp');
+  }
+  save();
+}
+
+let visEtats={};
+function renderVis(){
+  const c=document.getElementById('visite-points');if(!c)return;
+  c.innerHTML=VIS_PTS.map(vp=>`
+    <div style="border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px">
+      <div style="font-weight:500;font-size:13px;margin-bottom:3px">${vp.pt}</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:8px">${vp.obj}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+        <div><div class="mono" style="font-size:9px;color:var(--text3)">MOYEN</div><div style="font-size:11px">${vp.m}</div></div>
+        <div><div class="mono" style="font-size:9px;color:var(--text3)">RÉFÉRENCE</div><div style="font-size:11px">${vp.ref}</div></div>
+      </div>
+      <div class="fg"><label class="fl">Valeur mesurée</label><input class="fi" id="vm-${vp.id}" placeholder="Ex: 65°C" style="font-size:12px"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="eb ${visEtats[vp.id]==='ras'?'e-ras':''}" onclick="setEtat('${vp.id}','ras',this)">RAS</button>
+        <button class="eb ${visEtats[vp.id]==='dd'?'e-dd':''}" onclick="setEtat('${vp.id}','dd',this)">DD</button>
+        <button class="eb ${visEtats[vp.id]==='da'?'e-da':''}" onclick="setEtat('${vp.id}','da',this)">DA</button>
+        <button class="eb ${visEtats[vp.id]==='ii'?'e-ii':''}" onclick="setEtat('${vp.id}','ii',this)">II</button>
+      </div>
+    </div>`).join('');
+}
+
+function setEtat(id,etat,btn){
+  visEtats[id]=etat;
+  btn.parentElement.querySelectorAll('.eb').forEach(b=>{b.className='eb'});
+  btn.classList.add('e-'+etat);
+}
+
+async function saveVisite(){
+  const date=document.getElementById('v-date').value;
+  const red=document.getElementById('v-red').value;
+  if(!date){toast('Date requise');return;}
+  const mes={};
+  VIS_PTS.forEach(vp=>{mes[vp.id]={m:(document.getElementById('vm-'+vp.id)||{}).value||'',e:visEtats[vp.id]||''}});
+  const entry={id:uid(),date,red,mes,etats:{...visEtats},by:fname(),ts:Date.now()};
+  st.visiteHistory.push(entry);save();
+  visEtats={};renderVis();renderVisHist();
+  await addFeedEntry('Feuille de visite enregistrée','Date: '+fdate(date),'mp');
+  toast('Visite enregistrée ✓');
+}
+
+function renderVisHist(){
+  const c=document.getElementById('visite-hist');if(!c)return;
+  if(!st.visiteHistory.length){c.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune visite</div>';return;}
+  c.innerHTML=st.visiteHistory.slice().reverse().map(v=>{
+    const alerts=Object.values(v.etats||{}).filter(e=>e==='ii'||e==='da').length;
+    return`<div class="li"><div class="li-head">
+      <div class="li-title">Visite du ${fdate(v.date)}</div>
+      ${alerts>0?`<span class="tag t-orange">⚠️ ${alerts} alerte(s)</span>`:'<span class="tag t-green">OK</span>'}
+    </div><div class="li-body">${v.red?'Rédacteur: '+v.red:''}</div>
+    <div class="li-actions"><button class="btn btn-danger btn-sm" onclick="delVisite('${v.id}')"><i class="ti ti-trash"></i></button></div>
+    </div>`;
+  }).join('');
+}
+
+function delVisite(id){
+  st.visiteHistory=st.visiteHistory.filter(v=>v.id!==id);save();renderVisHist();
+}
+
+// INTERVENTIONS
+const SIC={done:'<span class="tag t-green">Terminée</span>',progress:'<span class="tag t-yellow">En cours</span>',planned:'<span class="tag t-blue">Planifiée</span>'};
+const PIC={high:'<span class="tag t-red">Haute</span>',med:'<span class="tag t-orange">Moyenne</span>',low:'<span class="tag t-green">Faible</span>'};
+
+function openIntModal(type){
+  document.getElementById('i-type').value=type;
+  document.getElementById('i-eid').value='';
+  document.getElementById('m-int-title').innerHTML=`${type==='MC'?'Nouvelle MC':'Nouvelle MP'} <button class="mc" onclick="closeModal('m-int')"><i class="ti ti-x"></i></button>`;
+  document.getElementById('i-date').value=today();
+  ['i-who','i-el','i-desc','i-pieces','i-dur','i-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('i-prio').value='med';
+  document.getElementById('i-stat').value='done';
+  openModal('m-int');
+}
+
+async function saveInt(){
+  const type=document.getElementById('i-type').value;
+  const eid=document.getElementById('i-eid').value;
+  const e={
+    id:eid||uid(),type,
+    who:document.getElementById('i-who').value,
+    date:document.getElementById('i-date').value,
+    el:document.getElementById('i-el').value,
+    desc:document.getElementById('i-desc').value,
+    pieces:document.getElementById('i-pieces').value,
+    dur:document.getElementById('i-dur').value,
+    prio:document.getElementById('i-prio').value,
+    status:document.getElementById('i-stat').value,
+    obs:document.getElementById('i-obs').value,
+    ts:Date.now(),
+  };
+  if(!e.desc.trim()){toast('Description requise');return;}
+  if(eid){const idx=st.interventions.findIndex(i=>i.id===eid);if(idx>=0)st.interventions[idx]=e;}
+  else st.interventions.push(e);
+  save();closeModal('m-int');renderInts();updateDash();
+  await addFeedEntry((eid?'Intervention modifiée':'Nouvelle intervention ')+type,e.el||e.desc,type.toLowerCase());
+  toast('Intervention enregistrée ✓');
+}
+
+function renderInts(){
+  const mc=st.interventions.filter(i=>i.type==='MC');
+  const mp=st.interventions.filter(i=>i.type==='MP');
+  const rend=(arr,cid)=>{
+    const el=document.getElementById(cid);if(!el)return;
+    if(!arr.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune intervention</div>';return;}
+    el.innerHTML=arr.slice().reverse().map(i=>`<div class="li">
+      <div class="li-head">
+        <div>${SIC[i.status]||''} <span class="li-title">${i.el||'Équipement'}</span></div>
+        <span class="li-date">${fdate(i.date)}</span>
+      </div>
+      <div class="li-body">${i.desc}</div>
+      ${i.who?`<div class="li-body mt8" style="display:flex;align-items:center;gap:4px"><i class="ti ti-user" style="font-size:12px"></i> ${i.who}${i.dur?' · '+i.dur+'h':''}</div>`:''}
+      ${i.pieces?`<div class="li-body mt8" style="display:flex;align-items:center;gap:4px"><i class="ti ti-tool" style="font-size:12px"></i> ${i.pieces}</div>`:''}
+      <div class="li-actions">
+        ${PIC[i.prio]||''}
+        <button class="btn btn-outline btn-sm" onclick="editInt('${i.id}')"><i class="ti ti-edit"></i></button>
+        <button class="btn btn-danger btn-sm" onclick="delInt('${i.id}')"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`).join('');
+  };
+  rend(mc,'mc-list');rend(mp,'mp-list');
+}
+
+function editInt(id){
+  const i=st.interventions.find(x=>x.id===id);if(!i)return;
+  document.getElementById('i-type').value=i.type;
+  document.getElementById('i-eid').value=id;
+  document.getElementById('m-int-title').innerHTML=`Modifier intervention <button class="mc" onclick="closeModal('m-int')"><i class="ti ti-x"></i></button>`;
+  ['who','date','el','desc','pieces','dur','prio','obs'].forEach(k=>{const el=document.getElementById('i-'+k);if(el)el.value=i[k]||'';});
+  document.getElementById('i-stat').value=i.status||'done';
+  openModal('m-int');
+}
+
+function delInt(id){
+  if(!confirm('Supprimer ?'))return;
+  const i=st.interventions.find(x=>x.id===id);
+  st.interventions=st.interventions.filter(x=>x.id!==id);
+  save();renderInts();updateDash();
+  if(i)addFeedEntry('Intervention supprimée',i.el||'','mc');
+}
+
+function openAnomalyModal(){
+  document.getElementById('an-eid').value='';
+  ['an-who','an-el','an-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('an-date').value=today();
+  document.getElementById('an-lvl').value='high';
+  openModal('m-anom');
+}
+
+async function saveAnomaly(){
+  const eid=document.getElementById('an-eid').value;
+  const e={
+    id:eid||uid(),
+    who:document.getElementById('an-who').value,
+    date:document.getElementById('an-date').value,
+    el:document.getElementById('an-el').value,
+    desc:document.getElementById('an-desc').value,
+    level:document.getElementById('an-lvl').value,
+    resolved:false,ts:Date.now(),
+  };
+  if(!e.desc.trim()){toast('Description requise');return;}
+  if(eid){const idx=st.anomalies.findIndex(a=>a.id===eid);if(idx>=0)st.anomalies[idx]=e;}
+  else st.anomalies.push(e);
+  save();closeModal('m-anom');renderAnomalies();updateDash();
+  await addFeedEntry('Anomalie déclarée — '+e.level,e.el+': '+e.desc,'anomaly');
+  toast('Anomalie déclarée ⚠️');
+}
+
+function renderAnomalies(){
+  const el=document.getElementById('an-list');if(!el)return;
+  if(!st.anomalies.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune anomalie</div>';return;}
+  el.innerHTML=st.anomalies.slice().reverse().map(a=>`<div class="li">
+    <div class="li-head">
+      <div><span class="tag ${a.level==='high'?'t-red':a.level==='med'?'t-orange':'t-yellow'}">${a.level==='high'?'Critique':a.level==='med'?'Modérée':'Faible'}</span> <span class="li-title">${a.el||'?'}</span></div>
+      <span class="li-date">${fdate(a.date)}</span>
+    </div>
+    <div class="li-body">${a.desc}</div>
+    ${a.who?`<div class="li-body mt8"><i class="ti ti-user" style="font-size:11px"></i> ${a.who}</div>`:''}
+    <div class="li-actions">
+      <button class="btn ${a.resolved?'btn-outline':'btn-primary'} btn-sm" onclick="resolveAn('${a.id}')">${a.resolved?'✓ Résolu':'Résoudre'}</button>
+      <button class="btn btn-danger btn-sm" onclick="delAn('${a.id}')"><i class="ti ti-trash"></i></button>
+    </div>
+  </div>`).join('');
+}
+
+function resolveAn(id){
+  const a=st.anomalies.find(x=>x.id===id);
+  if(a){a.resolved=!a.resolved;save();renderAnomalies();updateDash();
+    addFeedEntry(a.resolved?'Anomalie résolue':'Anomalie réouverte',a.el+': '+a.desc,'anomaly');
+  }
+}
+
+function delAn(id){
+  if(!confirm('Supprimer ?'))return;
+  const a=st.anomalies.find(x=>x.id===id);
+  st.anomalies=st.anomalies.filter(x=>x.id!==id);
+  save();renderAnomalies();updateDash();
+  if(a)addFeedEntry('Anomalie supprimée',a.el||'','anomaly');
+}
+
+// PLANNING CALENDAR
+function renderCal(){
+  const m=st.calM,y=st.calY;
+  document.getElementById('cal-label').textContent=MONTHS[m]+' '+y;
+  const g=document.getElementById('cal');const td=new Date();
+  let h=DAYS.map(d=>`<div class="cal-dh">${d}</div>`).join('');
+  const fd=new Date(y,m,1).getDay();const dim=new Date(y,m+1,0).getDate();
+  const off=(fd+6)%7;
+  for(let i=0;i<off;i++)h+='<div></div>';
+  for(let d=1;d<=dim;d++){
+    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const it=d===td.getDate()&&m===td.getMonth()&&y===td.getFullYear();
+    const he=st.planEvents.some(e=>e.date===ds);
+    const od=he&&new Date(ds)<new Date(td.toDateString());
+    h+=`<div class="cal-d ${it?'today':''} ${he?'has-ev':''} ${od?'od':''}" onclick="dayClick('${ds}')">${d}</div>`;
+  }
+  g.innerHTML=h;
+  renderPlanList();
+}
+
+function prevM(){st.calM--;if(st.calM<0){st.calM=11;st.calY--;}renderCal();}
+function nextM(){st.calM++;if(st.calM>11){st.calM=0;st.calY++;}renderCal();}
+
+function renderPlanList(){
+  const el=document.getElementById('plan-list');if(!el)return;
+  const evs=st.planEvents.slice().sort((a,b)=>a.date.localeCompare(b.date));
+  if(!evs.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucun événement</div>';return;}
+  el.innerHTML=evs.map(e=>`<div class="li">
+    <div class="li-head">
+      <div><span class="tag t-blue">${e.type}</span> <span class="li-title">${e.desc||'Intervention'}</span></div>
+      <span class="li-date">${fdate(e.date)}</span>
+    </div>
+    ${e.resp?`<div class="li-body"><i class="ti ti-user" style="font-size:11px"></i> ${e.resp}</div>`:''}
+    <div class="li-actions"><button class="btn btn-danger btn-sm" onclick="delPlan('${e.id}')"><i class="ti ti-trash"></i></button></div>
+  </div>`).join('');
+}
+
+function dayClick(ds){const evs=st.planEvents.filter(e=>e.date===ds);if(evs.length)alert(evs.map(e=>e.type+': '+e.desc).join('\n'));}
+
+async function savePlan(){
+  const e={id:uid(),date:document.getElementById('p-date').value,type:document.getElementById('p-type').value,desc:document.getElementById('p-desc').value,resp:document.getElementById('p-resp').value};
+  if(!e.date){toast('Date requise');return;}
+  st.planEvents.push(e);save();closeModal('m-plan');renderCal();
+  await addFeedEntry('Intervention planifiée',e.type+' — '+fdate(e.date)+(e.resp?' ('+e.resp+')':''),'plan');
+  toast('Planifié ✓');
+}
+
+function delPlan(id){
+  if(!confirm('Supprimer ?'))return;
+  st.planEvents=st.planEvents.filter(e=>e.id!==id);save();renderCal();
+  addFeedEntry('Événement planning supprimé','','plan');
+}
+
+// STATS
+function updateStats(){
+  document.getElementById('r-tot').textContent=st.interventions.length;
+  document.getElementById('r-mc').textContent=st.interventions.filter(i=>i.type==='MC').length;
+  document.getElementById('r-mp').textContent=st.interventions.filter(i=>i.type==='MP').length;
+  document.getElementById('r-an').textContent=st.anomalies.length;
+}
+
+async function saveConsign(){
+  const d={resp:document.getElementById('c-resp').value,date:document.getElementById('c-date').value,notes:document.getElementById('c-notes').value,dec:document.getElementById('c-dec').value};
+  st.consign=d;save();
+  await addFeedEntry('Fiche consignation enregistrée','Resp: '+d.resp,'mp');
+  toast('Consignation enregistrée ✓');
+}
+
+// TAB SWITCHERS
+function showPlanTab(tab,btn){
+  ['pm','gammes','suivi','visite'].forEach(t=>{const el=document.getElementById('pt-'+t);if(el)el.style.display=t===tab?'':'none';});
+  document.querySelectorAll('#page-plan .tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(tab==='gammes')renderGammes();
+  if(tab==='suivi')renderSuivi();
+  if(tab==='visite'){renderVis();renderVisHist();}
+}
+
+function showIntTab(tab,btn){
+  ['mc','mp','an'].forEach(t=>{const el=document.getElementById('it-'+t);if(el)el.style.display=t===tab?'':'none';});
+  document.querySelectorAll('#page-int .tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+}
+
+// EXPORT / IMPORT
+function exportJSON(){
+  const b=new Blob([JSON.stringify(st,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);
+  a.download='gct_cmms_'+today()+'.json';a.click();toast('Exporté ✓');
+}
+
+function doImport(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);st={...st,...d};save();toast('Importé ✓');location.reload();}catch{toast('Erreur JSON');}};
+  r.readAsText(f);
+}
+
+function genReport(){
+  const win=window.open('','_blank');
+  const mc=st.interventions.filter(i=>i.type==='MC');
+  const mp=st.interventions.filter(i=>i.type==='MP');
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rapport Maintenance TK2701B — ${today()}</title>
+  <style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;color:#1c1c1a}h1{color:#1B3A5C;border-bottom:3px solid #C55A1B;padding-bottom:10px}h2{color:#1B3A5C;margin-top:24px}table{width:100%;border-collapse:collapse;margin:12px 0}th{background:#1B3A5C;color:#fff;padding:8px;font-size:12px;text-align:left}td{padding:8px;border-bottom:1px solid #eee;font-size:12px}@media print{.np{display:none}}</style>
+  </head><body>
+  <h1>Rapport Maintenance — TK2701B</h1>
+  <p><b>Date:</b> ${today()} | <b>Équipement:</b> Réservoir Décanteur TK2701B | <b>Site:</b> GCT Usine Acide Phosphorique</p>
+  <h2>Résumé</h2>
+  <table><tr><th>Indicateur</th><th>Valeur</th></tr>
+  <tr><td>Total interventions</td><td>${st.interventions.length}</td></tr>
+  <tr><td>Maintenance corrective</td><td>${mc.length}</td></tr>
+  <tr><td>Maintenance préventive</td><td>${mp.length}</td></tr>
+  <tr><td>Anomalies actives</td><td>${st.anomalies.filter(a=>!a.resolved).length}</td></tr>
+  </table>
+  <h2>Interventions correctives (MC)</h2>
+  ${mc.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Statut</th><th>Intervenant</th></tr>${mc.map(i=>`<tr><td>${i.date}</td><td>${i.el}</td><td>${i.desc}</td><td>${i.status}</td><td>${i.who||''}</td></tr>`).join('')}</table>`:'<p>Aucune.</p>'}
+  <h2>Interventions préventives (MP)</h2>
+  ${mp.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Statut</th><th>Intervenant</th></tr>${mp.map(i=>`<tr><td>${i.date}</td><td>${i.el}</td><td>${i.desc}</td><td>${i.status}</td><td>${i.who||''}</td></tr>`).join('')}</table>`:'<p>Aucune.</p>'}
+  <h2>Anomalies</h2>
+  ${st.anomalies.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Niveau</th><th>Résolu</th></tr>${st.anomalies.map(a=>`<tr><td>${a.date}</td><td>${a.el}</td><td>${a.desc}</td><td>${a.level}</td><td>${a.resolved?'Oui':'Non'}</td></tr>`).join('')}</table>`:'<p>Aucune.</p>'}
+  <p style="margin-top:40px;color:#999;font-size:11px">Généré le ${new Date().toLocaleString('fr-FR')} · CMMS GCT TK2701B</p>
+  <button class="np" onclick="window.print()" style="margin-top:12px;padding:10px 20px;background:#1B3A5C;color:#fff;border:none;cursor:pointer;border-radius:6px">🖨️ Imprimer</button>
+  </body></html>`;
+  win.document.write(html);win.document.close();
+}
+
+function clearAll(){
+  if(!confirm('⚠️ Supprimer TOUTES les données ?'))return;
+  localStorage.removeItem(DB);location.reload();
+}
+
+// FEED PANEL OPEN
+document.getElementById('notif-btn').addEventListener('click',()=>{
+  renderFeed('feed-full');
+  lastFeedCount=Date.now();
+  document.getElementById('notif-count').style.display='none';
+});
+
+// POLL feed every 15s
+setInterval(async()=>{
+  await updateNotifBadge();
+  if(document.getElementById('page-dashboard').classList.contains('active')){
+    await renderFeed('dash-feed',4);
+  }
+  if(document.getElementById('m-feed').classList.contains('open')){
+    await renderFeed('feed-full');
+  }
+},15000);
+
+// INIT
+async function init(){
+  load();
+  if(!st.pmRows||!st.pmRows[1]||!st.pmRows[1].length)st.pmRows=JSON.parse(JSON.stringify(PM_DEF));
+  if(!st.gammes||!st.gammes[1]||!st.gammes[1].length)st.gammes=JSON.parse(JSON.stringify(GM_DEF));
+  if(!st.suiviData)st.suiviData={};
+  if(!st.visiteHistory)st.visiteHistory=[];
+  save();
+  document.getElementById('v-date').value=today();
+  document.getElementById('c-date').value=today();
+  renderPM();renderInts();renderAnomalies();
+  await updateDash();
+  await updateNotifBadge();
+  setTimeout(()=>{document.getElementById('splash').classList.add('hide');setTimeout(()=>document.getElementById('splash').style.display='none',400);},1800);
+}
+init();
+</script>
+</body>
+</html>
