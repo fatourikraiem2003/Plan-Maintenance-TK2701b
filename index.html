@@ -1,1334 +1,2598 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>GCT Maintenance — TK2701B</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#F5F4F1;
-  --surface:#FFFFFF;
-  --surface2:#F0EEE9;
-  --border:#E2DED7;
-  --border2:#C8C3BA;
-  --accent:#1B3A5C;
-  --accent-light:#E8EEF5;
-  --orange:#C55A1B;
-  --orange-light:#FAF0E8;
-  --green:#1A6B3A;
-  --green-light:#E6F4EC;
-  --red:#A32D2D;
-  --red-light:#FCEBEB;
-  --yellow:#854F0B;
-  --yellow-light:#FAEEDA;
-  --text:#1C1C1A;
-  --text2:#6B6860;
-  --text3:#A8A49D;
-  --font:'Inter',sans-serif;
-  --mono:'DM Mono',monospace;
-  --r:8px;
-  --r2:12px;
-}
-body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;overflow-x:hidden}
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
-/* SPLASH */
-#splash{position:fixed;inset:0;z-index:9999;background:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .4s}
-#splash.hide{opacity:0;pointer-events:none}
-.sp-logo{color:#fff;font-size:13px;font-weight:600;letter-spacing:4px;opacity:.6}
-.sp-name{color:#fff;font-size:28px;font-weight:600;letter-spacing:1px}
-.sp-bar{width:180px;height:2px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden}
-.sp-fill{height:100%;width:0;background:#fff;animation:ld 1.6s ease forwards}
-@keyframes ld{to{width:100%}}
-.sp-sub{color:rgba(255,255,255,.5);font-size:11px;font-family:var(--mono)}
+  :root {
+    --bg: #0d0f14;
+    --surface: #141720;
+    --surface2: #1c2030;
+    --border: #2a3045;
+    --accent: #e8a020;
+    --accent2: #3a9bd5;
+    --danger: #e05252;
+    --success: #2ecc7a;
+    --warn: #e8a020;
+    --text: #d4dbe8;
+    --text2: #7a8aaa;
+    --text3: #4a5570;
+    --font-head: 'Rajdhani', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'IBM Plex Sans', sans-serif;
+  }
 
-/* HEADER */
-header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 16px;height:52px;display:flex;align-items:center;gap:12px}
-.h-logo{width:32px;height:32px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600;letter-spacing:.5px;flex-shrink:0}
-.h-title{font-size:14px;font-weight:600;color:var(--text)}
-.h-eq{font-family:var(--mono);font-size:10px;color:var(--text2);background:var(--surface2);border:1px solid var(--border);padding:2px 8px;border-radius:4px}
-.h-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.h-btn{width:34px;height:34px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:16px;transition:all .15s;position:relative}
-.h-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.notif-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--orange);color:#fff;font-size:9px;font-weight:600;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface)}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* NAV */
-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--surface);border-top:1px solid var(--border);display:flex;height:58px;max-width:600px;margin:0 auto}
-.nav-i{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;font-size:9px;letter-spacing:.3px;text-transform:uppercase;color:var(--text3);border:none;background:none;font-family:var(--font);transition:color .2s}
-.nav-i.active{color:var(--accent)}
-.nav-i .ni{font-size:19px}
+  /* ── SPLASH ── */
+  #splash {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 24px;
+    transition: opacity .5s;
+  }
+  #splash.hide { opacity: 0; pointer-events: none; }
+  .splash-logo {
+    font-family: var(--font-head);
+    font-size: 48px; font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--accent);
+    text-shadow: 0 0 40px rgba(232,160,32,.4);
+  }
+  .splash-sub {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 3px;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+  .splash-bar {
+    width: 200px; height: 2px;
+    background: var(--border);
+    border-radius: 2px; overflow: hidden;
+  }
+  .splash-fill {
+    height: 100%; width: 0;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: load 1.8s ease forwards;
+  }
+  @keyframes load { to { width: 100%; } }
 
-/* MAIN */
-main{padding:14px 14px 72px;max-width:600px;margin:0 auto}
-.page{display:none}
-.page.active{display:block}
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    display: flex; align-items: center; gap: 12px;
+    height: 56px;
+  }
+  .header-brand {
+    font-family: var(--font-head);
+    font-size: 20px; font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+  .header-eq {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--text2);
+    letter-spacing: 1px;
+    border-left: 1px solid var(--border);
+    padding-left: 12px;
+  }
+  .header-right {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .alert-badge {
+    background: var(--danger);
+    color: #fff; font-size: 10px; font-weight: 600;
+    border-radius: 10px; padding: 2px 6px;
+    min-width: 18px; text-align: center;
+  }
+  .icon-btn {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 16px;
+    transition: all .2s;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* SECTION HEADER */
-.s-head{margin-bottom:18px}
-.s-title{font-size:18px;font-weight:600;color:var(--text);margin-bottom:2px}
-.s-sub{font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.5px}
+  /* ── NAV ── */
+  nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex; height: 60px;
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3px;
+    cursor: pointer; font-size: 9px; letter-spacing: .5px;
+    text-transform: uppercase; color: var(--text3);
+    transition: color .2s; font-family: var(--font-mono);
+    border: none; background: none;
+  }
+  .nav-item.active { color: var(--accent); }
+  .nav-item .nav-icon { font-size: 20px; }
 
-/* CARDS */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:12px}
-.card-head{font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.card-head .ch-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--accent-light);color:var(--accent)}
+  /* ── MAIN ── */
+  main {
+    padding: 16px 16px 80px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
-/* KPI GRID */
-.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
-.kpi{background:var(--surface2);border-radius:var(--r);padding:12px;border:1px solid var(--border)}
-.kpi-l{font-size:10px;color:var(--text2);margin-bottom:4px;font-family:var(--mono)}
-.kpi-v{font-size:26px;font-weight:600;line-height:1}
-.kpi.k-blue .kpi-v{color:var(--accent)}
-.kpi.k-orange .kpi-v{color:var(--orange)}
-.kpi.k-green .kpi-v{color:var(--green)}
-.kpi.k-red .kpi-v{color:var(--red)}
-.kpi-s{font-size:11px;color:var(--text3);margin-top:2px}
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
 
-/* BUTTONS */
-.btn{padding:9px 14px;border-radius:var(--r);border:1px solid var(--border);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-primary:hover{background:#152e4a}
-.btn-outline{background:var(--surface);color:var(--text)}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.btn-danger{background:var(--red-light);border-color:var(--red);color:var(--red)}
-.btn-sm{padding:6px 10px;font-size:12px}
-.btn-full{width:100%;justify-content:center}
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 22px; font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .section-sub {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--text2);
+    letter-spacing: 1px; margin-bottom: 20px;
+  }
 
-/* FORMS */
-.fg{margin-bottom:12px}
-.fl{display:block;font-size:11px;font-weight:500;color:var(--text2);margin-bottom:5px;font-family:var(--mono)}
-.fi,.fs,.ft{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;color:var(--text);font-family:var(--font);font-size:13px;outline:none;transition:border .15s}
-.fi:focus,.fs:focus,.ft:focus{border-color:var(--accent)}
-.ft{resize:vertical;min-height:72px}
-.fs option{background:var(--surface)}
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 15px; font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+  }
 
-/* SEARCH */
-.sw{position:relative;margin-bottom:12px}
-.si{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px 9px 36px;color:var(--text);font-family:var(--font);font-size:13px;outline:none}
-.si:focus{border-color:var(--accent)}
-.si-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:15px}
+  /* ── DASHBOARD KPIs ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    position: relative; overflow: hidden;
+  }
+  .kpi::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .kpi.accent::before { background: var(--accent); }
+  .kpi.blue::before { background: var(--accent2); }
+  .kpi.danger::before { background: var(--danger); }
+  .kpi.success::before { background: var(--success); }
+  .kpi-label {
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 1px;
+    color: var(--text2); text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .kpi-value {
+    font-family: var(--font-head);
+    font-size: 32px; font-weight: 700;
+    line-height: 1;
+  }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .kpi.blue .kpi-value { color: var(--accent2); }
+  .kpi.danger .kpi-value { color: var(--danger); }
+  .kpi.success .kpi-value { color: var(--success); }
+  .kpi-sub {
+    font-size: 10px; color: var(--text2); margin-top: 4px;
+  }
 
-/* TAGS */
-.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;font-family:var(--mono)}
-.t-blue{background:var(--accent-light);color:var(--accent);border:1px solid #B5D4F4}
-.t-orange{background:var(--orange-light);color:var(--orange);border:1px solid #F5C4B3}
-.t-green{background:var(--green-light);color:var(--green);border:1px solid #C0DD97}
-.t-red{background:var(--red-light);color:var(--red);border:1px solid #F7C1C1}
-.t-yellow{background:var(--yellow-light);color:var(--yellow);border:1px solid #FAC775}
-.t-gray{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+  /* ── ALERTS ── */
+  .alert-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .alert-item:last-child { border-bottom: none; }
+  .alert-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 4px;
+  }
+  .alert-dot.high { background: var(--danger); }
+  .alert-dot.med { background: var(--warn); }
+  .alert-dot.low { background: var(--accent2); }
+  .alert-text { font-size: 13px; color: var(--text); }
+  .alert-meta {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--text2);
+    margin-top: 2px;
+  }
 
-/* TABS */
-.tabs{display:flex;gap:0;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:3px;margin-bottom:14px;overflow-x:auto}
-.tab{flex:1;min-width:0;padding:7px 8px;border:none;background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:500;border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.tab.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid var(--border)}
+  /* ── BUTTONS ── */
+  .btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none; cursor: pointer;
+    font-family: var(--font-head);
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 1px;
+    transition: all .2s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+  }
+  .btn-primary:hover { background: #f0b030; }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-danger {
+    background: rgba(224,82,82,.15);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+  }
+  .btn-sm { padding: 6px 10px; font-size: 12px; }
+  .btn-full { width: 100%; }
 
-/* TABLE */
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{background:var(--surface2);color:var(--text2);font-family:var(--mono);font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:7px 10px;border-bottom:1px solid var(--border);text-align:left}
-td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--surface2)}
+  /* ── FORMS ── */
+  .form-group { margin-bottom: 14px; }
+  .form-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 1px;
+    color: var(--text2); text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-select option { background: var(--surface2); }
 
-/* LIST ITEMS */
-.li{padding:11px 0;border-bottom:1px solid var(--border)}
-.li:last-child{border-bottom:none}
-.li-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px}
-.li-title{font-size:13px;font-weight:500;color:var(--text)}
-.li-date{font-family:var(--mono);font-size:10px;color:var(--text2)}
-.li-body{font-size:12px;color:var(--text2)}
-.li-actions{display:flex;gap:6px;margin-top:8px;justify-content:flex-end}
+  /* ── TAGS / BADGES ── */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: .5px;
+  }
+  .tag-high { background: rgba(224,82,82,.15); color: var(--danger); border: 1px solid var(--danger); }
+  .tag-med { background: rgba(232,160,32,.15); color: var(--warn); border: 1px solid var(--warn); }
+  .tag-low { background: rgba(58,155,213,.15); color: var(--accent2); border: 1px solid var(--accent2); }
+  .tag-ok { background: rgba(46,204,122,.15); color: var(--success); border: 1px solid var(--success); }
+  .tag-mp { background: rgba(58,155,213,.15); color: var(--accent2); }
+  .tag-mc { background: rgba(232,160,32,.15); color: var(--warn); }
 
-/* MODAL */
-.mb{position:fixed;inset:0;z-index:500;background:rgba(28,28,26,.45);display:none;align-items:flex-end;justify-content:center}
-.mb.open{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;width:100%;max-width:600px;padding:20px;max-height:88vh;overflow-y:auto;animation:sup .28s ease}
-@keyframes sup{from{transform:translateY(100%)}}
-.mt{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.mc{background:none;border:none;font-size:18px;color:var(--text2);cursor:pointer;line-height:1;padding:4px}
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 12px;
+  }
+  th {
+    background: var(--surface2);
+    color: var(--text2);
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  td {
+    padding: 9px 10px;
+    border-bottom: 1px solid rgba(42,48,69,.5);
+    color: var(--text);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  .criticite-cell {
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .c-high { color: var(--danger); }
+  .c-med { color: var(--warn); }
+  .c-low { color: var(--success); }
 
-/* FEED ITEM (activity log) */
-.feed-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
-.feed-item:last-child{border-bottom:none}
-.feed-av{width:32px;height:32px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);flex-shrink:0}
-.feed-av.av-orange{background:var(--orange-light);color:var(--orange)}
-.feed-av.av-green{background:var(--green-light);color:var(--green)}
-.feed-av.av-red{background:var(--red-light);color:var(--red)}
-.feed-body{flex:1;min-width:0}
-.feed-who{font-size:12px;font-weight:500;color:var(--text)}
-.feed-what{font-size:12px;color:var(--text2);margin-top:1px}
-.feed-when{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:2px}
-.feed-new{display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%;margin-right:4px;vertical-align:middle}
+  /* ── TOGGLE ── */
+  .tab-group {
+    display: flex; gap: 4px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 16px;
+  }
+  .tab-btn {
+    flex: 1; padding: 8px 4px;
+    border: none; background: transparent;
+    color: var(--text2);
+    font-family: var(--font-head);
+    font-size: 13px; font-weight: 600;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #000;
+  }
 
-/* PROGRESS */
-.pb-wrap{background:var(--border);border-radius:4px;height:5px;overflow:hidden;margin-top:6px}
-.pb-fill{height:100%;border-radius:4px;transition:width .5s}
+  /* ── MODAL ── */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(0,0,0,.7);
+    display: none; align-items: flex-end;
+    animation: fadeIn .2s;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    width: 100%; max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp .3s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } }
+  @keyframes fadeIn { from { opacity: 0; } }
+  .modal-title {
+    font-family: var(--font-head);
+    font-size: 20px; font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-close {
+    background: none; border: none;
+    color: var(--text2); font-size: 20px;
+    cursor: pointer;
+  }
 
-/* CALENDAR */
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.cal-dh{font-family:var(--mono);font-size:9px;color:var(--text3);text-align:center;padding:4px 0}
-.cal-d{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--text2);cursor:pointer;position:relative;transition:all .15s}
-.cal-d:hover{background:var(--surface2)}
-.cal-d.today{background:var(--accent);color:#fff;font-weight:600}
-.cal-d.has-ev::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--orange)}
-.cal-d.today::after{background:rgba(255,255,255,.7)}
-.cal-d.od{color:var(--red)}
+  /* ── SEARCH ── */
+  .search-wrap {
+    position: relative; margin-bottom: 14px;
+  }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text2); font-size: 14px;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px 10px 36px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
 
-/* CHECK CELL */
-.cc{width:22px;height:22px;border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin:auto;font-size:11px;transition:all .15s;color:transparent}
-.cc.checked{background:var(--green);border-color:var(--green);color:#fff}
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 4px; height: 6px;
+    overflow: hidden; margin-top: 8px;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 4px;
+    transition: width .5s;
+  }
 
-/* ETAT BUTTONS */
-.eb{padding:4px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:10px;font-weight:500;cursor:pointer;font-family:var(--mono);transition:all .15s}
-.eb.e-ras{background:var(--green-light);border-color:var(--green);color:var(--green)}
-.eb.e-dd{background:var(--yellow-light);border-color:var(--yellow);color:var(--yellow)}
-.eb.e-da{background:var(--orange-light);border-color:var(--orange);color:var(--orange)}
-.eb.e-ii{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  /* ── EQUIPMENT LIST ── */
+  .eq-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .eq-item:last-child { border-bottom: none; }
+  .eq-icon {
+    width: 40px; height: 40px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .eq-info { flex: 1; }
+  .eq-name { font-weight: 500; font-size: 14px; }
+  .eq-meta {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--text2);
+    margin-top: 2px;
+  }
+  .eq-status { font-size: 20px; }
 
-/* EXPORT BOX */
-.exp-box{background:var(--surface2);border:1px dashed var(--border2);border-radius:var(--r2);padding:18px;text-align:center;margin-bottom:10px;cursor:pointer;transition:all .15s}
-.exp-box:hover{border-color:var(--accent);background:var(--accent-light)}
-.exp-icon{font-size:26px;color:var(--accent);margin-bottom:6px}
-.exp-label{font-size:13px;font-weight:500;margin-bottom:2px}
-.exp-sub{font-size:11px;color:var(--text2)}
+  /* ── INTERVENTION LIST ── */
+  .int-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .int-header {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .int-title { font-weight: 500; font-size: 13px; }
+  .int-date {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--text2);
+  }
+  .int-detail { font-size: 12px; color: var(--text2); margin-top: 4px; }
 
-/* TOAST */
-#toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9000;white-space:nowrap}
-#toast.show{opacity:1}
+  /* ── PLANNING CALENDAR ── */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    margin-top: 10px;
+  }
+  .cal-day-head {
+    font-family: var(--font-mono);
+    font-size: 9px; color: var(--text3);
+    text-align: center; padding: 4px 0;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 11px; color: var(--text2);
+    cursor: pointer;
+    position: relative;
+  }
+  .cal-day:hover { background: var(--surface2); }
+  .cal-day.today { background: var(--accent); color: #000; font-weight: 700; }
+  .cal-day.has-event::after {
+    content: ''; position: absolute;
+    bottom: 3px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--accent2);
+  }
+  .cal-day.today::after { background: #000; }
+  .cal-day.overdue { color: var(--danger); }
 
-/* NEW DOT on nav */
-.nav-new{width:6px;height:6px;background:var(--orange);border-radius:50%;position:absolute;top:6px;right:18px}
+  /* ── SUIVI MENSUEL ── */
+  .suivi-table {
+    font-size: 10px;
+  }
+  .suivi-table th, .suivi-table td {
+    padding: 5px 4px;
+    text-align: center;
+  }
+  .suivi-table td:first-child {
+    text-align: left;
+    font-size: 11px;
+  }
+  .check-cell {
+    width: 20px; height: 20px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    margin: auto;
+    font-size: 12px;
+    transition: all .2s;
+  }
+  .check-cell.checked {
+    background: var(--success);
+    border-color: var(--success);
+    color: #000;
+  }
 
-/* SYNC DOT */
-#sync-dot{position:fixed;top:14px;right:58px;z-index:9999;width:8px;height:8px;border-radius:50%;transition:background .4s}
+  /* ── RAPPORT EXPORT ── */
+  .export-section {
+    background: var(--surface2);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .export-icon { font-size: 32px; margin-bottom: 8px; }
+  .export-label {
+    font-family: var(--font-head);
+    font-size: 16px; font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .export-sub { font-size: 12px; color: var(--text2); }
 
-.sep{border:none;border-top:1px solid var(--border);margin:12px 0}
-.flex{display:flex}.flex-b{display:flex;justify-content:space-between;align-items:center}
-.gap8{gap:8px}.gap6{gap:6px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mb12{margin-bottom:12px}
-.dim{color:var(--text2)}.mono{font-family:var(--mono);font-size:11px}
+  /* ── ANOMALY STATUS CIRCLE ── */
+  .status-ring {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-size: 18px; font-weight: 700;
+    border: 2px solid;
+  }
+  .status-ring.ok { border-color: var(--success); color: var(--success); background: rgba(46,204,122,.1); }
+  .status-ring.warn { border-color: var(--warn); color: var(--warn); background: rgba(232,160,32,.1); }
+  .status-ring.err { border-color: var(--danger); color: var(--danger); background: rgba(224,82,82,.1); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+    z-index: 9000;
+    white-space: nowrap;
+  }
+  #toast.show { opacity: 1; }
+  #toast.success { border-color: var(--success); color: var(--success); }
+  #toast.error { border-color: var(--danger); color: var(--danger); }
+
+  /* ── SEPARATOR ── */
+  .sep {
+    border: none; border-top: 1px solid var(--border);
+    margin: 14px 0;
+  }
+
+  /* ── ROW ACTIONS ── */
+  .row-actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+  /* ── FEUILLE DE VISITE ── */
+  .visit-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto auto auto;
+    gap: 6px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .visit-row:last-child { border-bottom: none; }
+  .etat-btn {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text2);
+    font-size: 10px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+    font-weight: 700;
+  }
+  .etat-btn.active-ras { background: rgba(46,204,122,.2); border-color: var(--success); color: var(--success); }
+  .etat-btn.active-dd { background: rgba(232,160,32,.2); border-color: var(--warn); color: var(--warn); }
+  .etat-btn.active-da { background: rgba(224,82,82,.2); border-color: var(--danger); color: var(--danger); }
+  .etat-btn.active-ii { background: rgba(224,82,82,.4); border-color: var(--danger); color: var(--danger); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .flex { display: flex; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  .gap-8 { gap: 8px; }
+  .gap-12 { gap: 12px; }
+  .mt-8 { margin-top: 8px; }
+  .mt-12 { margin-top: 12px; }
+  .mb-12 { margin-bottom: 12px; }
+  .text-mono { font-family: var(--font-mono); font-size: 11px; }
+  .text-dim { color: var(--text2); }
+  .text-accent { color: var(--accent); }
+  .text-danger { color: var(--danger); }
+  .text-success { color: var(--success); }
+  .bold { font-weight: 600; }
 </style>
 </head>
 <body>
 
+<!-- SPLASH -->
 <div id="splash">
-  <div class="sp-logo">GROUPE CHIMIQUE TUNISIEN</div>
-  <div class="sp-name">CMMS · TK2701B</div>
-  <div class="sp-bar"><div class="sp-fill"></div></div>
-  <div class="sp-sub">Réservoir Décanteur — Usine Acide Phosphorique</div>
+  <div class="splash-logo">GCT</div>
+  <div class="splash-sub">Système de Gestion de Maintenance</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+  <div class="splash-sub" style="font-size:9px;margin-top:4px;">TK2701B · Réservoir Décanteur</div>
 </div>
 
+<!-- TOAST -->
 <div id="toast"></div>
 
+<!-- HEADER -->
 <header>
-  <div class="h-logo">GCT</div>
-  <div>
-    <div class="h-title">Maintenance</div>
-  </div>
-  <div class="h-eq">TK2701B</div>
-  <div class="h-right">
-    <div class="h-btn" id="notif-btn" onclick="openModal('m-feed')">
-      <i class="ti ti-bell"></i>
-      <div class="notif-badge" id="notif-count" style="display:none">0</div>
-    </div>
-    <div class="h-btn" onclick="openModal('m-settings')"><i class="ti ti-settings"></i></div>
+  <div class="header-brand">CMMS</div>
+  <div class="header-eq">TK2701B</div>
+  <div class="header-right">
+    <div class="alert-badge" id="alertCount">0</div>
+    <button class="icon-btn" onclick="showAlerts()">🔔</button>
+    <button class="icon-btn" onclick="showSettings()">⚙️</button>
   </div>
 </header>
 
+<!-- MAIN -->
 <main>
 
-<!-- DASHBOARD -->
-<div class="page active" id="page-dashboard">
-  <div class="s-head">
-    <div class="s-title">Tableau de bord</div>
-    <div class="s-sub" id="dash-date">CHARGEMENT...</div>
-  </div>
-  <div class="kpi-grid">
-    <div class="kpi k-blue"><div class="kpi-l">Planifiées</div><div class="kpi-v" id="k-plan">0</div><div class="kpi-s">ce mois</div></div>
-    <div class="kpi k-green"><div class="kpi-l">Réalisées</div><div class="kpi-v" id="k-done">0</div><div class="kpi-s">interventions</div></div>
-    <div class="kpi k-red"><div class="kpi-l">Anomalies</div><div class="kpi-v" id="k-anom">0</div><div class="kpi-s">actives</div></div>
-    <div class="kpi k-orange"><div class="kpi-l">En attente</div><div class="kpi-v" id="k-pend">0</div><div class="kpi-s">actions</div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="ch-icon"><i class="ti ti-chart-bar"></i></div>Taux de réalisation</div>
-    <div class="flex-b"><span class="mono dim">Préventive (MP)</span><span class="mono" style="color:var(--accent)" id="d-pm-r">0%</span></div>
-    <div class="pb-wrap"><div class="pb-fill" id="d-pm-b" style="background:var(--accent);width:0%"></div></div>
-    <div class="flex-b mt8"><span class="mono dim">Corrective (MC)</span><span class="mono" style="color:var(--orange)" id="d-mc-r">0%</span></div>
-    <div class="pb-wrap"><div class="pb-fill" id="d-mc-b" style="background:var(--orange);width:0%"></div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="ch-icon"><i class="ti ti-clock-exclamation"></i></div>Dernières activités équipe</div>
-    <div id="dash-feed"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune activité récente</div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="ch-icon" style="background:var(--red-light);color:var(--red)"><i class="ti ti-alert-triangle"></i></div>Alertes actives</div>
-    <div id="dash-alerts"><div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune alerte</div></div>
-  </div>
-</div>
+  <!-- ══ PAGE: DASHBOARD ══ -->
+  <div class="page active" id="page-dashboard">
+    <div class="section-title">TABLEAU DE BORD</div>
+    <div class="section-sub">MAI 2026 · RÉSERVOIR DÉCANTEUR</div>
 
-<!-- PLAN PM -->
-<div class="page" id="page-plan">
-  <div class="s-head">
-    <div class="s-title">Plan de maintenance</div>
-    <div class="s-sub">PRÉVENTIVE SYSTÉMATIQUE · TK2701B</div>
-  </div>
-  <div class="tabs">
-    <button class="tab active" onclick="showPlanTab('pm',this)">Plan PM</button>
-    <button class="tab" onclick="showPlanTab('gammes',this)">Gammes</button>
-    <button class="tab" onclick="showPlanTab('suivi',this)">Suivi</button>
-    <button class="tab" onclick="showPlanTab('visite',this)">Visite</button>
-  </div>
-  <div id="pt-pm">
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list-check"></i></div>Folio 1/3</div><div class="tw"><table><thead><tr><th>Opération</th><th>Exec.</th><th>Fréq.</th><th>Obs.</th><th></th></tr></thead><tbody id="pm1"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addPM(1)"><i class="ti ti-plus"></i> Ajouter</button></div>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list-check"></i></div>Folio 2/3</div><div class="tw"><table><thead><tr><th>Opération</th><th>Exec.</th><th>Fréq.</th><th>Obs.</th><th></th></tr></thead><tbody id="pm2"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addPM(2)"><i class="ti ti-plus"></i> Ajouter</button></div>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list-check"></i></div>Folio 3/3</div><div class="tw"><table><thead><tr><th>Opération</th><th>Exec.</th><th>Fréq.</th><th>Obs.</th><th></th></tr></thead><tbody id="pm3"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addPM(3)"><i class="ti ti-plus"></i> Ajouter</button></div>
-  </div>
-  <div id="pt-gammes" style="display:none">
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°1 — En fonctionnement</div><div class="mono dim mb12" style="font-size:10px">Électricien + Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g1"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(1)"><i class="ti ti-plus"></i> Ajouter</button></div>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°2 — En fonctionnement</div><div class="mono dim mb12" style="font-size:10px">Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g2"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(2)"><i class="ti ti-plus"></i> Ajouter</button></div>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°3</div><div class="mono dim mb12" style="font-size:10px">Électricien + Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g3"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(3)"><i class="ti ti-plus"></i> Ajouter</button></div>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-tools"></i></div>Gamme N°4</div><div class="mono dim mb12" style="font-size:10px">Électricien + Mécanicien</div><div class="tw"><table><thead><tr><th>#</th><th>Opération</th><th>Tps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead><tbody id="g4"></tbody></table></div><button class="btn btn-outline btn-sm mt8" onclick="addGamme(4)"><i class="ti ti-plus"></i> Ajouter</button></div>
-  </div>
-  <div id="pt-suivi" style="display:none">
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-calendar-check"></i></div>Suivi mensuel — <span id="suivi-month-label">Mai 2026</span></div><div class="tw" id="suivi-wrap"></div></div>
-  </div>
-  <div id="pt-visite" style="display:none">
-    <div class="card">
-      <div class="card-head"><div class="ch-icon"><i class="ti ti-clipboard-check"></i></div>Feuille de visite</div>
-      <div class="flex-b mb12">
-        <div><div class="mono dim" style="font-size:10px">Mécanicien · Quinzaine</div></div>
-        <input type="date" class="fi" style="width:140px;font-size:11px" id="v-date">
-      </div>
-      <div class="mono dim mb12" style="font-size:9px">RAS = Rien à signaler · DD = Début dégradation · DA = Dégradation avancée · II = Intervention immédiate</div>
-      <div id="visite-points"></div>
-      <div class="fg mt12"><label class="fl">Rédacteur</label><input class="fi" id="v-red" placeholder="Nom"></div>
-      <button class="btn btn-primary btn-full mt8" onclick="saveVisite()"><i class="ti ti-device-floppy"></i> Enregistrer</button>
-    </div>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-history"></i></div>Historique visites</div><div id="visite-hist"></div></div>
-  </div>
-</div>
-
-<!-- INTERVENTIONS -->
-<div class="page" id="page-int">
-  <div class="s-head">
-    <div class="s-title">Interventions</div>
-    <div class="s-sub">HISTORIQUE ET SUIVI</div>
-  </div>
-  <div class="tabs">
-    <button class="tab active" onclick="showIntTab('mc',this)">Corrective</button>
-    <button class="tab" onclick="showIntTab('mp',this)">Préventive</button>
-    <button class="tab" onclick="showIntTab('an',this)">Anomalies</button>
-  </div>
-  <div id="it-mc">
-    <button class="btn btn-primary btn-full mb12" onclick="openIntModal('MC')"><i class="ti ti-plus"></i> Nouvelle MC</button>
-    <div class="card"><div class="card-head"><div class="ch-icon" style="background:var(--orange-light);color:var(--orange)"><i class="ti ti-hammer"></i></div>Maintenance corrective</div><div id="mc-list"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune intervention</div></div></div>
-  </div>
-  <div id="it-mp" style="display:none">
-    <button class="btn btn-primary btn-full mb12" onclick="openIntModal('MP')"><i class="ti ti-plus"></i> Nouvelle MP</button>
-    <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-shield-check"></i></div>Maintenance préventive</div><div id="mp-list"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune intervention</div></div></div>
-  </div>
-  <div id="it-an" style="display:none">
-    <button class="btn btn-primary btn-full mb12" onclick="openAnomalyModal()"><i class="ti ti-plus"></i> Déclarer anomalie</button>
-    <div class="card"><div class="card-head"><div class="ch-icon" style="background:var(--red-light);color:var(--red)"><i class="ti ti-alert-triangle"></i></div>Anomalies détectées</div><div id="an-list"><div class="mono dim" style="text-align:center;padding:16px;font-size:11px">Aucune anomalie</div></div></div>
-  </div>
-</div>
-
-<!-- PLANNING -->
-<div class="page" id="page-plan2">
-  <div class="s-head">
-    <div class="s-title">Planification</div>
-    <div class="s-sub">CALENDRIER DES INTERVENTIONS</div>
-  </div>
-  <div class="card">
-    <div class="card-head">
-      <div class="ch-icon"><i class="ti ti-calendar"></i></div>
-      <span id="cal-label">Mai 2026</span>
-      <div style="margin-left:auto;display:flex;gap:6px">
-        <button class="btn btn-outline btn-sm" onclick="prevM()"><i class="ti ti-chevron-left"></i></button>
-        <button class="btn btn-outline btn-sm" onclick="nextM()"><i class="ti ti-chevron-right"></i></button>
-      </div>
-    </div>
-    <div class="cal-grid" id="cal"></div>
-  </div>
-  <div class="card"><div class="card-head"><div class="ch-icon"><i class="ti ti-list"></i></div>Interventions planifiées</div><div id="plan-list"><div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucun événement</div></div></div>
-  <button class="btn btn-primary btn-full mt8" onclick="openModal('m-plan')"><i class="ti ti-plus"></i> Planifier une intervention</button>
-</div>
-
-<!-- RAPPORTS -->
-<div class="page" id="page-rap">
-  <div class="s-head">
-    <div class="s-title">Rapports</div>
-    <div class="s-sub">EXPORT ET CONSIGNATION</div>
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="ch-icon"><i class="ti ti-chart-pie"></i></div>Statistiques</div>
     <div class="kpi-grid">
-      <div class="kpi k-blue"><div class="kpi-l">Total</div><div class="kpi-v" id="r-tot">0</div></div>
-      <div class="kpi k-orange"><div class="kpi-l">MC</div><div class="kpi-v" id="r-mc">0</div></div>
-      <div class="kpi k-green"><div class="kpi-l">MP</div><div class="kpi-v" id="r-mp">0</div></div>
-      <div class="kpi k-red"><div class="kpi-l">Anomalies</div><div class="kpi-v" id="r-an">0</div></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-head"><div class="ch-icon" style="background:var(--red-light);color:var(--red)"><i class="ti ti-lock"></i></div>Consignation & Sécurité</div>
-    <div class="fg"><label class="fl">Responsable consignation</label><input class="fi" id="c-resp" placeholder="Nom"></div>
-    <div class="fg"><label class="fl">Date</label><input type="date" class="fi" id="c-date"></div>
-    <div class="fg"><label class="fl">EPI requis</label>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px">
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-ch"> Chaussures sécu.</label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-cas"> Casque</label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-mas"> Masque</label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-ten"> Tenue</label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-lun"> Lunettes</label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" id="e-gants"> Gants</label>
+      <div class="kpi accent">
+        <div class="kpi-label">Opérations planifiées</div>
+        <div class="kpi-value" id="kpi-planned">0</div>
+        <div class="kpi-sub">ce mois</div>
+      </div>
+      <div class="kpi success">
+        <div class="kpi-label">Réalisées</div>
+        <div class="kpi-value" id="kpi-done">0</div>
+        <div class="kpi-sub">interventions</div>
+      </div>
+      <div class="kpi danger">
+        <div class="kpi-label">Anomalies</div>
+        <div class="kpi-value" id="kpi-anomalies">0</div>
+        <div class="kpi-sub">actives</div>
+      </div>
+      <div class="kpi blue">
+        <div class="kpi-label">Criticité max</div>
+        <div class="kpi-value" id="kpi-criticite">48</div>
+        <div class="kpi-sub">AMDEC</div>
       </div>
     </div>
-    <div class="fg"><label class="fl">Consignes particulières</label><textarea class="ft" id="c-notes" placeholder="Consignes de sécurité spécifiques..."></textarea></div>
-    <div class="fg"><label class="fl">Chef des travaux (déconsignation)</label><input class="fi" id="c-dec" placeholder="Nom"></div>
-    <button class="btn btn-primary btn-full mt8" onclick="saveConsign()"><i class="ti ti-device-floppy"></i> Enregistrer</button>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>ALERTES ACTIVES</div>
+      <div id="dash-alerts">
+        <div class="alert-item">
+          <div class="alert-dot high"></div>
+          <div>
+            <div class="alert-text">Usure roulements Moteur 1 — Criticité 48</div>
+            <div class="alert-meta">AMDEC · Action MP requise</div>
+          </div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-dot high"></div>
+          <div>
+            <div class="alert-text">Usure coussinets — Criticité 48</div>
+            <div class="alert-meta">AMDEC · Remplacement planifié</div>
+          </div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-dot med"></div>
+          <div>
+            <div class="alert-text">Vidange huile réducteur à programmer</div>
+            <div class="alert-meta">Plan PM · 2500h d'usage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>TAUX DE RÉALISATION</div>
+      <div class="flex-between mt-8">
+        <span class="text-mono text-dim">Opérations PM</span>
+        <span class="text-mono text-accent" id="pm-rate">0%</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-fill" id="pm-bar" style="background:var(--accent);width:0%"></div>
+      </div>
+      <div class="flex-between mt-8">
+        <span class="text-mono text-dim">Opérations MC</span>
+        <span class="text-mono" style="color:var(--accent2)" id="mc-rate">0%</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-fill" id="mc-bar" style="background:var(--accent2);width:0%"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>ÉQUIPEMENTS CRITIQUES</div>
+      <div class="eq-item">
+        <div class="eq-icon">⚙️</div>
+        <div class="eq-info">
+          <div class="eq-name">Moteurs 1 & 2</div>
+          <div class="eq-meta">Criticité max: 48 · Roulements / Surcharge</div>
+        </div>
+        <div class="eq-status">🔴</div>
+      </div>
+      <div class="eq-item">
+        <div class="eq-icon">🔩</div>
+        <div class="eq-info">
+          <div class="eq-name">Arbre Central</div>
+          <div class="eq-meta">Criticité max: 48 · Corrosion / Cisaillement</div>
+        </div>
+        <div class="eq-status">🟡</div>
+      </div>
+      <div class="eq-item">
+        <div class="eq-icon">⚡</div>
+        <div class="eq-info">
+          <div class="eq-name">Système Roue-Pignon</div>
+          <div class="eq-meta">Criticité max: 48 · Usure dents</div>
+        </div>
+        <div class="eq-status">🟡</div>
+      </div>
+    </div>
   </div>
-  <div class="card">
-    <div class="card-head"><div class="ch-icon"><i class="ti ti-download"></i></div>Exporter</div>
-    <div class="exp-box" onclick="exportJSON()"><div class="exp-icon"><i class="ti ti-database-export"></i></div><div class="exp-label">Sauvegarde JSON</div><div class="exp-sub">Toutes les données locales</div></div>
-    <div class="exp-box" onclick="genReport()"><div class="exp-icon"><i class="ti ti-file-report"></i></div><div class="exp-label">Rapport HTML</div><div class="exp-sub">Générer rapport imprimable</div></div>
-    <div class="exp-box" onclick="document.getElementById('imp-f').click()"><div class="exp-icon"><i class="ti ti-database-import"></i></div><div class="exp-label">Importer données</div><div class="exp-sub">Restaurer depuis JSON</div></div>
-    <input type="file" id="imp-f" accept=".json" style="display:none" onchange="doImport(event)">
+
+  <!-- ══ PAGE: AMDEC ══ -->
+  <div class="page" id="page-amdec">
+    <div class="section-title">GRILLE AMDEC</div>
+    <div class="section-sub">TK2701B · ANALYSE DES DÉFAILLANCES</div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="amdec-search" placeholder="Rechercher élément, mode..." oninput="filterAMDEC()">
+    </div>
+
+    <div class="tab-group">
+      <button class="tab-btn active" onclick="filterAMDECType('all',this)">Tous</button>
+      <button class="tab-btn" onclick="filterAMDECType('high',this)">≥40</button>
+      <button class="tab-btn" onclick="filterAMDECType('med',this)">24–39</button>
+      <button class="tab-btn" onclick="filterAMDECType('low',this)">&lt;24</button>
+    </div>
+
+    <div id="amdec-container"></div>
+
+    <button class="btn btn-primary btn-full mt-12" onclick="openAMDECModal()">+ AJOUTER ENTRÉE</button>
   </div>
-</div>
+
+  <!-- ══ PAGE: PLAN MAINTENANCE ══ -->
+  <div class="page" id="page-plan">
+    <div class="section-title">PLAN DE MAINTENANCE</div>
+    <div class="section-sub">TK2701B · PRÉVENTIVE SYSTÉMATIQUE</div>
+
+    <div class="tab-group">
+      <button class="tab-btn active" onclick="showPlanTab('pm',this)">Plan PM</button>
+      <button class="tab-btn" onclick="showPlanTab('gammes',this)">Gammes</button>
+      <button class="tab-btn" onclick="showPlanTab('suivi',this)">Suivi</button>
+      <button class="tab-btn" onclick="showPlanTab('visite',this)">Visite</button>
+    </div>
+
+    <!-- Plan PM -->
+    <div id="plan-pm">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>PLAN PM — FOLIO 1/3</div>
+        <div class="tbl-wrap">
+          <table id="pm-table-1">
+            <thead>
+              <tr>
+                <th>Opération</th>
+                <th>Exec.</th>
+                <th>Freq.</th>
+                <th>Obs.</th>
+                <th>Act.</th>
+              </tr>
+            </thead>
+            <tbody id="pm-body-1"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addPMRow(1)">+ Ajouter</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>PLAN PM — FOLIO 2/3</div>
+        <div class="tbl-wrap">
+          <table id="pm-table-2">
+            <thead>
+              <tr>
+                <th>Opération</th>
+                <th>Exec.</th>
+                <th>Freq.</th>
+                <th>Obs.</th>
+                <th>Act.</th>
+              </tr>
+            </thead>
+            <tbody id="pm-body-2"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addPMRow(2)">+ Ajouter</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>PLAN PM — FOLIO 3/3</div>
+        <div class="tbl-wrap">
+          <table id="pm-table-3">
+            <thead>
+              <tr>
+                <th>Opération</th>
+                <th>Exec.</th>
+                <th>Freq.</th>
+                <th>Obs.</th>
+                <th>Act.</th>
+              </tr>
+            </thead>
+            <tbody id="pm-body-3"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addPMRow(3)">+ Ajouter</button>
+      </div>
+    </div>
+
+    <!-- Gammes -->
+    <div id="plan-gammes" style="display:none">
+      <div class="card" id="gamme-1-card">
+        <div class="card-title"><span class="dot"></span>GAMME N°1 — EN FONCTIONNEMENT</div>
+        <div class="section-sub" style="margin-bottom:10px">Électricien + Mécanicien · Équipe Mécanique + Électrique</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Opération</th><th>Temps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead>
+            <tbody id="gamme1-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addGammeRow(1)">+ Ajouter</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>GAMME N°2 — EN FONCTIONNEMENT</div>
+        <div class="section-sub" style="margin-bottom:10px">Mécanicien · Équipe Mécanique</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Opération</th><th>Temps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead>
+            <tbody id="gamme2-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addGammeRow(2)">+ Ajouter</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>GAMME N°3 — EN FONCTIONNEMENT</div>
+        <div class="section-sub" style="margin-bottom:10px">Électricien + Mécanicien</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Opération</th><th>Temps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead>
+            <tbody id="gamme3-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addGammeRow(3)">+ Ajouter</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>GAMME N°4 — EN FONCTIONNEMENT</div>
+        <div class="section-sub" style="margin-bottom:10px">Électricien + Mécanicien</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Opération</th><th>Temps</th><th>Matériel</th><th>P.R.</th><th>Obs.</th><th></th></tr></thead>
+            <tbody id="gamme4-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline btn-sm mt-12" onclick="addGammeRow(4)">+ Ajouter</button>
+      </div>
+    </div>
+
+    <!-- Suivi Mensuel -->
+    <div id="plan-suivi" style="display:none">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>SUIVI MENSUEL — MAI 2026</div>
+        <div class="tbl-wrap" id="suivi-container"></div>
+      </div>
+    </div>
+
+    <!-- Feuille de Visite -->
+    <div id="plan-visite" style="display:none">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>FEUILLE DE VISITE</div>
+        <div class="flex-between mb-12">
+          <div>
+            <div class="text-mono text-dim">Intervenant: Mécanicien</div>
+            <div class="text-mono text-dim">Périodicité: Quinzaine</div>
+          </div>
+          <input type="date" class="form-input" style="width:140px;font-size:11px" id="visite-date">
+        </div>
+        <div class="text-mono text-dim mb-12" style="font-size:9px">
+          RAS = Rien à signaler · DD = Début dégradation · DA = Dégradation avancée · II = Intervention immédiate
+        </div>
+        <div id="visite-table-container"></div>
+        <div class="form-group mt-12">
+          <label class="form-label">Rédacteur</label>
+          <input class="form-input" id="visite-redacteur" placeholder="Nom du rédacteur">
+        </div>
+        <button class="btn btn-primary btn-full mt-8" onclick="saveVisite()">ENREGISTRER LA VISITE</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>HISTORIQUE VISITES</div>
+        <div id="visite-history"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: INTERVENTIONS ══ -->
+  <div class="page" id="page-interventions">
+    <div class="section-title">INTERVENTIONS</div>
+    <div class="section-sub">HISTORIQUE ET SUIVI</div>
+
+    <div class="tab-group">
+      <button class="tab-btn active" onclick="showIntTab('corrective',this)">Corrective</button>
+      <button class="tab-btn" onclick="showIntTab('preventive',this)">Préventive</button>
+      <button class="tab-btn" onclick="showIntTab('anomalies',this)">Anomalies</button>
+    </div>
+
+    <div id="int-corrective">
+      <button class="btn btn-primary btn-full mb-12" onclick="openIntModal('MC')">+ NOUVELLE INTERVENTION MC</button>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>MAINTENANCE CORRECTIVE</div>
+        <div id="mc-list"><div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucune intervention enregistrée</div></div>
+      </div>
+    </div>
+
+    <div id="int-preventive" style="display:none">
+      <button class="btn btn-primary btn-full mb-12" onclick="openIntModal('MP')">+ NOUVELLE INTERVENTION MP</button>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>MAINTENANCE PRÉVENTIVE</div>
+        <div id="mp-list"><div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucune intervention enregistrée</div></div>
+      </div>
+    </div>
+
+    <div id="int-anomalies" style="display:none">
+      <button class="btn btn-primary btn-full mb-12" onclick="openAnomalyModal()">+ DÉCLARER ANOMALIE</button>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>ANOMALIES DÉTECTÉES</div>
+        <div id="anomaly-list"><div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucune anomalie enregistrée</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: PLANNING ══ -->
+  <div class="page" id="page-planning">
+    <div class="section-title">PLANIFICATION</div>
+    <div class="section-sub">CALENDRIER DES INTERVENTIONS</div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>
+        <span id="cal-month-label">MAI 2026</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" onclick="prevMonth()">‹</button>
+          <button class="btn btn-outline btn-sm" onclick="nextMonth()">›</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>INTERVENTIONS PLANIFIÉES</div>
+      <div id="plan-events-list">
+        <div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucun événement planifié</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-full mt-8" onclick="openPlanModal()">+ PLANIFIER INTERVENTION</button>
+  </div>
+
+  <!-- ══ PAGE: RAPPORT ══ -->
+  <div class="page" id="page-rapport">
+    <div class="section-title">RAPPORTS</div>
+    <div class="section-sub">EXPORT ET GÉNÉRATION</div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>STATISTIQUES PÉRIODE</div>
+      <div class="kpi-grid">
+        <div class="kpi accent">
+          <div class="kpi-label">Total interventions</div>
+          <div class="kpi-value" id="stat-total">0</div>
+        </div>
+        <div class="kpi success">
+          <div class="kpi-label">MC résolues</div>
+          <div class="kpi-value" id="stat-mc">0</div>
+        </div>
+        <div class="kpi blue">
+          <div class="kpi-label">MP réalisées</div>
+          <div class="kpi-value" id="stat-mp">0</div>
+        </div>
+        <div class="kpi danger">
+          <div class="kpi-label">Anomalies</div>
+          <div class="kpi-value" id="stat-an">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>CONSIGNATION & SÉCURITÉ</div>
+      <div class="form-group">
+        <label class="form-label">Responsable consignation</label>
+        <input class="form-input" id="consign-resp" placeholder="Nom du responsable">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date de consignation</label>
+        <input type="date" class="form-input" id="consign-date">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Équipements de protection</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px" id="epi-checks">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="epi-chaussures"> <span style="font-size:12px">Chaussures sécu.</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="epi-casque"> <span style="font-size:12px">Casque</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="epi-masque"> <span style="font-size:12px">Masque</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="epi-tenue"> <span style="font-size:12px">Tenue</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="epi-lunettes"> <span style="font-size:12px">Lunettes</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="epi-gants"> <span style="font-size:12px">Gants</span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Consignes particulières</label>
+        <textarea class="form-textarea" id="consign-notes" placeholder="Consignes de sécurité spécifiques..."></textarea>
+      </div>
+      <div class="flex-between mt-8">
+        <div>
+          <div class="text-mono text-dim">Chef des travaux (déconsignation)</div>
+          <input class="form-input mt-8" id="deconsign-resp" placeholder="Nom du chef de travaux">
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full mt-12" onclick="saveConsignation()">ENREGISTRER CONSIGNATION</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>EXPORTER DONNÉES</div>
+      <div class="export-section" onclick="exportJSON()">
+        <div class="export-icon">📦</div>
+        <div class="export-label">Sauvegarde JSON</div>
+        <div class="export-sub">Exporter toutes les données locales</div>
+      </div>
+      <div class="export-section" onclick="generateReport()">
+        <div class="export-icon">📄</div>
+        <div class="export-label">Rapport HTML</div>
+        <div class="export-sub">Générer rapport imprimable</div>
+      </div>
+      <div class="export-section" onclick="importData()">
+        <div class="export-icon">📥</div>
+        <div class="export-label">Importer données</div>
+        <div class="export-sub">Restaurer depuis fichier JSON</div>
+        <input type="file" id="import-file" accept=".json" style="display:none" onchange="doImport(event)">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>RÉFÉRENCES BIBLIOGRAPHIQUES</div>
+      <div id="refs-list"></div>
+      <button class="btn btn-outline btn-sm mt-12" onclick="openRefModal()">+ Ajouter référence</button>
+    </div>
+  </div>
 
 </main>
 
+<!-- NAVIGATION -->
 <nav>
-  <button class="nav-i active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard ni"></i>Bord</button>
-  <button class="nav-i" onclick="showPage('plan',this)"><i class="ti ti-clipboard-list ni"></i>Plan PM</button>
-  <button class="nav-i" onclick="showPage('int',this)"><i class="ti ti-tool ni"></i>Actions</button>
-  <button class="nav-i" onclick="showPage('plan2',this)"><i class="ti ti-calendar ni"></i>Planning</button>
-  <button class="nav-i" onclick="showPage('rap',this)"><i class="ti ti-file-text ni"></i>Rapports</button>
+  <button class="nav-item active" onclick="showPage('dashboard',this)">
+    <span class="nav-icon">📊</span>Dashboard
+  </button>
+  <button class="nav-item" onclick="showPage('amdec',this)">
+    <span class="nav-icon">⚠️</span>AMDEC
+  </button>
+  <button class="nav-item" onclick="showPage('plan',this)">
+    <span class="nav-icon">📋</span>Plan PM
+  </button>
+  <button class="nav-item" onclick="showPage('interventions',this)">
+    <span class="nav-icon">🔧</span>Actions
+  </button>
+  <button class="nav-item" onclick="showPage('planning',this)">
+    <span class="nav-icon">📅</span>Planning
+  </button>
+  <button class="nav-item" onclick="showPage('rapport',this)">
+    <span class="nav-icon">📄</span>Rapports
+  </button>
 </nav>
 
-<!-- MODALS -->
+<!-- ══ MODALS ══ -->
 
-<!-- Intervention modal -->
-<div class="mb" id="m-int">
+<!-- Modal AMDEC -->
+<div class="modal-backdrop" id="modal-amdec">
   <div class="modal">
-    <div class="mt" id="m-int-title">Nouvelle intervention <button class="mc" onclick="closeModal('m-int')"><i class="ti ti-x"></i></button></div>
-    <input type="hidden" id="i-type"><input type="hidden" id="i-eid">
-    <div class="fg"><label class="fl">Votre nom / rôle</label><input class="fi" id="i-who" placeholder="Ex: H. Talbi — Mécanicien"></div>
-    <div class="fg"><label class="fl">Date</label><input type="date" class="fi" id="i-date"></div>
-    <div class="fg"><label class="fl">Élément</label>
-      <select class="fs" id="i-el">
-        <option value="">Sélectionner...</option>
-        <option>Moteurs 1 et 2</option><option>Réducteurs</option><option>Arbre central</option>
-        <option>Bras de raclage</option><option>Lames de raclage</option><option>Coussinets</option>
-        <option>Système roue-pignon</option><option>Bride & Accouplement</option><option>Carter</option>
-        <option>Vis sans fin</option><option>Autre</option>
-      </select>
+    <div class="modal-title">ENTRÉE AMDEC <button class="modal-close" onclick="closeModal('modal-amdec')">✕</button></div>
+    <input type="hidden" id="amdec-edit-id">
+    <div class="form-group">
+      <label class="form-label">Élément</label>
+      <input class="form-input" id="amdec-element" placeholder="Ex: Moteurs 1 et 2">
     </div>
-    <div class="fg"><label class="fl">Description</label><textarea class="ft" id="i-desc" placeholder="Décrire l'intervention..."></textarea></div>
-    <div class="fg"><label class="fl">Pièces / Matériel</label><input class="fi" id="i-pieces" placeholder="Ex: Roulements 6205, joints..."></div>
-    <div class="fg"><label class="fl">Durée (h)</label><input class="fi" type="number" id="i-dur" placeholder="Ex: 2.5"></div>
-    <div class="fg"><label class="fl">Priorité</label>
-      <select class="fs" id="i-prio"><option value="high">🔴 Haute</option><option value="med" selected>🟡 Moyenne</option><option value="low">🟢 Faible</option></select>
+    <div class="form-group">
+      <label class="form-label">Fonction</label>
+      <input class="form-input" id="amdec-fonction" placeholder="Ex: Assurer l'entraînement...">
     </div>
-    <div class="fg"><label class="fl">Statut</label>
-      <select class="fs" id="i-stat"><option value="done">Terminée</option><option value="progress">En cours</option><option value="planned">Planifiée</option></select>
+    <div class="form-group">
+      <label class="form-label">Mode de défaillance</label>
+      <input class="form-input" id="amdec-mode" placeholder="Ex: Court-circuit de bobinage">
     </div>
-    <div class="fg"><label class="fl">Observations</label><textarea class="ft" id="i-obs" placeholder="Remarques techniques..."></textarea></div>
-    <div class="flex gap8 mt8">
-      <button class="btn btn-outline" style="flex:1" onclick="closeModal('m-int')">Annuler</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveInt()"><i class="ti ti-device-floppy"></i> Enregistrer</button>
+    <div class="form-group">
+      <label class="form-label">Causes</label>
+      <textarea class="form-textarea" id="amdec-causes" placeholder="Ex: Surcharge électrique, humidité..."></textarea>
     </div>
-  </div>
-</div>
-
-<!-- Anomalie modal -->
-<div class="mb" id="m-anom">
-  <div class="modal">
-    <div class="mt">Déclarer une anomalie <button class="mc" onclick="closeModal('m-anom')"><i class="ti ti-x"></i></button></div>
-    <input type="hidden" id="an-eid">
-    <div class="fg"><label class="fl">Votre nom / rôle</label><input class="fi" id="an-who" placeholder="Ex: F. Kraiem — Opérateur"></div>
-    <div class="fg"><label class="fl">Date détection</label><input type="date" class="fi" id="an-date"></div>
-    <div class="fg"><label class="fl">Équipement</label>
-      <select class="fs" id="an-el">
-        <option value="">Sélectionner...</option>
-        <option>Moteurs 1 et 2</option><option>Réducteurs</option><option>Arbre central</option>
-        <option>Bras de raclage</option><option>Système roue-pignon</option><option>Coussinets</option><option>Autre</option>
-      </select>
+    <div class="form-group">
+      <label class="form-label">Effets</label>
+      <textarea class="form-textarea" id="amdec-effets" placeholder="Ex: Arrêt du moteur..."></textarea>
     </div>
-    <div class="fg"><label class="fl">Description</label><textarea class="ft" id="an-desc" placeholder="Décrire l'anomalie..."></textarea></div>
-    <div class="fg"><label class="fl">Niveau</label>
-      <select class="fs" id="an-lvl"><option value="high">🔴 Critique</option><option value="med">🟡 Modérée</option><option value="low">🟢 Faible</option></select>
+    <div class="form-group">
+      <label class="form-label">Détection</label>
+      <input class="form-input" id="amdec-detection" placeholder="Ex: Odeur de brûlé, mesure température">
     </div>
-    <div class="flex gap8 mt8">
-      <button class="btn btn-outline" style="flex:1" onclick="closeModal('m-anom')">Annuler</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveAnomaly()"><i class="ti ti-alert-triangle"></i> Déclarer</button>
-    </div>
-  </div>
-</div>
-
-<!-- Planning modal -->
-<div class="mb" id="m-plan">
-  <div class="modal">
-    <div class="mt">Planifier une intervention <button class="mc" onclick="closeModal('m-plan')"><i class="ti ti-x"></i></button></div>
-    <div class="fg"><label class="fl">Date</label><input type="date" class="fi" id="p-date"></div>
-    <div class="fg"><label class="fl">Type</label>
-      <select class="fs" id="p-type"><option value="MP">Maintenance Préventive (MP)</option><option value="MC">Maintenance Corrective (MC)</option><option value="Inspection">Inspection</option><option value="Visite">Visite périodique</option></select>
-    </div>
-    <div class="fg"><label class="fl">Description</label><textarea class="ft" id="p-desc" placeholder="Description..."></textarea></div>
-    <div class="fg"><label class="fl">Responsable</label><input class="fi" id="p-resp" placeholder="Mécanicien, Électricien..."></div>
-    <div class="flex gap8 mt8">
-      <button class="btn btn-outline" style="flex:1" onclick="closeModal('m-plan')">Annuler</button>
-      <button class="btn btn-primary" style="flex:2" onclick="savePlan()"><i class="ti ti-device-floppy"></i> Planifier</button>
-    </div>
-  </div>
-</div>
-
-<!-- Feed / Activités modal -->
-<div class="mb" id="m-feed">
-  <div class="modal">
-    <div class="mt">Activités de l'équipe <button class="mc" onclick="closeModal('m-feed')"><i class="ti ti-x"></i></button></div>
-    <div class="mono dim mb12" style="font-size:10px">Toutes les modifications et ajouts visibles par toute l'équipe</div>
-    <div id="feed-full"><div class="mono dim" style="text-align:center;padding:20px;font-size:11px">Aucune activité</div></div>
-    <button class="btn btn-outline btn-full mt12" onclick="clearFeed()"><i class="ti ti-trash"></i> Vider le fil</button>
-  </div>
-</div>
-
-<!-- Settings modal -->
-<div class="mb" id="m-settings">
-  <div class="modal">
-    <div class="mt">Paramètres <button class="mc" onclick="closeModal('m-settings')"><i class="ti ti-x"></i></button></div>
-    <div class="fg"><label class="fl">Équipement</label><input class="fi" value="Réservoir Décanteur TK2701B" id="s-eq"></div>
-    <div class="fg"><label class="fl">Site</label><input class="fi" value="GCT — Usine Acide Phosphorique" id="s-site"></div>
-    <div class="fg"><label class="fl">Mon nom (pour les notifications)</label><input class="fi" id="s-myname" placeholder="Ex: Haithem Talbi"></div>
-    <hr class="sep">
-    <div style="background:var(--accent-light);border:1px solid #B5D4F4;border-radius:var(--r);padding:10px 12px;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:4px"><i class="ti ti-database"></i> Firebase Realtime Database</div>
-      <div class="mono dim" style="font-size:10px">Données synchronisées en temps réel.<br>⚙️ Remplace la <code>firebaseConfig</code> dans le code source par la tienne.</div>
-    </div>
-    <button class="btn btn-danger btn-full" onclick="clearAll()"><i class="ti ti-trash"></i> Réinitialiser toutes les données</button>
-    <div class="mono dim mt8" style="text-align:center;font-size:9px">CMMS v4.0 Firebase · GCT · Fitouri Kraiem & Haithem Talbi</div>
-  </div>
-</div>
-
-<script type="module">
-// ═══════════════════════════════════════════════════════════
-//  FIREBASE CONFIG — remplace par ta propre config Firebase
-// ═══════════════════════════════════════════════════════════
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getDatabase,ref,set,get,push,remove,onValue,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-const firebaseConfig={
-  apiKey:"AIzaSyDEMO_REPLACE_WITH_YOUR_KEY",
-  authDomain:"gct-cmms-tk2701b.firebaseapp.com",
-  databaseURL:"https://gct-cmms-tk2701b-default-rtdb.firebaseio.com",
-  projectId:"gct-cmms-tk2701b",
-  storageBucket:"gct-cmms-tk2701b.appspot.com",
-  messagingSenderId:"000000000000",
-  appId:"1:000000000000:web:0000000000000000"
-};
-
-const _app=initializeApp(firebaseConfig);
-const _db=getDatabase(_app);
-const ROOT='gct_cmms_tk2701b'; // nœud racine dans Firebase
-
-// ═══════════════════════════════════════════════════════════
-//  ÉTAT & CONSTANTES
-// ═══════════════════════════════════════════════════════════
-const DB='gct_cmms3'; // gardé pour fallback localStorage
-let myName='Équipe';
-let lastFeedCount=0;
-let _feedListener=null;
-let _stateListener=null;
-let _saving=false; // anti-boucle onValue
-
-let st={
-  interventions:[],anomalies:[],planEvents:[],
-  pmRows:{1:[],2:[],3:[]},
-  gammes:{1:[],2:[],3:[],4:[]},
-  suiviData:{},
-  visiteHistory:[],
-  calM:new Date().getMonth(),calY:new Date().getFullYear(),
-};
-
-// ── helpers ──────────────────────────────────────────────
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2)}
-function today(){return new Date().toISOString().split('T')[0]}
-function fdate(d){return d?new Date(d+'T00:00:00').toLocaleDateString('fr-FR'):''}
-function fname(){return (document.getElementById('s-myname')||{}).value||myName||'Équipe'}
-
-// Convertit les tableaux JS en objets indexés pour Firebase
-// (Firebase rejette les tableaux avec des trous)
-function arrToObj(arr){const o={};arr.forEach((v,i)=>o[i]=v);return o;}
-function objToArr(obj){if(!obj)return[];return Object.keys(obj).sort((a,b)=>+a-+b).map(k=>obj[k]);}
-
-// Prépare st pour Firebase : remplace les tableaux par des objets
-function stForFirebase(){
-  const s=JSON.parse(JSON.stringify(st));
-  s.interventions=arrToObj(s.interventions||[]);
-  s.anomalies=arrToObj(s.anomalies||[]);
-  s.planEvents=arrToObj(s.planEvents||[]);
-  s.visiteHistory=arrToObj(s.visiteHistory||[]);
-  [1,2,3].forEach(f=>s.pmRows[f]=arrToObj(s.pmRows[f]||[]));
-  [1,2,3,4].forEach(g=>s.gammes[g]=arrToObj(s.gammes[g]||[]));
-  return s;
-}
-
-// Rehydrate st depuis Firebase (objets → tableaux)
-function stFromFirebase(raw){
-  const s={...st,...raw};
-  s.interventions=objToArr(raw.interventions);
-  s.anomalies=objToArr(raw.anomalies);
-  s.planEvents=objToArr(raw.planEvents);
-  s.visiteHistory=objToArr(raw.visiteHistory);
-  if(raw.pmRows){[1,2,3].forEach(f=>s.pmRows[f]=objToArr(raw.pmRows[f]));}
-  if(raw.gammes){[1,2,3,4].forEach(g=>s.gammes[g]=objToArr(raw.gammes[g]));}
-  return s;
-}
-
-// ── SAVE ────────────────────────────────────────────────────
-async function save(){
-  _saving=true;
-  try{
-    await set(ref(_db,ROOT+'/state'),stForFirebase());
-  }catch(e){
-    // fallback localStorage
-    try{localStorage.setItem(DB,JSON.stringify(st));}catch(_){}
-    showSyncStatus('offline');
-  }finally{
-    setTimeout(()=>{_saving=false;},500);
-  }
-}
-
-// ── LOAD ────────────────────────────────────────────────────
-async function load(){
-  try{
-    const snap=await get(ref(_db,ROOT+'/state'));
-    if(snap.exists()){st=stFromFirebase(snap.val());return;}
-  }catch(e){}
-  // fallback localStorage
-  try{const d=localStorage.getItem(DB);if(d)st={...st,...JSON.parse(d)};}catch(_){}
-}
-
-// ── SYNC STATUS INDICATOR ───────────────────────────────────
-function showSyncStatus(s){
-  let el=document.getElementById('sync-dot');
-  if(!el){el=document.createElement('div');el.id='sync-dot';
-    el.style.cssText='position:fixed;top:10px;right:10px;z-index:9999;width:8px;height:8px;border-radius:50%;';
-    document.body.appendChild(el);}
-  el.style.background=s==='online'?'#1A6B3A':s==='offline'?'#A32D2D':'#854F0B';
-  el.title=s==='online'?'Firebase connecté':s==='offline'?'Hors ligne':'Synchronisation...';
-}
-
-// ── REALTIME LISTENERS ──────────────────────────────────────
-function startListeners(){
-  // Écoute l'état global → sync multi-utilisateurs
-  if(_stateListener)return;
-  _stateListener=onValue(ref(_db,ROOT+'/state'),(snap)=>{
-    if(_saving)return; // éviter boucle quand c'est nous qui écrivons
-    if(snap.exists()){
-      const prev=JSON.stringify({m:st.calM,y:st.calY});
-      st=stFromFirebase(snap.val());
-      const cur=JSON.parse(prev);
-      st.calM=cur.m; st.calY=cur.y; // garder l'état de calendrier local
-      renderPM();renderInts();renderAnomalies();updateDash();
-      showSyncStatus('online');
-    }
-  },(err)=>{showSyncStatus('offline');});
-}
-
-// ── SHARED FEED ─────────────────────────────────────────────
-async function addFeedEntry(action,detail,type='default'){
-  const entry={who:fname(),action,detail:detail||'',type,ts:Date.now(),seen:false};
-  try{
-    await push(ref(_db,ROOT+'/feed'),entry);
-  }catch(e){
-    // fallback local
-    try{
-      const r=localStorage.getItem('gct_feed_local');
-      const arr=r?JSON.parse(r):[];
-      arr.unshift({...entry,id:uid()});
-      if(arr.length>100)arr.length=100;
-      localStorage.setItem('gct_feed_local',JSON.stringify(arr));
-    }catch(_){}
-  }
-  renderFeed();
-  updateNotifBadge();
-}
-
-async function getFeed(){
-  try{
-    const snap=await get(ref(_db,ROOT+'/feed'));
-    if(!snap.exists())return[];
-    const obj=snap.val();
-    return Object.entries(obj)
-      .map(([k,v])=>({...v,id:k}))
-      .sort((a,b)=>b.ts-a.ts)
-      .slice(0,100);
-  }catch(e){
-    try{const r=localStorage.getItem('gct_feed_local');return r?JSON.parse(r):[];}catch(_){return[];}
-  }
-}
-
-function avColor(type){
-  if(type==='anomaly')return'av-red';
-  if(type==='mc')return'av-orange';
-  if(type==='mp')return'';
-  if(type==='plan')return'av-green';
-  return'';
-}
-function avLetter(who){return(who||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
-function timeAgo(ts){
-  const d=Date.now()-ts;
-  if(d<60000)return'À l\'instant';
-  if(d<3600000)return Math.floor(d/60000)+'min';
-  if(d<86400000)return Math.floor(d/3600000)+'h';
-  return Math.floor(d/86400000)+'j';
-}
-
-async function renderFeed(container,limit){
-  const arr=await getFeed();
-  const el=document.getElementById(container||'dash-feed');
-  if(!el)return;
-  const items=limit?arr.slice(0,limit):arr;
-  if(!items.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune activité récente</div>';return;}
-  el.innerHTML=items.map(e=>`
-    <div class="feed-item">
-      <div class="feed-av ${avColor(e.type)}">${avLetter(e.who)}</div>
-      <div class="feed-body">
-        <div class="feed-who">${e.who||'Équipe'}</div>
-        <div class="feed-what">${e.action}${e.detail?' — <span style="color:var(--text)">'+e.detail+'</span>':''}</div>
-        <div class="feed-when">${timeAgo(e.ts)}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div class="form-group">
+        <label class="form-label">F (1-4)</label>
+        <input class="form-input" type="number" id="amdec-f" min="1" max="4" value="1" oninput="calcC()">
       </div>
-    </div>`).join('');
-}
+      <div class="form-group">
+        <label class="form-label">G (1-4)</label>
+        <input class="form-input" type="number" id="amdec-g" min="1" max="4" value="1" oninput="calcC()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">D (1-4)</label>
+        <input class="form-input" type="number" id="amdec-d" min="1" max="4" value="1" oninput="calcC()">
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px;text-align:center">
+      <div class="text-mono text-dim">Criticité C = F × G × D</div>
+      <div class="kpi-value mt-8" id="amdec-c-display" style="font-size:36px;color:var(--accent)">1</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Action de maintenance</label>
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <select class="form-select" id="amdec-action-type" style="width:80px">
+          <option value="MP">MP</option>
+          <option value="MC">MC</option>
+        </select>
+        <input class="form-input" id="amdec-action" placeholder="Description de l'action...">
+      </div>
+    </div>
+    <div class="flex gap-8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-amdec')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="saveAMDEC()">ENREGISTRER</button>
+    </div>
+  </div>
+</div>
 
-async function updateNotifBadge(){
-  const arr=await getFeed();
-  const unseen=arr.filter(e=>!e.seen&&e.ts>lastFeedCount).length;
-  const b=document.getElementById('notif-count');
-  if(unseen>0){b.textContent=unseen;b.style.display='flex';}else b.style.display='none';
-}
+<!-- Modal Intervention -->
+<div class="modal-backdrop" id="modal-intervention">
+  <div class="modal">
+    <div class="modal-title" id="int-modal-title">NOUVELLE INTERVENTION <button class="modal-close" onclick="closeModal('modal-intervention')">✕</button></div>
+    <input type="hidden" id="int-type">
+    <input type="hidden" id="int-edit-id">
+    <div class="form-group">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-input" id="int-date">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Élément / Équipement</label>
+      <select class="form-select" id="int-element">
+        <option value="">Sélectionner...</option>
+        <option>Moteurs 1 et 2</option>
+        <option>Réducteurs</option>
+        <option>Arbre central</option>
+        <option>Bras de raclage</option>
+        <option>Bras central</option>
+        <option>Lames de raclage</option>
+        <option>Bride & Accouplement</option>
+        <option>Carter</option>
+        <option>Système roue-pignon</option>
+        <option>Coussinets</option>
+        <option>Vis sans fin</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description de l'intervention</label>
+      <textarea class="form-textarea" id="int-description" placeholder="Décrire l'intervention réalisée..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Intervenant</label>
+      <input class="form-input" id="int-intervenant" placeholder="Nom(s) du/des intervenant(s)">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Durée (heures)</label>
+      <input class="form-input" type="number" id="int-duree" placeholder="Ex: 2.5">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Pièces remplacées / Matériel</label>
+      <input class="form-input" id="int-pieces" placeholder="Ex: Roulements 6205, Joint d'étanchéité...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Priorité</label>
+      <select class="form-select" id="int-priority">
+        <option value="high">🔴 Haute</option>
+        <option value="med" selected>🟡 Moyenne</option>
+        <option value="low">🟢 Faible</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Statut</label>
+      <select class="form-select" id="int-status">
+        <option value="done">✅ Terminée</option>
+        <option value="progress">🔄 En cours</option>
+        <option value="planned">📅 Planifiée</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Observations / Remarques</label>
+      <textarea class="form-textarea" id="int-obs" placeholder="Observations techniques..."></textarea>
+    </div>
+    <div class="flex gap-8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-intervention')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="saveIntervention()">ENREGISTRER</button>
+    </div>
+  </div>
+</div>
 
-async function clearFeed(){
-  if(!confirm('Vider le fil d\'activités ?'))return;
-  try{await remove(ref(_db,ROOT+'/feed'));}catch(e){}
-  try{localStorage.removeItem('gct_feed_local');}catch(_){}
-  renderFeed('feed-full');
-  renderFeed('dash-feed',3);
-  document.getElementById('notif-count').style.display='none';
-}
+<!-- Modal Anomalie -->
+<div class="modal-backdrop" id="modal-anomalie">
+  <div class="modal">
+    <div class="modal-title">DÉCLARER ANOMALIE <button class="modal-close" onclick="closeModal('modal-anomalie')">✕</button></div>
+    <input type="hidden" id="anom-edit-id">
+    <div class="form-group">
+      <label class="form-label">Date détection</label>
+      <input type="date" class="form-input" id="anom-date">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Équipement concerné</label>
+      <select class="form-select" id="anom-element">
+        <option value="">Sélectionner...</option>
+        <option>Moteurs 1 et 2</option>
+        <option>Réducteurs</option>
+        <option>Arbre central</option>
+        <option>Bras de raclage</option>
+        <option>Système roue-pignon</option>
+        <option>Coussinets</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description de l'anomalie</label>
+      <textarea class="form-textarea" id="anom-desc" placeholder="Décrire l'anomalie observée..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Niveau de criticité</label>
+      <select class="form-select" id="anom-level">
+        <option value="high">🔴 Critique (Intervention immédiate)</option>
+        <option value="med">🟡 Modérée (Surveillance)</option>
+        <option value="low">🟢 Faible (Suivi)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Détecté par</label>
+      <input class="form-input" id="anom-by" placeholder="Nom de l'opérateur / technicien">
+    </div>
+    <div class="flex gap-8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-anomalie')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="saveAnomaly()">DÉCLARER</button>
+    </div>
+  </div>
+</div>
 
-// NAVIGATION
-function showPage(name,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  document.querySelectorAll('.nav-i').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  if(name==='dashboard')updateDash();
-  if(name==='plan2')renderCal();
-  if(name==='rap')updateStats();
-}
+<!-- Modal Planning -->
+<div class="modal-backdrop" id="modal-plan">
+  <div class="modal">
+    <div class="modal-title">PLANIFIER INTERVENTION <button class="modal-close" onclick="closeModal('modal-plan')">✕</button></div>
+    <div class="form-group">
+      <label class="form-label">Date planifiée</label>
+      <input type="date" class="form-input" id="plan-date">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Type</label>
+      <select class="form-select" id="plan-type">
+        <option value="MP">Maintenance Préventive (MP)</option>
+        <option value="MC">Maintenance Corrective (MC)</option>
+        <option value="Inspection">Inspection</option>
+        <option value="Visite">Visite périodique</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-textarea" id="plan-desc" placeholder="Description de l'intervention..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Responsable</label>
+      <input class="form-input" id="plan-resp" placeholder="Mécanicien, Électricien...">
+    </div>
+    <div class="flex gap-8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-plan')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="savePlanEvent()">PLANIFIER</button>
+    </div>
+  </div>
+</div>
 
-// TOAST
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+<!-- Modal Référence -->
+<div class="modal-backdrop" id="modal-ref">
+  <div class="modal">
+    <div class="modal-title">RÉFÉRENCE BIBLIOGRAPHIQUE <button class="modal-close" onclick="closeModal('modal-ref')">✕</button></div>
+    <div class="form-group">
+      <label class="form-label">Référence</label>
+      <textarea class="form-textarea" id="ref-text" placeholder="Ex: Normes AFNOR, Auteur, Établissement, Année, Édition"></textarea>
+    </div>
+    <div class="flex gap-8">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-ref')">Annuler</button>
+      <button class="btn btn-primary" style="flex:2" onclick="saveRef()">ENREGISTRER</button>
+    </div>
+  </div>
+</div>
 
-// MODALS
-function openModal(id){document.getElementById(id).classList.add('open')}
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.mb').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+<!-- Modal Alerts Panel -->
+<div class="modal-backdrop" id="modal-alerts">
+  <div class="modal">
+    <div class="modal-title">ALERTES SYSTÈME <button class="modal-close" onclick="closeModal('modal-alerts')">✕</button></div>
+    <div id="alerts-panel-content"></div>
+  </div>
+</div>
 
-// DASHBOARD
-async function updateDash(){
-  const d=new Date();
-  document.getElementById('dash-date').textContent=d.toLocaleDateString('fr-FR',{month:'long',year:'numeric'}).toUpperCase();
-  const mc=st.interventions.filter(i=>i.type==='MC');
-  const mp=st.interventions.filter(i=>i.type==='MP');
-  const done=st.interventions.filter(i=>i.status==='done');
-  const anom=st.anomalies.filter(a=>!a.resolved);
-  const pend=st.interventions.filter(i=>i.status==='planned').length+st.planEvents.filter(e=>new Date(e.date)<new Date()).length;
-  document.getElementById('k-plan').textContent=st.planEvents.length;
-  document.getElementById('k-done').textContent=done.length;
-  document.getElementById('k-anom').textContent=anom.length;
-  document.getElementById('k-pend').textContent=pend;
-  const pmR=mp.length?Math.round(mp.filter(i=>i.status==='done').length/mp.length*100):0;
-  const mcR=mc.length?Math.round(mc.filter(i=>i.status==='done').length/mc.length*100):0;
-  document.getElementById('d-pm-r').textContent=pmR+'%';document.getElementById('d-mc-r').textContent=mcR+'%';
-  document.getElementById('d-pm-b').style.width=pmR+'%';document.getElementById('d-mc-b').style.width=mcR+'%';
-  
-  // Alerts
-  const alEl=document.getElementById('dash-alerts');
-  if(!anom.length&&!pend){alEl.innerHTML='<div class="tag t-green" style="margin:8px 0"><i class="ti ti-check"></i> Aucune alerte active</div>';
-  }else{
-    alEl.innerHTML=anom.slice(0,3).map(a=>`<div class="flex" style="align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)">
-      <span class="tag ${a.level==='high'?'t-red':a.level==='med'?'t-orange':'t-yellow'}">${a.level==='high'?'Critique':a.level==='med'?'Modérée':'Faible'}</span>
-      <div><div style="font-size:12px;font-weight:500">${a.element||'?'}</div><div style="font-size:11px;color:var(--text2)">${a.desc}</div></div>
-    </div>`).join('');
-  }
-  
-  await renderFeed('dash-feed',4);
-}
+<!-- Modal Settings -->
+<div class="modal-backdrop" id="modal-settings">
+  <div class="modal">
+    <div class="modal-title">PARAMÈTRES <button class="modal-close" onclick="closeModal('modal-settings')">✕</button></div>
+    <div class="form-group">
+      <label class="form-label">Nom de l'équipement</label>
+      <input class="form-input" id="set-eq-name" value="Réservoir Décanteur TK2701B">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Site / Usine</label>
+      <input class="form-input" id="set-site" value="GCT — Usine Acide Phosphorique">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Responsable maintenance</label>
+      <input class="form-input" id="set-resp" placeholder="Nom du responsable">
+    </div>
+    <hr class="sep">
+    <button class="btn btn-danger btn-full" onclick="clearAllData()">RÉINITIALISER TOUTES LES DONNÉES</button>
+    <div class="text-mono text-dim mt-8" style="text-align:center;font-size:9px">
+      CMMS v2.0 · PFE GCT · Fitouri Kraiem & Haithem Talbi
+    </div>
+  </div>
+</div>
 
-// PM TABLES
-const PM_DEF={
-  1:[
-    {op:"Inspecter visuellement la structure et détecter fuites acide",exec:'Opérateur',freq:'H',obs:'Corrosion, fuite, dépôts'},
-    {op:"Vérifier l'usure et jeux des coussinets",exec:'Mécanicien',freq:'Q',obs:'Échauffement, jeu excessif'},
-    {op:"Resserrage général de la boulonnerie",exec:'Mécanicien',freq:'2500h',obs:'Desserrage, vibrations'},
-    {op:"Contrôle alignement arbre central",exec:'Mécanicien',freq:'2500h',obs:'Désalignement, vibration'},
-    {op:"Mesure d'intensité et tension moteur en charge",exec:'Électricien',freq:'Q',obs:'Accéléromètre ou vélomètre'},
-    {op:"Inspection fuites au niveau de l'accouplement",exec:'Mécanicien',freq:'2500h',obs:"Fuite d'huile, usure joints"},
-    {op:"Contrôle visuel du niveau d'huile du réducteur",exec:'Opérateur',freq:'M',obs:'Couleur anormale, présence mousse'},
-    {op:"Analyse vibratoire du système de rotation",exec:'Mécanicien',freq:'2500h',obs:'Déséquilibre, défaut roulement'},
-    {op:"Graissage du système roue-pignon",exec:'Mécanicien',freq:'M',obs:'Usure dents, bruit anormal'},
-  ],
-  2:[
-    {op:"Vidange et remplacement huile du réducteur",exec:'Opérateur',freq:'2500h',obs:'Présence particules'},
-    {op:"Remplacement joints d'étanchéité réducteur",exec:'Mécanicien',freq:'5000h',obs:"Fuite huile, perte d'étanchéité"},
-    {op:"Inspection bras de raclage et lames de racleurs",exec:'Mécanicien',freq:'2500h',obs:'Usure, déformation'},
-    {op:"Relevé températures paliers réducteur et moteur",exec:'Mécanicien',freq:'H',obs:'Échauffement anormal, surcharge'},
-    {op:"Contrôle des capteurs de sécurité",exec:'Électricien',freq:'M',obs:'Capteur défaillant, mauvais signal'},
-    {op:"Contrôle usure et alignement de la couronne",exec:'Mécanicien',freq:'10000h',obs:'Usure dents, bruit anormal'},
-    {op:"Vérification vitesse du système de rotation",exec:'Mécanicien',freq:'M',obs:'Vitesse instable'},
-    {op:"Inspection visuelle de la vis sans fin de levage",exec:'Mécanicien',freq:'2500h',obs:'Blocage possible'},
-    {op:"Test fonctionnement fins de course vis sans fin",exec:'Mécanicien',freq:'2500h',obs:'Mauvais réglage'},
-  ],
-  3:[
-    {op:"Contrôler désalignement d'accouplement",exec:'Mécanicien',freq:'10000h',obs:'Comparateur'},
-    {op:"Vérification état corrosion carter du réducteur",exec:'Mécanicien',freq:'5000h',obs:'Corrosion importante'},
-    {op:"Inspection visuelle rainures de clavette",exec:'Mécanicien',freq:'5000h',obs:'Usure, jeu excessif'},
-    {op:"Nettoyage général de l'équipement",exec:'Opérateur',freq:'J',obs:'Chiffons + brosse + eau'},
-    {op:"Analyse thermographique par infrarouge",exec:'Électricien',freq:'2500h',obs:'Caméra thermique'},
-    {op:"Inspection interne des engrenages",exec:'Mécanicien',freq:'5000h',obs:''},
-    {op:"Contrôle ultrason fissures arbre central",exec:'Mécanicien',freq:'M',obs:'Appareil ultrason'},
-    {op:"Remplacement arbre central si rupture/fissure",exec:'Mécanicien',freq:'10000h',obs:'Respect tolérances montage'},
-    {op:"Contrôle des bruits anormaux",exec:'Mécanicien',freq:'J',obs:'Vibrations, bruit anormal'},
-  ]
+<script>
+// ══════════════════════════════════════════════
+//  STATE & STORAGE
+// ══════════════════════════════════════════════
+const DB_KEY = 'gct_cmms_v2';
+
+let state = {
+  amdec: [],
+  interventions: [],
+  anomalies: [],
+  planEvents: [],
+  pmRows: { 1: [], 2: [], 3: [] },
+  gammes: { 1: [], 2: [], 3: [], 4: [] },
+  suiviData: {},
+  visiteHistory: [],
+  refs: [],
+  calMonth: new Date().getMonth(),
+  calYear: new Date().getFullYear(),
 };
 
-const GM_DEF={
-  1:[{o:1,op:"Inspecter visuellement la structure et fuites acide",t:'',m:'',pr:'',obs:''},{o:2,op:"Mesure d'intensité et tension moteur en charge",t:'',m:'Ampèremètre, voltmètre',pr:'',obs:''},{o:3,op:"Relevé températures paliers",t:'',m:'Thermomètre infrarouge',pr:'',obs:'<70°C'},{o:4,op:"Contrôle visuel niveau huile réducteur",t:'',m:'Jauge niveau',pr:'',obs:''},{o:5,op:"Vérifier usure et jeux coussinets",t:'',m:'Comparateur',pr:'',obs:''},{o:6,op:"Graissage système roue-pignon",t:'',m:'Graisseur pneumatique',pr:'Graisse EP2',obs:''},{o:7,op:"Vérification vitesse rotation",t:'',m:'Tachymètre',pr:'',obs:''},{o:8,op:"Contrôle capteurs de sécurité",t:'',m:'Multimètre',pr:'',obs:''},{o:9,op:"Contrôle bruits anormaux",t:'',m:'Stéthoscope',pr:'',obs:''},{o:10,op:"Contrôle ultrason fissures arbre",t:'',m:'Appareil ultrason',pr:'',obs:''},{o:11,op:"Nettoyage général équipement",t:'',m:'Chiffons, brosse',pr:'',obs:''}],
-  2:[{o:1,op:"Contrôle alignement arbre central",t:'',m:'Comparateur, règle précision',pr:'',obs:''},{o:2,op:"Analyse vibratoire système de rotation",t:'',m:'Analyseur vibrations',pr:'',obs:'<4 mm/s'},{o:3,op:"Inspection bras raclage et lames racleurs",t:'',m:'',pr:'',obs:'Usure, déformation'},{o:4,op:"Inspection visuelle vis sans fin levage",t:'',m:'',pr:'',obs:'Blocage possible'},{o:5,op:"Test fonctionnement fins de course",t:'',m:'',pr:'',obs:'Mauvais réglage'},{o:6,op:"Analyse thermographique infrarouge",t:'',m:'Caméra thermique',pr:'',obs:''},{o:7,op:"Vidange et remplacement huile réducteur",t:'',m:'Clés, bac récupération',pr:'Huile ISO VG 220',obs:'Vérifier particules'}],
-  3:[{o:1,op:"Remplacement joints d'étanchéité réducteur",t:'',m:'Clés, extracteur',pr:"Joints d'étanchéité",obs:'Fuites huile'},{o:2,op:"Vérification corrosion carter réducteur",t:'',m:'',pr:'',obs:'Corrosion importante'},{o:3,op:"Inspection interne engrenages",t:'',m:'Miroir inspection',pr:'',obs:''},{o:4,op:"Inspection fuites accouplement",t:'',m:'',pr:'',obs:"Fuite d'huile"},{o:5,op:"Inspection rainures clavette",t:'',m:'',pr:'',obs:'Usure, jeu excessif'},{o:6,op:"Resserrage général boulonnerie",t:'',m:'Clés dynamométriques',pr:'',obs:'Desserrage'}],
-  4:[{o:1,op:"Contrôle usure et alignement couronne",t:'',m:'Comparateur',pr:'',obs:'Usure dents'},{o:2,op:"Contrôler désalignement d'accouplement",t:'',m:'Comparateur',pr:'',obs:''},{o:3,op:"Remplacement arbre central si rupture",t:'',m:'Grue, outillage spécialisé',pr:'Arbre central',obs:'Respect tolérances'}]
-};
+function save() {
+  try { localStorage.setItem(DB_KEY, JSON.stringify(state)); } catch(e) {}
+}
 
-const VIS_PTS=[
-  {id:'vp1',pt:'Moteur et réducteur',obj:'Relevé températures paliers',m:'Thermomètre infrarouge',ref:'<70°C'},
-  {id:'vp2',pt:'Système de rotation',obj:'Analyse vibratoire',m:'Analyseur vibrations',ref:'<4 mm/s'},
-  {id:'vp3',pt:'Réducteur',obj:"Contrôle niveau d'huile",m:'Jauge visuelle',ref:'Entre min et max'},
-  {id:'vp4',pt:'Arbre central',obj:'Contrôle alignement et jeu',m:'Comparateur',ref:'Jeu < 0.1mm'},
-  {id:'vp5',pt:'Boulonnerie',obj:'Contrôle serrage général',m:'Clé dynamométrique',ref:'Couple nominal'},
-  {id:'vp6',pt:'Coussinets',obj:'Contrôle usure et jeu',m:'Contrôle vibratoire',ref:'Jeu < 0.2mm'},
-  {id:'vp7',pt:'Système raclage',obj:'Inspection bras et lames',m:'Inspection visuelle',ref:'Pas de déformation'},
-  {id:'vp8',pt:'Accouplement',obj:'Inspection fuites et état',m:'Inspection visuelle',ref:'Pas de fuite'},
-  {id:'vp9',pt:'Carter réducteur',obj:'Vérification corrosion',m:'Inspection visuelle',ref:'Pas de corrosion'},
+function load() {
+  try {
+    const d = localStorage.getItem(DB_KEY);
+    if (d) state = { ...state, ...JSON.parse(d) };
+  } catch(e) {}
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+// ══════════════════════════════════════════════
+//  INIT DATA
+// ══════════════════════════════════════════════
+const AMDEC_DEFAULT = [
+  { id:'a1', element:'Moteurs 1 et 2', fonction:"Assurer le levage/abaissement et l'entraînement de l'arbre central", mode:'Court-circuit de bobinage', causes:'Surcharge électrique, humidité', effets:"Arrêt du moteur", detection:"Odeur de brûlé, mesure température", f:3, g:5, d:2, action:'MP: Vérification électrique périodique / MC: Remplacement bobines', type:'MP' },
+  { id:'a2', element:'Moteurs 1 et 2', fonction:"Assurer l'entraînement", mode:'Usure des roulements', causes:'Manque lubrification, vieillissement, désalignement', effets:'Vibration, bruit anormal, diminution rendement', detection:'Contrôle vibratoire', f:4, g:4, d:3, action:'MP: Graissage / MC: Remplacement roulements', type:'MP' },
+  { id:'a3', element:'Moteurs 1 et 2', fonction:"Assurer l'entraînement", mode:'Surcharge mécanique', causes:'Blocage racleurs, accumulation excessive boues', effets:'Échauffement moteur, usure prématurée', detection:'Augmentation courant, déclenchement protection', f:4, g:4, d:3, action:'MP: Nettoyage décanteur, contrôle racleurs', type:'MP' },
+  { id:'a4', element:'Moteurs 1 et 2', fonction:"Assurer l'entraînement", mode:'Perte de puissance', causes:'Défaut électrique interne', effets:'Rotation insuffisante des racleurs', detection:'Baisse vitesse moteur', f:2, g:3, d:3, action:'MP: Contrôle composants électriques', type:'MP' },
+  { id:'a5', element:'Moteurs 1 et 2', fonction:"Assurer l'entraînement", mode:'Déséquilibre du rotor', causes:'Usure pièces tournantes', effets:'Vibrations importantes, écaillage roulements', detection:'Analyse vibratoire, bruit', f:3, g:4, d:3, action:'MP: Équilibrage du rotor', type:'MP' },
+  { id:'a6', element:'Réducteurs', fonction:'Réduire la vitesse', mode:'Usure des engrenages', causes:'Manque lubrification, surcharge mécanique', effets:'Perte transmission, bruit anormal', detection:'Surveillance vibratoire', f:4, g:4, d:3, action:'MP: Contrôle niveau huile / MC: Remplacement engrenages', type:'MP' },
+  { id:'a7', element:'Réducteurs', fonction:'Réduire la vitesse', mode:'Défaillance des roulements', causes:'Fatigue mécanique, mauvaise lubrification', effets:'Blocage possible, bruit, vibration', detection:'Contrôle vibratoire, bruit anormal', f:4, g:2, d:2, action:'MP: Graissage / MC: Remplacement roulements', type:'MP' },
+  { id:'a8', element:'Réducteurs', fonction:'Réduire la vitesse', mode:'Échauffement du réducteur', causes:'Huile insuffisante, surcharge', effets:'Dégradation composants internes', detection:'Température élevée', f:4, g:2, d:3, action:'MP: Vérification lubrification', type:'MP' },
+  { id:'a9', element:'Réducteurs', fonction:'Réduire la vitesse', mode:'Désalignement', causes:'Mauvais montage, usure accouplements', effets:'Vibrations importantes, usure prématurée', detection:'Analyse vibratoire', f:3, g:3, d:3, action:'MP: Contrôle alignement et fixation', type:'MP' },
+  { id:'a10', element:'Réducteurs', fonction:'Réduire la vitesse', mode:"Fuite d'huile", causes:'Joint détérioré', effets:'Mauvaise lubrification, échauffement', detection:"Huile autour du réducteur", f:3, g:3, d:2, action:"MP: Contrôle étanchéité / MC: Remplacement joints", type:'MP' },
+  { id:'a11', element:'Arbre central', fonction:'Supporter et entraîner les bras de raclage', mode:'Cisaillement', causes:'Accumulation boues, couple important', effets:'Arrêt total système raclage', detection:'Arrêt rotation', f:3, g:5, d:3, action:'MP: Nettoyage périodique, contrôle couple', type:'MP' },
+  { id:'a12', element:'Arbre central', fonction:'Supporter et entraîner', mode:"Usure de l'arbre", causes:'Vieillissement, frottement', effets:'Jeu mécanique, baisse rendement', detection:'Bruit, jeu anormal', f:4, g:3, d:3, action:'MP: Lubrification, contrôle périodique', type:'MP' },
+  { id:'a13', element:'Arbre central', fonction:'Supporter et entraîner', mode:'Corrosion', causes:"Attaque chimique acide phosphorique", effets:'Fragilisation et risque rupture', detection:'Inspection visuelle', f:3, g:4, d:4, action:'MP: Protection anticorrosion, contrôle périodique', type:'MP' },
+  { id:'a14', element:'Arbre central', fonction:'Supporter et entraîner', mode:"Désalignement de l'arbre", causes:'Usure supports, mauvais montage', effets:'Vibrations importantes', detection:'Analyse vibratoire', f:3, g:3, d:3, action:'MC: Alignement et fixation correcte', type:'MC' },
+  { id:'a15', element:'Arbre central', fonction:'Supporter et entraîner', mode:'Fatigue mécanique', causes:'Surcharge continue', effets:"Fissuration puis rupture de l'arbre", detection:'Analyse vibratoire, contrôle visuel', f:2, g:5, d:4, action:'MP: Inspection périodique, remplacement préventif', type:'MP' },
+  { id:'a16', element:'Bras de raclage', fonction:'Racler les boues au fond du réservoir', mode:'Usure du bras', causes:'Frottement continu avec boues', effets:'Mauvais raclage', detection:'Inspection visuelle', f:3, g:3, d:2, action:'MP: Contrôle périodique état bras / MC: Rechargement soudure', type:'MP' },
+  { id:'a17', element:'Bras de raclage', fonction:'Racler les boues', mode:'Blocage du bras', causes:'Accumulation de boues', effets:'Arrêt raclage, surcharge moteur', detection:'Augmentation courant moteur', f:3, g:4, d:2, action:'MP: Surveillance couple moteur / MC: Évacuation boues', type:'MP' },
+  { id:'a18', element:'Bras de raclage', fonction:'Racler les boues', mode:'Corrosion', causes:'Milieu humide, produits chimiques', effets:'Réduction durée de vie', detection:'Inspection visuelle', f:4, g:3, d:3, action:'MP: Choix matériaux inox / MC: Traitement corrosion', type:'MP' },
+  { id:'a19', element:'Système roue-pignon', fonction:'Assurer la rotation', mode:'Usure des dents', causes:'Frottement, vieillissement', effets:'Mauvaise transmission', detection:'Analyse vibratoire', f:4, g:4, d:3, action:'MP: Contrôle visuel dents / MC: Remplacement roue ou pignon', type:'MP' },
+  { id:'a20', element:'Système roue-pignon', fonction:'Assurer la rotation', mode:'Casse des dents', causes:'Choc, blocage racleurs', effets:'Arrêt système rotation', detection:'Arrêt soudain, bruit fort', f:3, g:5, d:3, action:'MC: Remplacement pièces endommagées', type:'MC' },
+  { id:'a21', element:'Coussinets', fonction:'Assurer le guidage en rotation', mode:'Usure des coussinets', causes:'Frottement excessif, vieillissement', effets:'Jeu important', detection:'Contrôle vibratoire', f:4, g:4, d:3, action:'MP: Suivi analyse vibratoire / MC: Remplacement coussinets', type:'MP' },
+  { id:'a22', element:'Coussinets', fonction:'Assurer le guidage en rotation', mode:'Échauffement', causes:'Mauvaise lubrification, surcharge', effets:'Augmentation température', detection:'Température élevée', f:3, g:4, d:3, action:'MP: Contrôle qualité lubrifiant, suivi thermographique', type:'MP' },
+  { id:'a23', element:'Coussinets', fonction:'Assurer le guidage en rotation', mode:'Grippage', causes:"Présence d'impuretés", effets:"Blocage de l'arbre", detection:'Arrêt rotation', f:2, g:5, d:3, action:'MP: Calendrier nettoyage / MC: Changer coussinets grippés', type:'MP' },
+  { id:'a24', element:'Bride & Accouplement', fonction:"Maintenir l'assemblage", mode:'Fuite au niveau bride', causes:'Joint usé, mauvais serrage', effets:'Perte de fluide', detection:'Inspection visuelle', f:3, g:4, d:2, action:'MP: Vérification étanchéité / MC: Remplacement joint', type:'MP' },
+  { id:'a25', element:'Lames de raclage', fonction:'Assurer un raclage uniforme', mode:'Corrosion', causes:'Produits chimiques', effets:'Perte de matière', detection:'Inspection visuelle', f:4, g:3, d:3, action:'MP: Matériaux inox / MC: Traitement corrosion', type:'MP' },
 ];
 
-const SUIVI_OPS=["Inspecter état général du décanteur","Détection des fuites d'acide","Nettoyage général de l'équipement","Contrôle niveau d'huile réducteur","Resserrage général boulonnerie","Contrôle capteurs de sécurité","Mesure intensité et tension moteur","Graissage système roue-pignon","Contrôle bruits anormaux"];
-const DAYS=['L','M','M','J','V','S','D'];
-const MONTHS=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const PM_DEFAULT = {
+  1: [
+    { op:'Inspecter visuellement la structure du décanteur et détecter les fuites d acide', exec:'Opérateur', freq:'H', obs:'Corrosion, fuite acide, dépôts', nr:'1' },
+    { op:'Vérifier l usure et les jeux des coussinets', exec:'Mécanicien', freq:'Q', obs:'Échauffement, jeu excessif', nr:'1' },
+    { op:'Resserrage général de la boulonnerie', exec:'Mécanicien', freq:'2500h', obs:'Desserrage, vibrations', nr:'3' },
+    { op:"Contrôle de l'alignement de l'arbre central", exec:'Mécanicien', freq:'2500h', obs:'Désalignement, vibration', nr:'2' },
+    { op:'Mesure d intensité et tension du moteur en charge', exec:'Électricien', freq:'Q', obs:'Accéléromètre ou vélomètre', nr:'1' },
+    { op:"Inspection des fuites au niveau de l'accouplement", exec:'Mécanicien', freq:'2500h', obs:"Fuite d'huile, usure joints", nr:'3' },
+    { op:"Contrôle visuel du niveau d'huile du réducteur", exec:'Opérateur', freq:'M', obs:'Couleur anormale, présence mousse', nr:'1' },
+    { op:'Analyse vibratoire du système de rotation', exec:'Mécanicien', freq:'2500h', obs:'Déséquilibre, défaut roulement', nr:'2' },
+    { op:'Graissage du système roue-pignon', exec:'Mécanicien', freq:'M', obs:'Usure dents, bruit anormal', nr:'1' },
+  ],
+  2: [
+    { op:"Vidange complète et remplacement de l'huile du réducteur", exec:'Opérateur', freq:'2500h', obs:'Présence particules', nr:'2' },
+    { op:"Remplacement des joints d'étanchéité du réducteur", exec:'Mécanicien', freq:'5000h', obs:"Fuite huile, joints usés, perte d'étanchéité", nr:'3' },
+    { op:'Inspection des bras de raclage et des lames de racleurs', exec:'Mécanicien', freq:'2500h', obs:'Usure, déformation', nr:'2' },
+    { op:'Relevé des températures des paliers du réducteur et du moteur', exec:'Mécanicien', freq:'H', obs:'Échauffement anormal, surcharge', nr:'1' },
+    { op:'Contrôle des capteurs de sécurité', exec:'Électricien', freq:'M', obs:'Capteur défaillant, mauvais signal', nr:'1' },
+    { op:"Contrôle de l'usure et l'alignement de la couronne", exec:'Mécanicien', freq:'10000h', obs:'Usure dents, bruit anormal', nr:'4' },
+    { op:'Vérification de la vitesse du système de rotation', exec:'Mécanicien', freq:'M', obs:'Vitesse instable', nr:'1' },
+    { op:'Inspection visuelle de la vis sans fin de levage', exec:'Mécanicien', freq:'2500h', obs:'Blocage possible', nr:'2' },
+    { op:'Test de fonctionnement à vide des fins de course de la vis sans fin', exec:'Mécanicien', freq:'2500h', obs:'Mauvais réglage', nr:'2' },
+  ],
+  3: [
+    { op:"Contrôler le désalignement d'accouplement", exec:'Mécanicien', freq:'10000h', obs:'Comparateur', nr:'4' },
+    { op:"Vérification de l'état de corrosion du carter du réducteur", exec:'Mécanicien', freq:'5000h', obs:'Corrosion importante', nr:'3' },
+    { op:"Inspection visuelle de l'état des rainures de clavette", exec:'Mécanicien', freq:'5000h', obs:'Usure, jeu excessif', nr:'3' },
+    { op:"Nettoyage général de l'équipement", exec:'Opérateur', freq:'J', obs:'Chiffons + brosse + eau', nr:'1' },
+    { op:'Analyse thermographique par infrarouge', exec:'Électricien', freq:'2500h', obs:'Caméra thermique, détection température', nr:'2' },
+    { op:'Inspection interne des engrenages', exec:'Mécanicien', freq:'5000h', obs:'', nr:'3' },
+    { op:"Contrôle par ultrason pour détecter les fissures de l'arbre central", exec:'Mécanicien', freq:'M', obs:"Appareil ultrason, détection fissures", nr:'1' },
+    { op:"Remplacement de l'arbre central en cas de rupture ou fissure", exec:'Mécanicien', freq:'10000h', obs:"Respect tolérances montage et alignement", nr:'4' },
+    { op:'Contrôle des bruits anormaux', exec:'Mécanicien', freq:'J', obs:'Vibrations, bruit anormal', nr:'1' },
+  ],
+};
 
-function renderPM(){
-  [1,2,3].forEach(f=>{
-    const b=document.getElementById('pm'+f);
-    if(!b)return;
-    const rows=st.pmRows[f]||[];
-    if(!rows.length){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text3);font-size:11px;padding:14px">Tableau vide</td></tr>';return;}
-    b.innerHTML=rows.map((r,i)=>`<tr>
-      <td style="max-width:160px">${r.op}</td>
-      <td>${r.exec}</td>
-      <td><span class="tag t-blue">${r.freq}</span></td>
-      <td style="color:var(--text2);font-size:11px">${r.obs}</td>
-      <td><div class="flex gap6">
-        <button class="btn btn-outline btn-sm" onclick="editPMRow(${f},${i})"><i class="ti ti-edit"></i></button>
-        <button class="btn btn-danger btn-sm" onclick="delPMRow(${f},${i})"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr>`).join('');
+const GAMMES_DEFAULT = {
+  1: [
+    { ordre:1, op:"Inspecter visuellement la structure du décanteur et détecter les fuites d'acide", temps:'', materiel:'', pr:'', obs:'' },
+    { ordre:2, op:"Mesure d'intensité et tension du moteur en charge", temps:'', materiel:'Ampèremètre, voltmètre', pr:'', obs:'' },
+    { ordre:3, op:'Relevé des températures des paliers du réducteur et du moteur', temps:'', materiel:'Thermomètre infrarouge', pr:'', obs:'<70°C' },
+    { ordre:4, op:"Contrôle visuel du niveau d'huile du réducteur", temps:'', materiel:'Jauge niveau', pr:'', obs:'' },
+    { ordre:5, op:"Vérifier l'usure et les jeux des coussinets", temps:'', materiel:'Comparateur, cales', pr:'', obs:'' },
+    { ordre:6, op:'Graissage du système roue-pignon', temps:'', materiel:'Graisseur pneumatique', pr:'Graisse EP2', obs:'' },
+    { ordre:7, op:'Vérification de la vitesse du système de rotation', temps:'', materiel:'Tachymètre', pr:'', obs:'' },
+    { ordre:8, op:'Contrôle des capteurs de sécurité', temps:'', materiel:'Multimètre', pr:'', obs:'' },
+    { ordre:9, op:'Contrôle des bruits anormaux', temps:'', materiel:'Stéthoscope mécanique', pr:'', obs:'' },
+    { ordre:10, op:"Contrôle par ultrason pour détecter les fissures de l'arbre central", temps:'', materiel:'Appareil ultrason', pr:'', obs:'' },
+    { ordre:11, op:"Nettoyage général de l'équipement", temps:'', materiel:'Chiffons, brosse', pr:'', obs:'' },
+  ],
+  2: [
+    { ordre:1, op:"Contrôle de l'alignement de l'arbre central", temps:'', materiel:'Comparateur, règle de précision', pr:'', obs:'' },
+    { ordre:2, op:'Analyse vibratoire du système de rotation', temps:'', materiel:'Analyseur de vibrations', pr:'', obs:'<4 mm/s' },
+    { ordre:3, op:'Inspection des bras de raclage et des lames de racleurs', temps:'', materiel:'', pr:'', obs:'Usure, déformation' },
+    { ordre:4, op:'Inspection visuelle de la vis sans fin de levage', temps:'', materiel:'', pr:'', obs:'Blocage possible' },
+    { ordre:5, op:'Test de fonctionnement à vide des fins de course de la vis sans fin', temps:'', materiel:'', pr:'', obs:'Mauvais réglage' },
+    { ordre:6, op:'Analyse thermographique par infrarouge', temps:'', materiel:'Caméra thermique', pr:'', obs:'' },
+    { ordre:7, op:"Vidange complète et remplacement de l'huile du réducteur", temps:'', materiel:'Clés, bac récupération', pr:"Huile ISO VG 220", obs:'Vérifier présence particules' },
+  ],
+  3: [
+    { ordre:1, op:"Remplacement des joints d'étanchéité du réducteur", temps:'', materiel:'Clés, extracteur', pr:"Joints d'étanchéité", obs:"Fuite huile, joints usés" },
+    { ordre:2, op:"Vérification de l'état de corrosion du carter du réducteur", temps:'', materiel:'', pr:'', obs:'Corrosion importante' },
+    { ordre:3, op:'Inspection interne des engrenages', temps:'', materiel:'Miroir inspection, lampe', pr:'', obs:'' },
+    { ordre:4, op:"Inspection des fuites au niveau de l'accouplement", temps:'', materiel:'', pr:'', obs:"Fuite huile, usure joints" },
+    { ordre:5, op:"Inspection visuelle de l'état des rainures de clavette", temps:'', materiel:'', pr:'', obs:'Usure, jeu excessif' },
+    { ordre:6, op:'Resserrage général de la boulonnerie', temps:'', materiel:'Clés dynamométriques', pr:'', obs:'Desserrage, vibrations' },
+  ],
+  4: [
+    { ordre:1, op:"Contrôle de l'usure et l'alignement de la couronne", temps:'', materiel:'Comparateur', pr:'', obs:'Usure dents, bruit anormal' },
+    { ordre:2, op:"Contrôler le désalignement d'accouplement", temps:'', materiel:'Comparateur', pr:'', obs:'' },
+    { ordre:3, op:"Remplacement de l'arbre central en cas de rupture ou fissure importante", temps:'', materiel:'Grue, outillage spécialisé', pr:'Arbre central', obs:"Respect tolérances montage" },
+  ],
+};
+
+const VISITE_POINTS = [
+  { id:'v1', point:'Moteur et réducteur', objet:'Relevé des températures des paliers', moyen:'Thermomètre infrarouge', ref:'<70°C', mesure:'', etat:''},
+  { id:'v2', point:'Système de rotation', objet:'Analyse vibratoire du système de rotation', moyen:'Analyseur de vibration', ref:'<4 mm/s', mesure:'', etat:''},
+  { id:'v3', point:'Réducteur', objet:"Contrôle du niveau d'huile", moyen:'Jauge visuelle', ref:'Entre min et max', mesure:'', etat:''},
+  { id:'v4', point:'Arbre central', objet:'Contrôle alignement et jeu', moyen:'Comparateur', ref:'Jeu < 0.1mm', mesure:'', etat:''},
+  { id:'v5', point:'Boulonnerie', objet:'Contrôle serrage général', moyen:'Clé dynamométrique', ref:'Couple nominal', mesure:'', etat:''},
+  { id:'v6', point:'Coussinets', objet:'Contrôle usure et jeu', moyen:'Contrôle vibratoire', ref:'Jeu < 0.2mm', mesure:'', etat:''},
+  { id:'v7', point:'Système raclage', objet:'Inspection bras et lames racleurs', moyen:'Inspection visuelle', ref:'Pas de déformation', mesure:'', etat:''},
+  { id:'v8', point:'Accouplement', objet:'Inspection fuites et état', moyen:'Inspection visuelle', ref:'Pas de fuite', mesure:'', etat:''},
+  { id:'v9', point:'Carter réducteur', objet:"Vérification corrosion", moyen:'Inspection visuelle', ref:'Pas de corrosion', mesure:'', etat:''},
+];
+
+// ══════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (name === 'dashboard') updateDashboard();
+  if (name === 'amdec') renderAMDEC();
+  if (name === 'planning') renderCalendar();
+  if (name === 'rapport') updateStats();
+}
+
+// ══════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════
+function toast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  setTimeout(() => t.className = '', 2500);
+}
+
+// ══════════════════════════════════════════════
+//  MODALS
+// ══════════════════════════════════════════════
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+
+document.querySelectorAll('.modal-backdrop').forEach(m => {
+  m.addEventListener('click', e => {
+    if (e.target === m) m.classList.remove('open');
+  });
+});
+
+// ══════════════════════════════════════════════
+//  AMDEC
+// ══════════════════════════════════════════════
+let amdecFilter = 'all';
+let amdecSearch = '';
+
+function critClass(c) {
+  if (c >= 40) return 'c-high tag-high';
+  if (c >= 24) return 'c-med tag-med';
+  return 'c-low tag-ok';
+}
+
+function critColor(c) {
+  if (c >= 40) return 'var(--danger)';
+  if (c >= 24) return 'var(--warn)';
+  return 'var(--success)';
+}
+
+function renderAMDEC() {
+  const container = document.getElementById('amdec-container');
+  let entries = state.amdec;
+  
+  if (amdecSearch) {
+    const q = amdecSearch.toLowerCase();
+    entries = entries.filter(e =>
+      e.element.toLowerCase().includes(q) ||
+      e.mode.toLowerCase().includes(q) ||
+      (e.causes||'').toLowerCase().includes(q)
+    );
+  }
+  
+  if (amdecFilter === 'high') entries = entries.filter(e => e.f*e.g*e.d >= 40);
+  else if (amdecFilter === 'med') entries = entries.filter(e => { const c=e.f*e.g*e.d; return c>=24&&c<40; });
+  else if (amdecFilter === 'low') entries = entries.filter(e => e.f*e.g*e.d < 24);
+
+  if (!entries.length) {
+    container.innerHTML = '<div class="card" style="text-align:center;color:var(--text2);font-family:var(--font-mono);font-size:11px;padding:30px">Aucun résultat</div>';
+    return;
+  }
+
+  // Group by element
+  const groups = {};
+  entries.forEach(e => {
+    if (!groups[e.element]) groups[e.element] = [];
+    groups[e.element].push(e);
+  });
+
+  container.innerHTML = Object.entries(groups).map(([el, rows]) => `
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>${el}</div>
+      ${rows.map(r => {
+        const c = r.f * r.g * r.d;
+        return `
+        <div style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;position:relative">
+          <div class="flex-between mb-12">
+            <div style="font-weight:600;font-size:13px">${r.mode}</div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="tag ${r.type==='MP'?'tag-mp':'tag-mc'}">${r.type}</span>
+              <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:${critColor(c)}">${c}</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:6px"><b style="color:var(--text)">Causes:</b> ${r.causes||'—'}</div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:6px"><b style="color:var(--text)">Effets:</b> ${r.effets||'—'}</div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:6px"><b style="color:var(--text)">Détection:</b> ${r.detection||'—'}</div>
+          <div style="font-size:11px;color:var(--accent);margin-bottom:10px">${r.action||'—'}</div>
+          <div style="display:flex;gap:6px;justify-content:space-between;align-items:center">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3)">F=${r.f} × G=${r.g} × D=${r.d} = <span style="color:${critColor(c)};font-weight:700">${c}</span></div>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-outline btn-sm" onclick="editAMDEC('${r.id}')">✏️</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteAMDEC('${r.id}')">🗑</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+function filterAMDEC() {
+  amdecSearch = document.getElementById('amdec-search').value;
+  renderAMDEC();
+}
+
+function filterAMDECType(type, btn) {
+  amdecFilter = type;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderAMDEC();
+}
+
+function calcC() {
+  const f = +document.getElementById('amdec-f').value || 1;
+  const g = +document.getElementById('amdec-g').value || 1;
+  const d = +document.getElementById('amdec-d').value || 1;
+  const c = f*g*d;
+  const el = document.getElementById('amdec-c-display');
+  el.textContent = c;
+  el.style.color = critColor(c);
+}
+
+function openAMDECModal(id=null) {
+  document.getElementById('amdec-edit-id').value = id || '';
+  if (id) {
+    const r = state.amdec.find(a => a.id===id);
+    if (!r) return;
+    document.getElementById('amdec-element').value = r.element;
+    document.getElementById('amdec-fonction').value = r.fonction;
+    document.getElementById('amdec-mode').value = r.mode;
+    document.getElementById('amdec-causes').value = r.causes;
+    document.getElementById('amdec-effets').value = r.effets;
+    document.getElementById('amdec-detection').value = r.detection;
+    document.getElementById('amdec-f').value = r.f;
+    document.getElementById('amdec-g').value = r.g;
+    document.getElementById('amdec-d').value = r.d;
+    document.getElementById('amdec-action-type').value = r.type;
+    document.getElementById('amdec-action').value = r.action;
+  } else {
+    ['element','fonction','mode','causes','effets','detection','action'].forEach(k => document.getElementById('amdec-'+k).value = '');
+    document.getElementById('amdec-f').value = 1;
+    document.getElementById('amdec-g').value = 1;
+    document.getElementById('amdec-d').value = 1;
+  }
+  calcC();
+  openModal('modal-amdec');
+}
+
+function editAMDEC(id) { openAMDECModal(id); }
+
+function saveAMDEC() {
+  const id = document.getElementById('amdec-edit-id').value;
+  const entry = {
+    id: id || uid(),
+    element: document.getElementById('amdec-element').value.trim(),
+    fonction: document.getElementById('amdec-fonction').value.trim(),
+    mode: document.getElementById('amdec-mode').value.trim(),
+    causes: document.getElementById('amdec-causes').value.trim(),
+    effets: document.getElementById('amdec-effets').value.trim(),
+    detection: document.getElementById('amdec-detection').value.trim(),
+    f: +document.getElementById('amdec-f').value,
+    g: +document.getElementById('amdec-g').value,
+    d: +document.getElementById('amdec-d').value,
+    type: document.getElementById('amdec-action-type').value,
+    action: document.getElementById('amdec-action').value.trim(),
+  };
+  if (!entry.element || !entry.mode) { toast('Élément et mode requis', 'error'); return; }
+  if (id) {
+    const idx = state.amdec.findIndex(a => a.id===id);
+    if (idx>=0) state.amdec[idx] = entry;
+  } else {
+    state.amdec.push(entry);
+  }
+  save();
+  closeModal('modal-amdec');
+  renderAMDEC();
+  toast('Entrée AMDEC enregistrée');
+}
+
+function deleteAMDEC(id) {
+  if (!confirm('Supprimer cette entrée AMDEC ?')) return;
+  state.amdec = state.amdec.filter(a => a.id !== id);
+  save();
+  renderAMDEC();
+  toast('Entrée supprimée');
+}
+
+// ══════════════════════════════════════════════
+//  PLAN PM TABLES
+// ══════════════════════════════════════════════
+function renderPMTables() {
+  [1,2,3].forEach(f => {
+    const tbody = document.getElementById('pm-body-' + f);
+    if (!tbody) return;
+    const rows = state.pmRows[f] || [];
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text3);font-size:11px;padding:16px">Tableau vide — cliquer + Ajouter</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map((r,i) => `
+      <tr>
+        <td style="max-width:150px">${r.op}</td>
+        <td>${r.exec}</td>
+        <td><span class="tag tag-mp">${r.freq}</span></td>
+        <td style="font-size:11px;color:var(--text2)">${r.obs}</td>
+        <td>
+          <div style="display:flex;gap:4px">
+            <button class="btn btn-outline btn-sm" onclick="editPMRow(${f},${i})">✏️</button>
+            <button class="btn btn-danger btn-sm" onclick="deletePMRow(${f},${i})">×</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
   });
 }
 
-async function addPM(f){
-  const op=prompt('Opération :');if(!op)return;
-  const exec=prompt('Exécutant (Opérateur/Mécanicien/Électricien) :')|| 'Mécanicien';
-  const freq=prompt('Fréquence (J/H/Q/M/2500h/5000h/10000h) :')||'M';
-  const obs=prompt('Observations :')||'';
-  st.pmRows[f].push({op,exec,freq,obs});
-  save();renderPM();
-  await addFeedEntry('Opération PM ajoutée (Folio '+f+')',op,'mp');
+function addPMRow(folio) {
+  const op = prompt('Opération:');
+  if (!op) return;
+  const exec = prompt('Exécutant (Opérateur/Mécanicien/Électricien):') || 'Mécanicien';
+  const freq = prompt('Fréquence (P/J/H/Q/M/2500h/5000h/10000h):') || 'M';
+  const obs = prompt('Observations:') || '';
+  state.pmRows[folio].push({ op, exec, freq, obs });
+  save();
+  renderPMTables();
   toast('Opération ajoutée');
 }
 
-function editPMRow(f,i){
-  const r=st.pmRows[f][i];
-  r.op=prompt('Opération :',r.op)||r.op;
-  r.exec=prompt('Exécutant :',r.exec)||r.exec;
-  r.freq=prompt('Fréquence :',r.freq)||r.freq;
-  r.obs=prompt('Observations :',r.obs)||r.obs;
-  save();renderPM();
-  addFeedEntry('Opération PM modifiée (Folio '+f+')',r.op,'mp');
-  toast('Modifié');
+function editPMRow(folio, idx) {
+  const r = state.pmRows[folio][idx];
+  r.op = prompt('Opération:', r.op) || r.op;
+  r.exec = prompt('Exécutant:', r.exec) || r.exec;
+  r.freq = prompt('Fréquence:', r.freq) || r.freq;
+  r.obs = prompt('Observations:', r.obs) || r.obs;
+  save();
+  renderPMTables();
 }
 
-function delPMRow(f,i){
-  if(!confirm('Supprimer cette opération ?'))return;
-  const op=st.pmRows[f][i].op;
-  st.pmRows[f].splice(i,1);save();renderPM();
-  addFeedEntry('Opération PM supprimée (Folio '+f+')',op,'mp');
+function deletePMRow(folio, idx) {
+  state.pmRows[folio].splice(idx, 1);
+  save();
+  renderPMTables();
 }
 
-function renderGammes(){
-  [1,2,3,4].forEach(g=>{
-    const b=document.getElementById('g'+g);if(!b)return;
-    const rows=st.gammes[g]||[];
-    if(!rows.length){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--text3);font-size:11px;padding:14px">Gamme vide</td></tr>';return;}
-    b.innerHTML=rows.map((r,i)=>`<tr>
-      <td style="color:var(--accent);font-family:var(--mono)">${r.o}</td>
-      <td style="max-width:110px;font-size:12px">${r.op}</td>
-      <td><input class="fi" value="${r.t}" style="width:54px;font-size:11px" onchange="upG(${g},${i},'t',this.value)"></td>
-      <td><input class="fi" value="${r.m}" style="width:72px;font-size:11px" onchange="upG(${g},${i},'m',this.value)"></td>
-      <td><input class="fi" value="${r.pr}" style="width:72px;font-size:11px" onchange="upG(${g},${i},'pr',this.value)"></td>
-      <td><input class="fi" value="${r.obs}" style="width:72px;font-size:11px" onchange="upG(${g},${i},'obs',this.value)"></td>
-      <td><button class="btn btn-danger btn-sm" onclick="delG(${g},${i})"><i class="ti ti-x"></i></button></td>
-    </tr>`).join('');
-  });
-}
-
-function upG(g,i,k,v){
-  const prev=st.gammes[g][i][k];
-  st.gammes[g][i][k]=v;save();
-  if(prev!==v)addFeedEntry('Gamme N°'+g+' modifiée',st.gammes[g][i].op,'mp');
-}
-
-async function addGamme(g){
-  const op=prompt('Description opération :');if(!op)return;
-  const o=(st.gammes[g].length?Math.max(...st.gammes[g].map(r=>r.o)):0)+1;
-  st.gammes[g].push({o,op,t:'',m:'',pr:'',obs:''});
-  save();renderGammes();
-  await addFeedEntry('Opération ajoutée Gamme N°'+g,op,'mp');
-  toast('Ajouté à la gamme');
-}
-
-function delG(g,i){
-  if(!confirm('Supprimer ?'))return;
-  const op=st.gammes[g][i].op;
-  st.gammes[g].splice(i,1);
-  st.gammes[g].forEach((r,j)=>r.o=j+1);
-  save();renderGammes();
-  addFeedEntry('Opération supprimée Gamme N°'+g,op,'mp');
-}
-
-function renderSuivi(){
-  const c=document.getElementById('suivi-wrap');if(!c)return;
-  let h='<div style="overflow-x:auto"><table style="font-size:10px;min-width:500px"><thead><tr><th style="min-width:140px;text-align:left">Opération</th>';
-  for(let w=1;w<=5;w++){DAYS.forEach(d=>h+=`<th style="padding:5px 3px">${d}</th>`);h+='<th style="width:8px"></th>';}
-  h+='</tr></thead><tbody>';
-  SUIVI_OPS.forEach((op,oi)=>{
-    h+=`<tr><td style="font-size:11px;padding:4px 6px">${op}</td>`;
-    for(let w=1;w<=5;w++){
-      for(let d=0;d<7;d++){
-        const k=`s_${oi}_${w}_${d}`;const ch=st.suiviData[k];
-        h+=`<td><div class="cc ${ch?'checked':''}" onclick="toggleSuivi('${k}',this,'${op}')">${ch?'✓':''}</div></td>`;
-      }
-      h+='<td></td>';
+// ══════════════════════════════════════════════
+//  GAMMES
+// ══════════════════════════════════════════════
+function renderGammes() {
+  [1,2,3,4].forEach(g => {
+    const tbody = document.getElementById('gamme' + g + '-body');
+    if (!tbody) return;
+    const rows = state.gammes[g] || [];
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text3);font-size:11px;padding:16px">Gamme vide</td></tr>';
+      return;
     }
-    h+='</tr>';
+    tbody.innerHTML = rows.map((r,i) => `
+      <tr>
+        <td style="color:var(--accent);font-family:var(--font-mono)">${r.ordre}</td>
+        <td style="max-width:120px;font-size:12px">${r.op}</td>
+        <td><input class="form-input" value="${r.temps}" style="width:60px;font-size:11px" onchange="updateGamme(${g},${i},'temps',this.value)"></td>
+        <td><input class="form-input" value="${r.materiel}" style="width:80px;font-size:11px" onchange="updateGamme(${g},${i},'materiel',this.value)"></td>
+        <td><input class="form-input" value="${r.pr}" style="width:80px;font-size:11px" onchange="updateGamme(${g},${i},'pr',this.value)"></td>
+        <td><input class="form-input" value="${r.obs}" style="width:80px;font-size:11px" onchange="updateGamme(${g},${i},'obs',this.value)"></td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteGammeRow(${g},${i})">×</button></td>
+      </tr>
+    `).join('');
   });
-  h+='</tbody></table></div>';
-  c.innerHTML=h;
 }
 
-function toggleSuivi(k,el,op){
-  if(st.suiviData[k]){delete st.suiviData[k];el.classList.remove('checked');el.textContent='';}
-  else{st.suiviData[k]=true;el.classList.add('checked');el.textContent='✓';
-    addFeedEntry('Suivi mensuel coché',op,'mp');
+function updateGamme(g, i, field, val) {
+  state.gammes[g][i][field] = val;
+  save();
+}
+
+function addGammeRow(g) {
+  const op = prompt('Description de l\'opération:');
+  if (!op) return;
+  const ordre = (state.gammes[g].length ? Math.max(...state.gammes[g].map(r=>r.ordre)) : 0) + 1;
+  state.gammes[g].push({ ordre, op, temps:'', materiel:'', pr:'', obs:'' });
+  save();
+  renderGammes();
+  toast('Opération ajoutée à la gamme');
+}
+
+function deleteGammeRow(g, i) {
+  state.gammes[g].splice(i, 1);
+  state.gammes[g].forEach((r,j) => r.ordre = j+1);
+  save();
+  renderGammes();
+}
+
+// ══════════════════════════════════════════════
+//  SUIVI MENSUEL
+// ══════════════════════════════════════════════
+const SUIVI_OPS = [
+  "Inspecter visuellement l'état général du décanteur",
+  "Détection des fuites d'acide",
+  "Nettoyage général de l'équipement",
+  "Contrôle du niveau d'huile du réducteur",
+  "Resserrage général de la boulonnerie",
+  "Contrôle des capteurs de sécurité",
+  "Mesure d'intensité et tension du moteur en charge",
+  "Graissage du système roue-pignon",
+  "Contrôle des bruits anormaux",
+];
+
+const DAYS_FR = ['L','M','M','J','V','S','D'];
+
+function renderSuivi() {
+  const container = document.getElementById('suivi-container');
+  if (!container) return;
+  
+  // Build 5-week grid with days
+  const weeks = [];
+  for (let w=1;w<=5;w++) {
+    const days = [];
+    for (let d=0;d<7;d++) days.push({w,d,key:`w${w}d${d}`});
+    weeks.push(days);
+  }
+
+  const sdKey = (op_idx, week, day) => `suivi_${op_idx}_w${week}_d${day}`;
+
+  let html = '<div class="tbl-wrap"><table class="suivi-table"><thead><tr><th style="min-width:140px;text-align:left">Opération</th>';
+  for (let w=1;w<=5;w++) {
+    DAYS_FR.forEach(d => html += `<th>${d}</th>`);
+    html += '<th></th>';
+  }
+  html += '</tr></thead><tbody>';
+
+  SUIVI_OPS.forEach((op, oi) => {
+    html += `<tr><td>${op}</td>`;
+    for (let w=1;w<=5;w++) {
+      for (let d=0;d<7;d++) {
+        const k = sdKey(oi,w,d);
+        const checked = state.suiviData[k] ? 'checked' : '';
+        html += `<td><div class="check-cell ${checked?'checked':''}" onclick="toggleSuivi('${k}',this)">
+          ${checked ? '✓' : ''}
+        </div></td>`;
+      }
+      html += '<td></td>';
+    }
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
+}
+
+function toggleSuivi(key, el) {
+  if (state.suiviData[key]) {
+    delete state.suiviData[key];
+    el.classList.remove('checked');
+    el.textContent = '';
+  } else {
+    state.suiviData[key] = true;
+    el.classList.add('checked');
+    el.textContent = '✓';
   }
   save();
 }
 
-let visEtats={};
-function renderVis(){
-  const c=document.getElementById('visite-points');if(!c)return;
-  c.innerHTML=VIS_PTS.map(vp=>`
-    <div style="border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:8px">
-      <div style="font-weight:500;font-size:13px;margin-bottom:3px">${vp.pt}</div>
-      <div style="font-size:11px;color:var(--text2);margin-bottom:8px">${vp.obj}</div>
+// ══════════════════════════════════════════════
+//  FEUILLE DE VISITE
+// ══════════════════════════════════════════════
+let visitEtats = {};
+
+function renderVisiteTable() {
+  const container = document.getElementById('visite-table-container');
+  if (!container) return;
+  
+  let html = '';
+  VISITE_POINTS.forEach(vp => {
+    const etat = visitEtats[vp.id] || '';
+    html += `
+    <div style="border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px">
+      <div style="font-weight:600;font-size:13px;margin-bottom:4px">${vp.point}</div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:8px">${vp.objet}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-        <div><div class="mono" style="font-size:9px;color:var(--text3)">MOYEN</div><div style="font-size:11px">${vp.m}</div></div>
-        <div><div class="mono" style="font-size:9px;color:var(--text3)">RÉFÉRENCE</div><div style="font-size:11px">${vp.ref}</div></div>
+        <div>
+          <div class="text-mono text-dim" style="font-size:9px">Moyen</div>
+          <div style="font-size:11px">${vp.moyen}</div>
+        </div>
+        <div>
+          <div class="text-mono text-dim" style="font-size:9px">Référence</div>
+          <div style="font-size:11px">${vp.ref}</div>
+        </div>
       </div>
-      <div class="fg"><label class="fl">Valeur mesurée</label><input class="fi" id="vm-${vp.id}" placeholder="Ex: 65°C" style="font-size:12px"></div>
+      <div class="form-group">
+        <label class="form-label">Valeur mesurée</label>
+        <input class="form-input" id="mesure-${vp.id}" placeholder="Ex: 65°C, 2.1 mm/s..." style="font-size:12px">
+      </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="eb ${visEtats[vp.id]==='ras'?'e-ras':''}" onclick="setEtat('${vp.id}','ras',this)">RAS</button>
-        <button class="eb ${visEtats[vp.id]==='dd'?'e-dd':''}" onclick="setEtat('${vp.id}','dd',this)">DD</button>
-        <button class="eb ${visEtats[vp.id]==='da'?'e-da':''}" onclick="setEtat('${vp.id}','da',this)">DA</button>
-        <button class="eb ${visEtats[vp.id]==='ii'?'e-ii':''}" onclick="setEtat('${vp.id}','ii',this)">II</button>
+        <button class="etat-btn ${etat==='ras'?'active-ras':''}" onclick="setEtat('${vp.id}','ras',this)">RAS</button>
+        <button class="etat-btn ${etat==='dd'?'active-dd':''}" onclick="setEtat('${vp.id}','dd',this)">DD</button>
+        <button class="etat-btn ${etat==='da'?'active-da':''}" onclick="setEtat('${vp.id}','da',this)">DA</button>
+        <button class="etat-btn ${etat==='ii'?'active-ii':''}" onclick="setEtat('${vp.id}','ii',this)">II</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  });
+  container.innerHTML = html;
 }
 
-function setEtat(id,etat,btn){
-  visEtats[id]=etat;
-  btn.parentElement.querySelectorAll('.eb').forEach(b=>{b.className='eb'});
-  btn.classList.add('e-'+etat);
+function setEtat(id, etat, btn) {
+  visitEtats[id] = etat;
+  const btns = btn.parentElement.querySelectorAll('.etat-btn');
+  btns.forEach(b => b.className = 'etat-btn');
+  btn.classList.add('active-' + etat);
 }
 
-async function saveVisite(){
-  const date=document.getElementById('v-date').value;
-  const red=document.getElementById('v-red').value;
-  if(!date){toast('Date requise');return;}
-  const mes={};
-  VIS_PTS.forEach(vp=>{mes[vp.id]={m:(document.getElementById('vm-'+vp.id)||{}).value||'',e:visEtats[vp.id]||''}});
-  const entry={id:uid(),date,red,mes,etats:{...visEtats},by:fname(),ts:Date.now()};
-  st.visiteHistory.push(entry);save();
-  visEtats={};renderVis();renderVisHist();
-  await addFeedEntry('Feuille de visite enregistrée','Date: '+fdate(date),'mp');
-  toast('Visite enregistrée ✓');
+function saveVisite() {
+  const date = document.getElementById('visite-date').value;
+  const redacteur = document.getElementById('visite-redacteur').value;
+  if (!date) { toast('Date requise', 'error'); return; }
+  
+  const mesures = {};
+  VISITE_POINTS.forEach(vp => {
+    mesures[vp.id] = {
+      mesure: document.getElementById('mesure-' + vp.id)?.value || '',
+      etat: visitEtats[vp.id] || ''
+    };
+  });
+  
+  state.visiteHistory.push({
+    id: uid(),
+    date,
+    redacteur,
+    mesures,
+    etats: {...visitEtats},
+    createdAt: new Date().toISOString(),
+  });
+  save();
+  visitEtats = {};
+  renderVisiteTable();
+  renderVisiteHistory();
+  toast('Feuille de visite enregistrée ✓');
 }
 
-function renderVisHist(){
-  const c=document.getElementById('visite-hist');if(!c)return;
-  if(!st.visiteHistory.length){c.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune visite</div>';return;}
-  c.innerHTML=st.visiteHistory.slice().reverse().map(v=>{
-    const alerts=Object.values(v.etats||{}).filter(e=>e==='ii'||e==='da').length;
-    return`<div class="li"><div class="li-head">
-      <div class="li-title">Visite du ${fdate(v.date)}</div>
-      ${alerts>0?`<span class="tag t-orange">⚠️ ${alerts} alerte(s)</span>`:'<span class="tag t-green">OK</span>'}
-    </div><div class="li-body">${v.red?'Rédacteur: '+v.red:''}</div>
-    <div class="li-actions"><button class="btn btn-danger btn-sm" onclick="delVisite('${v.id}')"><i class="ti ti-trash"></i></button></div>
+function renderVisiteHistory() {
+  const container = document.getElementById('visite-history');
+  if (!container) return;
+  if (!state.visiteHistory.length) {
+    container.innerHTML = '<div class="text-dim text-mono" style="text-align:center;padding:16px;font-size:11px">Aucune visite enregistrée</div>';
+    return;
+  }
+  container.innerHTML = state.visiteHistory.slice().reverse().map(v => {
+    const alertCount = Object.values(v.etats||{}).filter(e => e==='ii'||e==='da').length;
+    return `
+    <div class="int-item">
+      <div class="int-header">
+        <div class="int-title">Visite du ${v.date}</div>
+        ${alertCount>0 ? `<span class="tag tag-high">⚠️ ${alertCount} alerte(s)</span>` : '<span class="tag tag-ok">OK</span>'}
+      </div>
+      <div class="int-detail">Rédacteur: ${v.redacteur || 'N/A'}</div>
+      <button class="btn btn-danger btn-sm mt-8" onclick="deleteVisite('${v.id}')">Supprimer</button>
     </div>`;
   }).join('');
 }
 
-function delVisite(id){
-  st.visiteHistory=st.visiteHistory.filter(v=>v.id!==id);save();renderVisHist();
+function deleteVisite(id) {
+  state.visiteHistory = state.visiteHistory.filter(v => v.id !== id);
+  save();
+  renderVisiteHistory();
 }
 
-// INTERVENTIONS
-const SIC={done:'<span class="tag t-green">Terminée</span>',progress:'<span class="tag t-yellow">En cours</span>',planned:'<span class="tag t-blue">Planifiée</span>'};
-const PIC={high:'<span class="tag t-red">Haute</span>',med:'<span class="tag t-orange">Moyenne</span>',low:'<span class="tag t-green">Faible</span>'};
-
-function openIntModal(type){
-  document.getElementById('i-type').value=type;
-  document.getElementById('i-eid').value='';
-  document.getElementById('m-int-title').innerHTML=`${type==='MC'?'Nouvelle MC':'Nouvelle MP'} <button class="mc" onclick="closeModal('m-int')"><i class="ti ti-x"></i></button>`;
-  document.getElementById('i-date').value=today();
-  ['i-who','i-el','i-desc','i-pieces','i-dur','i-obs'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('i-prio').value='med';
-  document.getElementById('i-stat').value='done';
-  openModal('m-int');
+// ══════════════════════════════════════════════
+//  INTERVENTIONS
+// ══════════════════════════════════════════════
+function openIntModal(type) {
+  document.getElementById('int-type').value = type;
+  document.getElementById('int-edit-id').value = '';
+  document.getElementById('int-modal-title').textContent = type === 'MC' ? 'NOUVELLE MC' : 'NOUVELLE MP';
+  document.getElementById('int-date').value = new Date().toISOString().split('T')[0];
+  ['element','description','intervenant','duree','pieces','obs'].forEach(f =>
+    document.getElementById('int-' + f).value = ''
+  );
+  document.getElementById('int-priority').value = 'med';
+  document.getElementById('int-status').value = 'done';
+  openModal('modal-intervention');
 }
 
-async function saveInt(){
-  const type=document.getElementById('i-type').value;
-  const eid=document.getElementById('i-eid').value;
-  const e={
-    id:eid||uid(),type,
-    who:document.getElementById('i-who').value,
-    date:document.getElementById('i-date').value,
-    el:document.getElementById('i-el').value,
-    desc:document.getElementById('i-desc').value,
-    pieces:document.getElementById('i-pieces').value,
-    dur:document.getElementById('i-dur').value,
-    prio:document.getElementById('i-prio').value,
-    status:document.getElementById('i-stat').value,
-    obs:document.getElementById('i-obs').value,
-    ts:Date.now(),
+function saveIntervention() {
+  const type = document.getElementById('int-type').value;
+  const editId = document.getElementById('int-edit-id').value;
+  const entry = {
+    id: editId || uid(),
+    type,
+    date: document.getElementById('int-date').value,
+    element: document.getElementById('int-element').value,
+    description: document.getElementById('int-description').value,
+    intervenant: document.getElementById('int-intervenant').value,
+    duree: document.getElementById('int-duree').value,
+    pieces: document.getElementById('int-pieces').value,
+    priority: document.getElementById('int-priority').value,
+    status: document.getElementById('int-status').value,
+    obs: document.getElementById('int-obs').value,
+    createdAt: new Date().toISOString(),
   };
-  if(!e.desc.trim()){toast('Description requise');return;}
-  if(eid){const idx=st.interventions.findIndex(i=>i.id===eid);if(idx>=0)st.interventions[idx]=e;}
-  else st.interventions.push(e);
-  save();closeModal('m-int');renderInts();updateDash();
-  await addFeedEntry((eid?'Intervention modifiée':'Nouvelle intervention ')+type,e.el||e.desc,type.toLowerCase());
+  if (!entry.description.trim()) { toast('Description requise', 'error'); return; }
+  if (editId) {
+    const idx = state.interventions.findIndex(i => i.id===editId);
+    if (idx>=0) state.interventions[idx] = entry;
+  } else {
+    state.interventions.push(entry);
+  }
+  save();
+  closeModal('modal-intervention');
+  renderInterventions();
+  updateDashboard();
   toast('Intervention enregistrée ✓');
 }
 
-function renderInts(){
-  const mc=st.interventions.filter(i=>i.type==='MC');
-  const mp=st.interventions.filter(i=>i.type==='MP');
-  const rend=(arr,cid)=>{
-    const el=document.getElementById(cid);if(!el)return;
-    if(!arr.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune intervention</div>';return;}
-    el.innerHTML=arr.slice().reverse().map(i=>`<div class="li">
-      <div class="li-head">
-        <div>${SIC[i.status]||''} <span class="li-title">${i.el||'Équipement'}</span></div>
-        <span class="li-date">${fdate(i.date)}</span>
+const statusIcon = { done:'✅', progress:'🔄', planned:'📅' };
+const priorityIcon = { high:'🔴', med:'🟡', low:'🟢' };
+
+function renderInterventions() {
+  const mc = state.interventions.filter(i => i.type==='MC');
+  const mp = state.interventions.filter(i => i.type==='MP');
+  
+  const render = (arr, containerId) => {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    if (!arr.length) {
+      el.innerHTML = '<div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucune intervention enregistrée</div>';
+      return;
+    }
+    el.innerHTML = arr.slice().reverse().map(i => `
+      <div class="int-item">
+        <div class="int-header">
+          <div>${statusIcon[i.status]||'📋'} <span class="int-title">${i.element||'Équipement'}</span></div>
+          <div>${priorityIcon[i.priority]||''} <span class="int-date">${i.date}</span></div>
+        </div>
+        <div class="int-detail">${i.description}</div>
+        ${i.intervenant ? `<div class="int-detail" style="margin-top:4px">👤 ${i.intervenant} ${i.duree?'· '+i.duree+'h':''}</div>` : ''}
+        ${i.pieces ? `<div class="int-detail" style="margin-top:4px">🔧 ${i.pieces}</div>` : ''}
+        ${i.obs ? `<div class="int-detail" style="margin-top:4px;font-style:italic">${i.obs}</div>` : ''}
+        <div class="row-actions mt-8">
+          <button class="btn btn-outline btn-sm" onclick="editInt('${i.id}')">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteInt('${i.id}')">🗑</button>
+        </div>
       </div>
-      <div class="li-body">${i.desc}</div>
-      ${i.who?`<div class="li-body mt8" style="display:flex;align-items:center;gap:4px"><i class="ti ti-user" style="font-size:12px"></i> ${i.who}${i.dur?' · '+i.dur+'h':''}</div>`:''}
-      ${i.pieces?`<div class="li-body mt8" style="display:flex;align-items:center;gap:4px"><i class="ti ti-tool" style="font-size:12px"></i> ${i.pieces}</div>`:''}
-      <div class="li-actions">
-        ${PIC[i.prio]||''}
-        <button class="btn btn-outline btn-sm" onclick="editInt('${i.id}')"><i class="ti ti-edit"></i></button>
-        <button class="btn btn-danger btn-sm" onclick="delInt('${i.id}')"><i class="ti ti-trash"></i></button>
-      </div>
-    </div>`).join('');
+    `).join('');
   };
-  rend(mc,'mc-list');rend(mp,'mp-list');
+  
+  render(mc, 'mc-list');
+  render(mp, 'mp-list');
 }
 
-function editInt(id){
-  const i=st.interventions.find(x=>x.id===id);if(!i)return;
-  document.getElementById('i-type').value=i.type;
-  document.getElementById('i-eid').value=id;
-  document.getElementById('m-int-title').innerHTML=`Modifier intervention <button class="mc" onclick="closeModal('m-int')"><i class="ti ti-x"></i></button>`;
-  ['who','date','el','desc','pieces','dur','prio','obs'].forEach(k=>{const el=document.getElementById('i-'+k);if(el)el.value=i[k]||'';});
-  document.getElementById('i-stat').value=i.status||'done';
-  openModal('m-int');
+function editInt(id) {
+  const i = state.interventions.find(x => x.id===id);
+  if (!i) return;
+  document.getElementById('int-type').value = i.type;
+  document.getElementById('int-edit-id').value = id;
+  document.getElementById('int-modal-title').textContent = 'MODIFIER INTERVENTION';
+  document.getElementById('int-date').value = i.date;
+  document.getElementById('int-element').value = i.element;
+  document.getElementById('int-description').value = i.description;
+  document.getElementById('int-intervenant').value = i.intervenant;
+  document.getElementById('int-duree').value = i.duree;
+  document.getElementById('int-pieces').value = i.pieces;
+  document.getElementById('int-priority').value = i.priority;
+  document.getElementById('int-status').value = i.status;
+  document.getElementById('int-obs').value = i.obs;
+  openModal('modal-intervention');
 }
 
-function delInt(id){
-  if(!confirm('Supprimer ?'))return;
-  const i=st.interventions.find(x=>x.id===id);
-  st.interventions=st.interventions.filter(x=>x.id!==id);
-  save();renderInts();updateDash();
-  if(i)addFeedEntry('Intervention supprimée',i.el||'','mc');
+function deleteInt(id) {
+  if (!confirm('Supprimer cette intervention ?')) return;
+  state.interventions = state.interventions.filter(i => i.id!==id);
+  save();
+  renderInterventions();
+  updateDashboard();
 }
 
-function openAnomalyModal(){
-  document.getElementById('an-eid').value='';
-  ['an-who','an-el','an-desc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('an-date').value=today();
-  document.getElementById('an-lvl').value='high';
-  openModal('m-anom');
+// ══════════════════════════════════════════════
+//  ANOMALIES
+// ══════════════════════════════════════════════
+function openAnomalyModal() {
+  document.getElementById('anom-edit-id').value = '';
+  document.getElementById('anom-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('anom-element').value = '';
+  document.getElementById('anom-desc').value = '';
+  document.getElementById('anom-by').value = '';
+  document.getElementById('anom-level').value = 'high';
+  openModal('modal-anomalie');
 }
 
-async function saveAnomaly(){
-  const eid=document.getElementById('an-eid').value;
-  const e={
-    id:eid||uid(),
-    who:document.getElementById('an-who').value,
-    date:document.getElementById('an-date').value,
-    el:document.getElementById('an-el').value,
-    desc:document.getElementById('an-desc').value,
-    level:document.getElementById('an-lvl').value,
-    resolved:false,ts:Date.now(),
+function saveAnomaly() {
+  const editId = document.getElementById('anom-edit-id').value;
+  const entry = {
+    id: editId || uid(),
+    date: document.getElementById('anom-date').value,
+    element: document.getElementById('anom-element').value,
+    desc: document.getElementById('anom-desc').value,
+    level: document.getElementById('anom-level').value,
+    by: document.getElementById('anom-by').value,
+    resolved: false,
+    createdAt: new Date().toISOString(),
   };
-  if(!e.desc.trim()){toast('Description requise');return;}
-  if(eid){const idx=st.anomalies.findIndex(a=>a.id===eid);if(idx>=0)st.anomalies[idx]=e;}
-  else st.anomalies.push(e);
-  save();closeModal('m-anom');renderAnomalies();updateDash();
-  await addFeedEntry('Anomalie déclarée — '+e.level,e.el+': '+e.desc,'anomaly');
+  if (!entry.desc.trim()) { toast('Description requise', 'error'); return; }
+  if (editId) {
+    const idx = state.anomalies.findIndex(a => a.id===editId);
+    if(idx>=0) state.anomalies[idx] = entry;
+  } else {
+    state.anomalies.push(entry);
+  }
+  save();
+  closeModal('modal-anomalie');
+  renderAnomalies();
+  updateDashboard();
   toast('Anomalie déclarée ⚠️');
 }
 
-function renderAnomalies(){
-  const el=document.getElementById('an-list');if(!el)return;
-  if(!st.anomalies.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucune anomalie</div>';return;}
-  el.innerHTML=st.anomalies.slice().reverse().map(a=>`<div class="li">
-    <div class="li-head">
-      <div><span class="tag ${a.level==='high'?'t-red':a.level==='med'?'t-orange':'t-yellow'}">${a.level==='high'?'Critique':a.level==='med'?'Modérée':'Faible'}</span> <span class="li-title">${a.el||'?'}</span></div>
-      <span class="li-date">${fdate(a.date)}</span>
-    </div>
-    <div class="li-body">${a.desc}</div>
-    ${a.who?`<div class="li-body mt8"><i class="ti ti-user" style="font-size:11px"></i> ${a.who}</div>`:''}
-    <div class="li-actions">
-      <button class="btn ${a.resolved?'btn-outline':'btn-primary'} btn-sm" onclick="resolveAn('${a.id}')">${a.resolved?'✓ Résolu':'Résoudre'}</button>
-      <button class="btn btn-danger btn-sm" onclick="delAn('${a.id}')"><i class="ti ti-trash"></i></button>
-    </div>
-  </div>`).join('');
-}
-
-function resolveAn(id){
-  const a=st.anomalies.find(x=>x.id===id);
-  if(a){a.resolved=!a.resolved;save();renderAnomalies();updateDash();
-    addFeedEntry(a.resolved?'Anomalie résolue':'Anomalie réouverte',a.el+': '+a.desc,'anomaly');
+function renderAnomalies() {
+  const el = document.getElementById('anomaly-list');
+  if (!el) return;
+  if (!state.anomalies.length) {
+    el.innerHTML = '<div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucune anomalie enregistrée</div>';
+    return;
   }
-}
-
-function delAn(id){
-  if(!confirm('Supprimer ?'))return;
-  const a=st.anomalies.find(x=>x.id===id);
-  st.anomalies=st.anomalies.filter(x=>x.id!==id);
-  save();renderAnomalies();updateDash();
-  if(a)addFeedEntry('Anomalie supprimée',a.el||'','anomaly');
-}
-
-// PLANNING CALENDAR
-function renderCal(){
-  const m=st.calM,y=st.calY;
-  document.getElementById('cal-label').textContent=MONTHS[m]+' '+y;
-  const g=document.getElementById('cal');const td=new Date();
-  let h=DAYS.map(d=>`<div class="cal-dh">${d}</div>`).join('');
-  const fd=new Date(y,m,1).getDay();const dim=new Date(y,m+1,0).getDate();
-  const off=(fd+6)%7;
-  for(let i=0;i<off;i++)h+='<div></div>';
-  for(let d=1;d<=dim;d++){
-    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const it=d===td.getDate()&&m===td.getMonth()&&y===td.getFullYear();
-    const he=st.planEvents.some(e=>e.date===ds);
-    const od=he&&new Date(ds)<new Date(td.toDateString());
-    h+=`<div class="cal-d ${it?'today':''} ${he?'has-ev':''} ${od?'od':''}" onclick="dayClick('${ds}')">${d}</div>`;
-  }
-  g.innerHTML=h;
-  renderPlanList();
-}
-
-function prevM(){st.calM--;if(st.calM<0){st.calM=11;st.calY--;}renderCal();}
-function nextM(){st.calM++;if(st.calM>11){st.calM=0;st.calY++;}renderCal();}
-
-function renderPlanList(){
-  const el=document.getElementById('plan-list');if(!el)return;
-  const evs=st.planEvents.slice().sort((a,b)=>a.date.localeCompare(b.date));
-  if(!evs.length){el.innerHTML='<div class="mono dim" style="text-align:center;padding:14px;font-size:11px">Aucun événement</div>';return;}
-  el.innerHTML=evs.map(e=>`<div class="li">
-    <div class="li-head">
-      <div><span class="tag t-blue">${e.type}</span> <span class="li-title">${e.desc||'Intervention'}</span></div>
-      <span class="li-date">${fdate(e.date)}</span>
+  el.innerHTML = state.anomalies.slice().reverse().map(a => `
+    <div class="int-item">
+      <div class="int-header">
+        <div>
+          <span class="tag tag-${a.level}">${a.level==='high'?'🔴 Critique':a.level==='med'?'🟡 Modérée':'🟢 Faible'}</span>
+          <span class="int-title" style="margin-left:8px">${a.element||'Équipement'}</span>
+        </div>
+        <span class="int-date">${a.date}</span>
+      </div>
+      <div class="int-detail">${a.desc}</div>
+      ${a.by ? `<div class="int-detail" style="margin-top:4px">Détecté par: ${a.by}</div>` : ''}
+      <div class="row-actions mt-8">
+        <button class="btn btn-outline btn-sm" onclick="resolveAnomaly('${a.id}')">${a.resolved?'✅ Résolu':'Résoudre'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteAnomaly('${a.id}')">🗑</button>
+      </div>
     </div>
-    ${e.resp?`<div class="li-body"><i class="ti ti-user" style="font-size:11px"></i> ${e.resp}</div>`:''}
-    <div class="li-actions"><button class="btn btn-danger btn-sm" onclick="delPlan('${e.id}')"><i class="ti ti-trash"></i></button></div>
-  </div>`).join('');
+  `).join('');
 }
 
-function dayClick(ds){const evs=st.planEvents.filter(e=>e.date===ds);if(evs.length)alert(evs.map(e=>e.type+': '+e.desc).join('\n'));}
-
-async function savePlan(){
-  const e={id:uid(),date:document.getElementById('p-date').value,type:document.getElementById('p-type').value,desc:document.getElementById('p-desc').value,resp:document.getElementById('p-resp').value};
-  if(!e.date){toast('Date requise');return;}
-  st.planEvents.push(e);save();closeModal('m-plan');renderCal();
-  await addFeedEntry('Intervention planifiée',e.type+' — '+fdate(e.date)+(e.resp?' ('+e.resp+')':''),'plan');
-  toast('Planifié ✓');
+function resolveAnomaly(id) {
+  const a = state.anomalies.find(x => x.id===id);
+  if (a) { a.resolved = !a.resolved; save(); renderAnomalies(); updateDashboard(); }
 }
 
-function delPlan(id){
-  if(!confirm('Supprimer ?'))return;
-  st.planEvents=st.planEvents.filter(e=>e.id!==id);save();renderCal();
-  addFeedEntry('Événement planning supprimé','','plan');
+function deleteAnomaly(id) {
+  state.anomalies = state.anomalies.filter(a => a.id!==id);
+  save();
+  renderAnomalies();
+  updateDashboard();
 }
 
-// STATS
-function updateStats(){
-  document.getElementById('r-tot').textContent=st.interventions.length;
-  document.getElementById('r-mc').textContent=st.interventions.filter(i=>i.type==='MC').length;
-  document.getElementById('r-mp').textContent=st.interventions.filter(i=>i.type==='MP').length;
-  document.getElementById('r-an').textContent=st.anomalies.length;
+// ══════════════════════════════════════════════
+//  PLANNING CALENDAR
+// ══════════════════════════════════════════════
+const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+
+function renderCalendar() {
+  const m = state.calMonth;
+  const y = state.calYear;
+  document.getElementById('cal-month-label').textContent = MONTHS_FR[m] + ' ' + y;
+  
+  const grid = document.getElementById('cal-grid');
+  const today = new Date();
+  
+  // Header
+  let html = DAYS_FR.map(d => `<div class="cal-day-head">${d}</div>`).join('');
+  
+  const firstDay = new Date(y, m, 1).getDay();
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  const offset = (firstDay + 6) % 7; // Monday start
+  
+  for (let i=0;i<offset;i++) html += '<div></div>';
+  
+  for (let d=1;d<=daysInMonth;d++) {
+    const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = d===today.getDate() && m===today.getMonth() && y===today.getFullYear();
+    const hasEvent = state.planEvents.some(e => e.date===dateStr);
+    const isPast = new Date(dateStr) < new Date(today.toDateString());
+    const isOverdue = hasEvent && isPast && !isToday;
+    html += `<div class="cal-day ${isToday?'today':''} ${hasEvent?'has-event':''} ${isOverdue?'overdue':''}"
+      onclick="showDayEvents('${dateStr}')">${d}</div>`;
+  }
+  
+  grid.innerHTML = html;
+  renderPlanEvents();
 }
 
-async function saveConsign(){
-  const d={resp:document.getElementById('c-resp').value,date:document.getElementById('c-date').value,notes:document.getElementById('c-notes').value,dec:document.getElementById('c-dec').value};
-  st.consign=d;save();
-  await addFeedEntry('Fiche consignation enregistrée','Resp: '+d.resp,'mp');
-  toast('Consignation enregistrée ✓');
+function prevMonth() {
+  state.calMonth--;
+  if (state.calMonth<0) { state.calMonth=11; state.calYear--; }
+  renderCalendar();
 }
 
-// TAB SWITCHERS
-function showPlanTab(tab,btn){
-  ['pm','gammes','suivi','visite'].forEach(t=>{const el=document.getElementById('pt-'+t);if(el)el.style.display=t===tab?'':'none';});
-  document.querySelectorAll('#page-plan .tab').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  if(tab==='gammes')renderGammes();
-  if(tab==='suivi')renderSuivi();
-  if(tab==='visite'){renderVis();renderVisHist();}
+function nextMonth() {
+  state.calMonth++;
+  if (state.calMonth>11) { state.calMonth=0; state.calYear++; }
+  renderCalendar();
 }
 
-function showIntTab(tab,btn){
-  ['mc','mp','an'].forEach(t=>{const el=document.getElementById('it-'+t);if(el)el.style.display=t===tab?'':'none';});
-  document.querySelectorAll('#page-int .tab').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
+function renderPlanEvents() {
+  const el = document.getElementById('plan-events-list');
+  if (!el) return;
+  const events = state.planEvents.slice().sort((a,b) => a.date.localeCompare(b.date));
+  if (!events.length) {
+    el.innerHTML = '<div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">Aucun événement planifié</div>';
+    return;
+  }
+  el.innerHTML = events.map(e => `
+    <div class="int-item">
+      <div class="int-header">
+        <div><span class="tag tag-mp">${e.type}</span> <span class="int-title" style="margin-left:6px">${e.desc||'Intervention'}</span></div>
+        <span class="int-date">${e.date}</span>
+      </div>
+      ${e.resp ? `<div class="int-detail">👤 ${e.resp}</div>` : ''}
+      <div class="row-actions mt-8">
+        <button class="btn btn-danger btn-sm" onclick="deletePlanEvent('${e.id}')">🗑</button>
+      </div>
+    </div>
+  `).join('');
 }
 
-// EXPORT / IMPORT
-function exportJSON(){
-  const b=new Blob([JSON.stringify(st,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);
-  a.download='gct_cmms_'+today()+'.json';a.click();toast('Exporté ✓');
+function openPlanModal() {
+  document.getElementById('plan-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('plan-desc').value = '';
+  document.getElementById('plan-resp').value = '';
+  openModal('modal-plan');
 }
 
-function doImport(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);st={...st,...d};save();toast('Importé ✓');location.reload();}catch{toast('Erreur JSON');}};
-  r.readAsText(f);
+function savePlanEvent() {
+  const entry = {
+    id: uid(),
+    date: document.getElementById('plan-date').value,
+    type: document.getElementById('plan-type').value,
+    desc: document.getElementById('plan-desc').value,
+    resp: document.getElementById('plan-resp').value,
+  };
+  if (!entry.date) { toast('Date requise', 'error'); return; }
+  state.planEvents.push(entry);
+  save();
+  closeModal('modal-plan');
+  renderCalendar();
+  toast('Intervention planifiée ✓');
 }
 
-function genReport(){
-  const win=window.open('','_blank');
-  const mc=st.interventions.filter(i=>i.type==='MC');
-  const mp=st.interventions.filter(i=>i.type==='MP');
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rapport Maintenance TK2701B — ${today()}</title>
-  <style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;color:#1c1c1a}h1{color:#1B3A5C;border-bottom:3px solid #C55A1B;padding-bottom:10px}h2{color:#1B3A5C;margin-top:24px}table{width:100%;border-collapse:collapse;margin:12px 0}th{background:#1B3A5C;color:#fff;padding:8px;font-size:12px;text-align:left}td{padding:8px;border-bottom:1px solid #eee;font-size:12px}@media print{.np{display:none}}</style>
-  </head><body>
-  <h1>Rapport Maintenance — TK2701B</h1>
-  <p><b>Date:</b> ${today()} | <b>Équipement:</b> Réservoir Décanteur TK2701B | <b>Site:</b> GCT Usine Acide Phosphorique</p>
-  <h2>Résumé</h2>
-  <table><tr><th>Indicateur</th><th>Valeur</th></tr>
-  <tr><td>Total interventions</td><td>${st.interventions.length}</td></tr>
-  <tr><td>Maintenance corrective</td><td>${mc.length}</td></tr>
-  <tr><td>Maintenance préventive</td><td>${mp.length}</td></tr>
-  <tr><td>Anomalies actives</td><td>${st.anomalies.filter(a=>!a.resolved).length}</td></tr>
-  </table>
-  <h2>Interventions correctives (MC)</h2>
-  ${mc.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Statut</th><th>Intervenant</th></tr>${mc.map(i=>`<tr><td>${i.date}</td><td>${i.el}</td><td>${i.desc}</td><td>${i.status}</td><td>${i.who||''}</td></tr>`).join('')}</table>`:'<p>Aucune.</p>'}
-  <h2>Interventions préventives (MP)</h2>
-  ${mp.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Statut</th><th>Intervenant</th></tr>${mp.map(i=>`<tr><td>${i.date}</td><td>${i.el}</td><td>${i.desc}</td><td>${i.status}</td><td>${i.who||''}</td></tr>`).join('')}</table>`:'<p>Aucune.</p>'}
-  <h2>Anomalies</h2>
-  ${st.anomalies.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Niveau</th><th>Résolu</th></tr>${st.anomalies.map(a=>`<tr><td>${a.date}</td><td>${a.el}</td><td>${a.desc}</td><td>${a.level}</td><td>${a.resolved?'Oui':'Non'}</td></tr>`).join('')}</table>`:'<p>Aucune.</p>'}
-  <p style="margin-top:40px;color:#999;font-size:11px">Généré le ${new Date().toLocaleString('fr-FR')} · CMMS GCT TK2701B</p>
-  <button class="np" onclick="window.print()" style="margin-top:12px;padding:10px 20px;background:#1B3A5C;color:#fff;border:none;cursor:pointer;border-radius:6px">🖨️ Imprimer</button>
-  </body></html>`;
-  win.document.write(html);win.document.close();
+function deletePlanEvent(id) {
+  state.planEvents = state.planEvents.filter(e => e.id!==id);
+  save();
+  renderCalendar();
 }
 
-async function clearAll(){
-  if(!confirm('⚠️ Supprimer TOUTES les données ?'))return;
-  try{await remove(ref(_db,ROOT+'/state'));}catch(e){}
-  try{await remove(ref(_db,ROOT+'/feed'));}catch(e){}
-  localStorage.removeItem(DB);
+function showDayEvents(date) {
+  const events = state.planEvents.filter(e => e.date===date);
+  if (!events.length) return;
+  alert(events.map(e => `${e.type}: ${e.desc}${e.resp?' ('+e.resp+')':''}`).join('\n'));
+}
+
+// ══════════════════════════════════════════════
+//  DASHBOARD UPDATE
+// ══════════════════════════════════════════════
+function updateDashboard() {
+  const mc = state.interventions.filter(i=>i.type==='MC');
+  const mp = state.interventions.filter(i=>i.type==='MP');
+  const done = state.interventions.filter(i=>i.status==='done');
+  const anomActive = state.anomalies.filter(a=>!a.resolved);
+  
+  document.getElementById('kpi-planned').textContent = state.planEvents.length;
+  document.getElementById('kpi-done').textContent = done.length;
+  document.getElementById('kpi-anomalies').textContent = anomActive.length;
+  document.getElementById('kpi-criticite').textContent = 48;
+  
+  const pmDone = mp.filter(i=>i.status==='done').length;
+  const mcDone = mc.filter(i=>i.status==='done').length;
+  const pmRate = mp.length ? Math.round(pmDone/mp.length*100) : 0;
+  const mcRate = mc.length ? Math.round(mcDone/mc.length*100) : 0;
+  
+  document.getElementById('pm-rate').textContent = pmRate + '%';
+  document.getElementById('mc-rate').textContent = mcRate + '%';
+  document.getElementById('pm-bar').style.width = pmRate + '%';
+  document.getElementById('mc-bar').style.width = mcRate + '%';
+  
+  // Alert count
+  const totalAlerts = anomActive.length + state.planEvents.filter(e => new Date(e.date) < new Date()).length;
+  document.getElementById('alertCount').textContent = totalAlerts;
+}
+
+function updateStats() {
+  const total = state.interventions.length + state.anomalies.length;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-mc').textContent = state.interventions.filter(i=>i.type==='MC').length;
+  document.getElementById('stat-mp').textContent = state.interventions.filter(i=>i.type==='MP').length;
+  document.getElementById('stat-an').textContent = state.anomalies.length;
+}
+
+// ══════════════════════════════════════════════
+//  ALERTS PANEL
+// ══════════════════════════════════════════════
+function showAlerts() {
+  const anomActive = state.anomalies.filter(a=>!a.resolved);
+  const overdueEvents = state.planEvents.filter(e => new Date(e.date) < new Date());
+  
+  let html = '';
+  if (!anomActive.length && !overdueEvents.length) {
+    html = '<div class="text-dim text-mono" style="text-align:center;padding:20px;font-size:11px">✅ Aucune alerte active</div>';
+  }
+  anomActive.forEach(a => {
+    html += `<div class="alert-item">
+      <div class="alert-dot ${a.level==='high'?'high':a.level==='med'?'med':'low'}"></div>
+      <div><div class="alert-text">Anomalie: ${a.element||'?'}</div>
+      <div class="alert-meta">${a.desc} · ${a.date}</div></div>
+    </div>`;
+  });
+  overdueEvents.forEach(e => {
+    html += `<div class="alert-item">
+      <div class="alert-dot med"></div>
+      <div><div class="alert-text">Intervention en retard: ${e.desc}</div>
+      <div class="alert-meta">${e.type} · Planifié le ${e.date}</div></div>
+    </div>`;
+  });
+  
+  document.getElementById('alerts-panel-content').innerHTML = html;
+  openModal('modal-alerts');
+}
+
+// ══════════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════════
+function showSettings() { openModal('modal-settings'); }
+
+function clearAllData() {
+  if (!confirm('⚠️ Supprimer TOUTES les données ? Cette action est irréversible.')) return;
+  localStorage.removeItem(DB_KEY);
   location.reload();
 }
 
-// FEED PANEL OPEN
-document.getElementById('notif-btn').addEventListener('click',()=>{
-  renderFeed('feed-full');
-  lastFeedCount=Date.now();
-  document.getElementById('notif-count').style.display='none';
-});
-
-// Écoute le feed Firebase en temps réel
-onValue(ref(_db,ROOT+'/feed'),async()=>{
-  await updateNotifBadge();
-  if(document.getElementById('page-dashboard').classList.contains('active')){
-    await renderFeed('dash-feed',4);
+// ══════════════════════════════════════════════
+//  REFS
+// ══════════════════════════════════════════════
+function renderRefs() {
+  const el = document.getElementById('refs-list');
+  if (!el) return;
+  if (!state.refs.length) {
+    el.innerHTML = '<div class="text-dim text-mono" style="font-size:11px">Aucune référence ajoutée</div>';
+    return;
   }
-  if(document.getElementById('m-feed').classList.contains('open')){
-    await renderFeed('feed-full');
-  }
-});
-
-// INIT
-async function init(){
-  showSyncStatus('sync');
-  await load();
-  if(!st.pmRows||!st.pmRows[1]||!st.pmRows[1].length)st.pmRows=JSON.parse(JSON.stringify(PM_DEF));
-  if(!st.gammes||!st.gammes[1]||!st.gammes[1].length)st.gammes=JSON.parse(JSON.stringify(GM_DEF));
-  if(!st.suiviData)st.suiviData={};
-  if(!st.visiteHistory)st.visiteHistory=[];
-  document.getElementById('v-date').value=today();
-  document.getElementById('c-date').value=today();
-  renderPM();renderInts();renderAnomalies();
-  await updateDash();
-  await updateNotifBadge();
-  startListeners();
-  showSyncStatus('online');
-  setTimeout(()=>{document.getElementById('splash').classList.add('hide');setTimeout(()=>document.getElementById('splash').style.display='none',400);},1800);
+  el.innerHTML = state.refs.map((r,i) => `
+    <div class="flex-between" style="padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:12px;flex:1">[${i+1}] ${r.text}</div>
+      <button class="btn btn-danger btn-sm" style="margin-left:8px" onclick="deleteRef(${i})">×</button>
+    </div>
+  `).join('');
 }
-init();
 
-// ── Exposer toutes les fonctions au scope global ──────────
-// Nécessaire car type="module" isole le scope JS
-Object.assign(window,{
-  showPage,toast,openModal,closeModal,
-  updateDash,renderPM,addPM,editPMRow,delPMRow,
-  renderGammes,upG,addGamme,delG,
-  renderSuivi,toggleSuivi,
-  renderVis,setEtat,saveVisite,renderVisHist,delVisite,
-  renderInts,openIntModal,saveInt,editInt,delInt,
-  openAnomalyModal,saveAnomaly,renderAnomalies,resolveAn,delAn,
-  renderCal,prevM,nextM,renderPlanList,dayClick,savePlan,delPlan,
-  updateStats,saveConsign,exportJSON,doImport,genReport,clearAll,
-  showPlanTab,showIntTab,clearFeed,
-});
+function openRefModal() {
+  document.getElementById('ref-text').value = '';
+  openModal('modal-ref');
+}
+
+function saveRef() {
+  const text = document.getElementById('ref-text').value.trim();
+  if (!text) { toast('Référence requise', 'error'); return; }
+  state.refs.push({ text });
+  save();
+  closeModal('modal-ref');
+  renderRefs();
+  toast('Référence ajoutée');
+}
+
+function deleteRef(idx) {
+  state.refs.splice(idx, 1);
+  save();
+  renderRefs();
+}
+
+// ══════════════════════════════════════════════
+//  CONSIGNATION
+// ══════════════════════════════════════════════
+function saveConsignation() {
+  const data = {
+    resp: document.getElementById('consign-resp').value,
+    date: document.getElementById('consign-date').value,
+    notes: document.getElementById('consign-notes').value,
+    deconsign: document.getElementById('deconsign-resp').value,
+    epi: ['chaussures','casque','masque','tenue','lunettes','gants']
+      .filter(e => document.getElementById('epi-'+e).checked),
+    createdAt: new Date().toISOString(),
+  };
+  state.consignation = data;
+  save();
+  toast('Fiche de consignation enregistrée ✓');
+}
+
+// ══════════════════════════════════════════════
+//  EXPORT / IMPORT
+// ══════════════════════════════════════════════
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'gct_cmms_' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  toast('Données exportées ✓');
+}
+
+function importData() { document.getElementById('import-file').click(); }
+
+function doImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      state = { ...state, ...data };
+      save();
+      toast('Données importées ✓');
+      location.reload();
+    } catch { toast('Erreur import JSON', 'error'); }
+  };
+  reader.readAsText(file);
+}
+
+function generateReport() {
+  const win = window.open('', '_blank');
+  const mc = state.interventions.filter(i=>i.type==='MC');
+  const mp = state.interventions.filter(i=>i.type==='MP');
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Rapport Maintenance TK2701B — ${new Date().toLocaleDateString('fr-FR')}</title>
+  <style>
+    body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;color:#333}
+    h1{color:#1a1a2e;border-bottom:3px solid #e8a020;padding-bottom:10px}
+    h2{color:#e8a020;margin-top:20px}
+    table{width:100%;border-collapse:collapse;margin:10px 0}
+    th{background:#1a1a2e;color:#fff;padding:8px;text-align:left;font-size:12px}
+    td{padding:8px;border-bottom:1px solid #eee;font-size:12px}
+    .badge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px}
+    .badge-high{background:#fee;color:#c00}
+    .badge-med{background:#ffd;color:#a60}
+    .badge-ok{background:#efe;color:#060}
+    @media print{.no-print{display:none}}
+  </style></head><body>
+  <h1>🏭 Rapport Maintenance — TK2701B</h1>
+  <p><strong>Date:</strong> ${new Date().toLocaleDateString('fr-FR')} | <strong>Équipement:</strong> Réservoir Décanteur TK2701B | <strong>Site:</strong> GCT Usine Acide Phosphorique</p>
+  <h2>📊 Résumé</h2>
+  <table><tr><th>Indicateur</th><th>Valeur</th></tr>
+  <tr><td>Total interventions</td><td>${state.interventions.length}</td></tr>
+  <tr><td>Maintenance corrective</td><td>${mc.length}</td></tr>
+  <tr><td>Maintenance préventive</td><td>${mp.length}</td></tr>
+  <tr><td>Anomalies actives</td><td>${state.anomalies.filter(a=>!a.resolved).length}</td></tr>
+  <tr><td>Événements planifiés</td><td>${state.planEvents.length}</td></tr>
+  </table>
+  <h2>🔧 Interventions Correctives (MC)</h2>
+  ${mc.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Statut</th></tr>
+  ${mc.map(i=>`<tr><td>${i.date}</td><td>${i.element}</td><td>${i.description}</td><td>${i.status}</td></tr>`).join('')}
+  </table>`:'<p>Aucune intervention corrective.</p>'}
+  <h2>🛡️ Interventions Préventives (MP)</h2>
+  ${mp.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Statut</th></tr>
+  ${mp.map(i=>`<tr><td>${i.date}</td><td>${i.element}</td><td>${i.description}</td><td>${i.status}</td></tr>`).join('')}
+  </table>`:'<p>Aucune intervention préventive.</p>'}
+  <h2>⚠️ Anomalies</h2>
+  ${state.anomalies.length?`<table><tr><th>Date</th><th>Élément</th><th>Description</th><th>Niveau</th><th>Résolu</th></tr>
+  ${state.anomalies.map(a=>`<tr><td>${a.date}</td><td>${a.element}</td><td>${a.desc}</td><td>${a.level}</td><td>${a.resolved?'Oui':'Non'}</td></tr>`).join('')}
+  </table>`:'<p>Aucune anomalie.</p>'}
+  <p style="margin-top:40px;color:#999;font-size:11px">Rapport généré automatiquement par CMMS GCT TK2701B · ${new Date().toISOString()}</p>
+  <button class="no-print" onclick="window.print()" style="margin-top:10px;padding:10px 20px;background:#e8a020;border:none;cursor:pointer;font-size:14px;border-radius:6px">🖨️ Imprimer</button>
+  </body></html>`;
+  win.document.write(html);
+  win.document.close();
+}
+
+// ══════════════════════════════════════════════
+//  TAB SWITCHERS
+// ══════════════════════════════════════════════
+function showPlanTab(tab, btn) {
+  ['pm','gammes','suivi','visite'].forEach(t => {
+    const el = document.getElementById('plan-'+t);
+    if(el) el.style.display = t===tab ? '' : 'none';
+  });
+  document.querySelectorAll('#page-plan .tab-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if (tab==='gammes') renderGammes();
+  if (tab==='suivi') renderSuivi();
+  if (tab==='visite') { renderVisiteTable(); renderVisiteHistory(); }
+}
+
+function showIntTab(tab, btn) {
+  ['corrective','preventive','anomalies'].forEach(t => {
+    const el = document.getElementById('int-'+t);
+    if(el) el.style.display = t===tab ? '' : 'none';
+  });
+  document.querySelectorAll('#page-interventions .tab-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+function init() {
+  load();
+  
+  // Seed defaults if empty
+  if (!state.amdec.length) state.amdec = AMDEC_DEFAULT.map(a => ({...a}));
+  if (!state.pmRows || !state.pmRows[1] || !state.pmRows[1].length) state.pmRows = JSON.parse(JSON.stringify(PM_DEFAULT));
+  if (!state.gammes || !state.gammes[1] || !state.gammes[1].length) state.gammes = JSON.parse(JSON.stringify(GAMMES_DEFAULT));
+  if (!state.suiviData) state.suiviData = {};
+  if (!state.visiteHistory) state.visiteHistory = [];
+  if (!state.refs) state.refs = [
+    { text:'Norme AFNOR NF EN 13306 — Terminologie de maintenance' },
+    { text:'Norme AFNOR X60-010 — Maintenance industrielle' },
+    { text:'Norme NF X 60-510 — Démarche pratique AMDEC machine' },
+    { text:'mayr® ROBA-slip — Limiteur de couple à friction, Documentation technique, Allemagne' },
+  ];
+  
+  save();
+  
+  // Init date fields
+  const today = new Date().toISOString().split('T')[0];
+  const vDate = document.getElementById('visite-date');
+  if (vDate) vDate.value = today;
+  
+  renderPMTables();
+  renderInterventions();
+  renderAnomalies();
+  renderRefs();
+  updateDashboard();
+  
+  // Splash hide
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(() => document.getElementById('splash').style.display='none', 500);
+  }, 2000);
+}
+
+init();
 </script>
 </body>
 </html>
